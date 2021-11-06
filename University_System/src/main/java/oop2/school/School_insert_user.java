@@ -8,8 +8,10 @@ package oop2.school;
 import java.io.FileWriter;
 import java.io.IOException;
 import static javax.swing.JOptionPane.showMessageDialog;
+import oop2.lecture.Lecture;
 import oop2.professer.Professer;
 import oop2.main.User;
+import oop2.student.Student;
 
 /**
  *
@@ -187,24 +189,56 @@ public class School_insert_user extends javax.swing.JFrame {
 
     private void insert_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insert_OkActionPerformed
         // TODO add your handling code here:
+        String str;
         if(name.getText().isEmpty()){
             showMessageDialog(null,"이름을 입력해주세요!!");
         }else if(pNum.getText().isEmpty() || pNum.getText().length() != 13){
             showMessageDialog(null,"주민번호를 입력해주세요!!");
         }else{
-            if(sch_butt.isSelected()){
+            if(sch_butt.isSelected()){ //학사관리자 파일에 입력
+                try{
+                    FileWriter writer = new FileWriter("school.txt",true); //school 파일 생성 또는 열기
+                    School sch = new School(pNum.getText(), name.getText()); //학사관리자 생성자로 객체 생성
+                    str = String.format("%s/%s/%s/%s%n",sch.getId(),sch.getName(),sch.getPassWord(),sch.getPeopleNum());
+                    writer.write(str); //파일에 객체 정보를 저장
+                    writer.close();
+                    showMessageDialog(null,sch.getId() +" " + sch.getName() + "직원이 등록 되었습니다.");//완료 메시지
 
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
             }else if(lec_butt.isSelected()){
+                try{
+                    FileWriter writer = new FileWriter("lecture.txt",true);
+                    Lecture lec = new Lecture(pNum.getText(), name.getText());
+                    str = String.format("%s/%s/%s/%s%n",lec.getId(),lec.getName(),lec.getPassWord(),lec.getPeopleNum());
+                    writer.write(str); //파일에 객체 정보를 저장
+                    writer.close();
+                    showMessageDialog(null,lec.getId() +" " + lec.getName() + "교수가 등록 되었습니다.");
 
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
             }else if(stu_butt.isSelected()){
+                 try{
+                    FileWriter writer = new FileWriter("student.txt",true);//매개변수에 true를 넣어야 파일 유지 가능
+                    Student stu = new Student(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
+                    str = String.format("%s/%s/%s/%s%n",stu.getId(),stu.getName(),stu.getPassWord(),stu.getPeopleNum());
+                    writer.write(str); //파일에 객체 정보를 저장
+                    writer.close();
+                    showMessageDialog(null,stu.getId() +" " + stu.getName() + "교수가 등록 되었습니다.");
 
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
             }else if(pro_butt.isSelected()){
                 try{
-                    FileWriter writer = new FileWriter("professer.txt");
+                    FileWriter writer = new FileWriter("professer.txt",true);
                     Professer pro = new Professer(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
-                    writer.write(pro.getId() + "/" + pro.getName() + "/" + pro.getDepartMent() + "/" + pro.getPeopleNum() + "/" + pro.getPassWord());
+                    str = String.format("%s/%s/%s/%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum());
+                    writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
-                    showMessageDialog(null,pro.getId() +" " + pro.getName() + "이(가) 등록 되었습니다.");
+                    showMessageDialog(null,pro.getId() +" " + pro.getName() + "교수가 등록 되었습니다.");
 
                 }catch(IOException e){
                     e.printStackTrace();

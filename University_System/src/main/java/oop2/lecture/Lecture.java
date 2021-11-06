@@ -5,13 +5,7 @@
  */
 package oop2.lecture;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import oop2.main.User;
-import static oop2.main.User.ID;
-import static oop2.main.User.PW;
 
 /**
  *

@@ -115,7 +115,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Login_Frame login = new Login_Frame();
+        Login_Frame login = new Login_Frame();//로그아웃
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

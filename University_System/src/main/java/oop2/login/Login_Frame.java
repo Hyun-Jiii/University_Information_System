@@ -146,28 +146,29 @@ public class Login_Frame extends javax.swing.JFrame {
         BufferedReader reader = null;
         String str;
         String[] key;
-        int co = 0;
-        if(a =='p'){
+        if(a =='p'){ //아이디 고유 문자가 p -> 교수
             try {
-                reader = new BufferedReader(new FileReader("professer.txt"));
-            } catch (FileNotFoundException ex) {
+                reader = new BufferedReader(new FileReader("professer.txt"));//읽을 파일 열기
+            } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                while((str = reader.readLine()) != null){
-                    if(str.contains(id_Field)){
-                        key = str.split("/");
-                        if(key[2].equals(pw_Field)){
+                while((str = reader.readLine()) != null){ //마지막 문장이 아닐동안 반복 
+                    if(str.contains(id_Field)){ //입력받은 아이디가 문장안에 있을시
+                        key = str.split("/"); // "/"를 이용해 배열에 저장
+                        //table에 따라 [0] : id, [1] : name, [2] : pw, [3] : peopleNum, [4] : departMent
+                        if(key[2].equals(pw_Field)){ //비밀번호가 같은지 검사
                             Professer_Main_Frame pro = new Professer_Main_Frame();
+                            //맞으면 해당 메뉴 출력
                             pro.setVisible(true);
-                            dispose();
+                            dispose();//현재창은 닫기
                         }      
                     }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 's'){
+        }else if(a == 's'){//아이디 고유 문자가 s -> 학생
             try {
                 reader = new BufferedReader(new FileReader("student.txt"));
             } catch (FileNotFoundException ex) {
@@ -187,7 +188,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 'h'){
+        }else if(a == 'h'){//아이디 고유 문자가 h -> 학사
             try {
                 reader = new BufferedReader(new FileReader("school.txt"));
             } catch (FileNotFoundException ex) {
@@ -207,7 +208,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 'g'){
+        }else if(a == 'g'){//아이디 고유 문자가 g -> 수업
             try {
                 reader = new BufferedReader(new FileReader("lecture.txt"));
             } catch (FileNotFoundException ex) {

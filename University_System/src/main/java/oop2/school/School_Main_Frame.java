@@ -117,7 +117,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
-        School_insert_user siu = new School_insert_user();
+        School_insert_user siu = new School_insert_user();// 등록화면으로 전환
         siu.setVisible(true);
         dispose();
     }//GEN-LAST:event_insertActionPerformed
@@ -128,7 +128,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        Login_Frame login = new Login_Frame();
+        Login_Frame login = new Login_Frame(); //로그아웃
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_gobackActionPerformed

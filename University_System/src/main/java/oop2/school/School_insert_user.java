@@ -10,7 +10,6 @@ import java.io.IOException;
 import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture;
 import oop2.professer.Professer;
-import oop2.main.User;
 import oop2.student.Student;
 
 /**
@@ -200,14 +199,15 @@ public class School_insert_user extends javax.swing.JFrame {
                     FileWriter writer = new FileWriter("school.txt",true); //school 파일 생성 또는 열기
                     School sch = new School(pNum.getText(), name.getText()); //학사관리자 생성자로 객체 생성
                     str = String.format("%s/%s/%s/%s%n",sch.getId(),sch.getName(),sch.getPassWord(),sch.getPeopleNum());
+                    //문자열로 저장, 나중에 읽을 때 "/"단위로 끊어서 읽기 위함
                     writer.write(str); //파일에 객체 정보를 저장
-                    writer.close();
+                    writer.close(); //사용 후 파일 닫기
                     showMessageDialog(null,sch.getId() +" " + sch.getName() + "직원이 등록 되었습니다.");//완료 메시지
 
                 }catch(IOException e){
                     e.printStackTrace();
                 }
-            }else if(lec_butt.isSelected()){
+            }else if(lec_butt.isSelected()){//수업 관리자 파일에 입력
                 try{
                     FileWriter writer = new FileWriter("lecture.txt",true);
                     Lecture lec = new Lecture(pNum.getText(), name.getText());
@@ -219,7 +219,7 @@ public class School_insert_user extends javax.swing.JFrame {
                 }catch(IOException e){
                     e.printStackTrace();
                 }
-            }else if(stu_butt.isSelected()){
+            }else if(stu_butt.isSelected()){ //학생 파일에 입력
                  try{
                     FileWriter writer = new FileWriter("student.txt",true);//매개변수에 true를 넣어야 파일 유지 가능
                     Student stu = new Student(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
@@ -231,7 +231,7 @@ public class School_insert_user extends javax.swing.JFrame {
                 }catch(IOException e){
                     e.printStackTrace();
                 }
-            }else if(pro_butt.isSelected()){
+            }else if(pro_butt.isSelected()){ //교수 파일에 입력
                 try{
                     FileWriter writer = new FileWriter("professer.txt",true);
                     Professer pro = new Professer(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());

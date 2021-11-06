@@ -5,9 +5,6 @@
  */
 package oop2.professer;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import oop2.login.Login_Frame;
 
 /**
@@ -222,7 +219,7 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        Login_Frame login = new Login_Frame();
+        Login_Frame login = new Login_Frame();//로그아웃
         login.setVisible(true);
         dispose();   
     }//GEN-LAST:event_gobackActionPerformed

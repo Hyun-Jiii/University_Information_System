@@ -143,7 +143,7 @@ public class Student_Main_Frame extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        Login_Frame login = new Login_Frame();
+        Login_Frame login = new Login_Frame();//로그아웃, 로그인 화면으로 돌아가기
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_gobackActionPerformed

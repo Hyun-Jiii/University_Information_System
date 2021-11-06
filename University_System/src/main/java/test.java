@@ -17,6 +17,9 @@ public class test {
         // TODO code application logic here
         System.out.println("Test");
         System.out.println("Hi");
+        Login login = new Login();
+       AcademicManager aca = new AcademicManager("admin", 1234);
+       login.userLogin(aca.getAcaName(), aca.getAcaPassword());
     }
     
 }

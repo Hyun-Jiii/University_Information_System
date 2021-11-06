@@ -228,8 +228,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="goback">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc774;&#xc804;"/>
+        <Property name="text" type="java.lang.String" value="&#xb85c;&#xadf8;&#xc544;&#xc6c3;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gobackActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

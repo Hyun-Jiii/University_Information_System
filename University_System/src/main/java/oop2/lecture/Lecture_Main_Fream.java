@@ -52,7 +52,7 @@ public class Lecture_Main_Fream extends javax.swing.JFrame {
 
         jLabel2.setText("님");
 
-        jButton3.setText("이전");
+        jButton3.setText("로그아웃");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

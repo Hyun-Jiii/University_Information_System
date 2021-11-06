@@ -36,7 +36,6 @@ public class School_Main_Frame extends javax.swing.JFrame {
         goback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(224, 176));
 
         jLabel1.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel1.setText("학사 관리 메뉴");
@@ -59,7 +58,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
 
         jLabel2.setText("님");
 
-        goback.setText("이전");
+        goback.setText("로그아웃");
         goback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gobackActionPerformed(evt);
@@ -115,6 +114,9 @@ public class School_Main_Frame extends javax.swing.JFrame {
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
+        School_insert_user siu = new School_insert_user();
+        siu.setVisible(true);
+        dispose();
     }//GEN-LAST:event_insertActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed

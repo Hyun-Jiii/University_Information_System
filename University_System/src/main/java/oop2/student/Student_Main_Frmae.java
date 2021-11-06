@@ -48,7 +48,6 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(224, 176));
 
         jLabel3.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel3.setText("학생 메뉴 선택");
@@ -72,7 +71,7 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
 
         jLabel1.setText("님");
 
-        goback.setText("이전");
+        goback.setText("로그아웃");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

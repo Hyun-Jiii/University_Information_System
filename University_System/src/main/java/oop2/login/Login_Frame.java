@@ -141,6 +141,7 @@ public class Login_Frame extends javax.swing.JFrame {
             if(id_Field.equals(pro.getId()) && pw_Field.equals(pro.getPassWord())){
                 Professer_Main_Frame p = new Professer_Main_Frame();
                 p.setVisible(true);
+                dispose();
             }else{
                 showMessageDialog(null,"아이디 혹은 비밀번호를 잘 못 입력하셨습니다.");
             }

@@ -5,6 +5,8 @@
  */
 package oop2.professer;
 
+import oop2.login.Login_Frame;
+
 /**
  *
  * @author User
@@ -141,7 +143,12 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
         pro_ex_Info.setLabel("회원 정보 변경");
 
-        goback.setText("이전");
+        goback.setText("로그아웃");
+        goback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gobackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,6 +217,13 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
     private void user_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_user_nameActionPerformed
+
+    private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
+        // TODO add your handling code here:
+        Login_Frame login = new Login_Frame();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gobackActionPerformed
 
     /**
      * @param args the command line arguments

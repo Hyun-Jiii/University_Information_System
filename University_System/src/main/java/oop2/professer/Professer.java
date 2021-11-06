@@ -17,7 +17,7 @@ public class Professer extends User {
         this.peopleNum = peoplenum;
         this.departMent = department;
         int random = (int)(Math.random()*(1000-100))+100;
-        this.id = "p1234";//"+ Integer.toString(random);
+        this.id = "p"+ Integer.toString(random);
         this.passWord = peoplenum.substring(6);
     }
 }

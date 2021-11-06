@@ -22,5 +22,6 @@ public class test {
         System.out.println("Test");
         System.out.println("Hi");
         System.out.println("asd");
+
     }
 }

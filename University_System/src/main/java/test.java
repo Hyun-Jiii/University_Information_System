@@ -17,6 +17,7 @@ public class test {
         // TODO code application logic here
         System.out.println("Test");
         System.out.println("Hi");
+        System.out.println("asd");
     }
     
 }

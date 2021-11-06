@@ -13,7 +13,29 @@ public class User {
     //학사 담당자, 수업 담당자, 학생, 교수의 상위 클래스
     protected String name; //개인의 이름
     protected String id;  //개인 아이디
-    protected int password; //개인 비밀번호
+    protected String passWord; //개인 비밀번호
+    protected String peopleNum; //주민번호
+    protected String departMent; //학과
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public String getPeopleNum() {
+        return peopleNum;
+    }
+
+    public String getDepartMent() {
+        return departMent;
+    }
     
     public void exchageInfo(){
         

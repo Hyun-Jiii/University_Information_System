@@ -11,24 +11,13 @@ import oop2.main.User;
  * @author User
  */
 public class Professer extends User {
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
+    
+    public Professer (String peoplenum, String name, String department){
         this.name = name;
+        this.peopleNum = peoplenum;
+        this.departMent = department;
+        int random = (int)(Math.random()*(1000-100))+100;
+        this.id = "p1234";//"+ Integer.toString(random);
+        this.passWord = peoplenum.substring(6);
     }
-    public String getId() {
-        return id;
-    }
-    public int getPassword() {
-        return password;
-    }
-
-    public void setPassword(int password) {
-        this.password = password;
-    }
-    
-    
-    
 }

@@ -6,7 +6,9 @@
 package oop2.login;
 
 import oop2.professer.Professer_Main_Frame;
-
+import javax.swing.*;
+import static javax.swing.JOptionPane.showMessageDialog;
+import oop2.professer.Professer;
 /**
  *
  * @author PC
@@ -29,12 +31,36 @@ public class Login_Frame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ID_Field = new javax.swing.JTextField();
         Login_Button = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        PW_Field = new javax.swing.JPasswordField();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +100,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ID_Field, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))
+                            .addComponent(PW_Field))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Login_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
@@ -93,7 +119,7 @@ public class Login_Frame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(PW_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(Login_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
@@ -106,9 +132,28 @@ public class Login_Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_ID_FieldActionPerformed
 
     private void Login_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_ButtonActionPerformed
-        // TODO add your handling code here:
-        Professer_Main_Frame p = new Professer_Main_Frame();
-        p.setVisible(true);
+        // TODO add your handling code here: 
+        String id_Field = ID_Field.getText(); //ID 필드에서 값 받아오기
+        String pw_Field = new String(PW_Field.getPassword());//PW 필드에서 값 받아오기
+        char str = id_Field.charAt(0); //아이디를 입력하는 직군을 구분하기 위한 이니셜 저장
+        if(str == 'p'){ //교수 아이디를 구분하는 'p'
+            Professer pro = new Professer("9905171937818","김부성","컴소"); //파일 처리를 통해 찾는 알고리즘 필요
+            if(id_Field.equals(pro.getId()) && pw_Field.equals(pro.getPassWord())){
+                Professer_Main_Frame p = new Professer_Main_Frame();
+                p.setVisible(true);
+            }else{
+                showMessageDialog(null,"아이디 혹은 비밀번호를 잘 못 입력하셨습니다.");
+            }
+        }else if(str == 's'){ //학생을 구분하는 's'
+            
+        }else if(str == 'h'){//학사 담당자를 구분하는 'h'
+            
+        }else if(str == 'g'){//수업 담당자를 구분하는 'g'
+            
+        }
+        else{
+            showMessageDialog(null,"아이디 혹은 비밀번호를 잘 못 입력하셨습니다.");
+        }
     }//GEN-LAST:event_Login_ButtonActionPerformed
 
     /**
@@ -149,9 +194,11 @@ public class Login_Frame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ID_Field;
     private javax.swing.JButton Login_Button;
+    private javax.swing.JPasswordField PW_Field;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }

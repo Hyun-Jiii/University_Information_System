@@ -16,7 +16,8 @@ public class User {
     protected String passWord; //개인 비밀번호
     protected String peopleNum; //주민번호
     protected String departMent; //학과
-
+    public final static int ID = 0;  // 각 테이블의 아이디 순서
+    public final static int PW = 2;  // 각 테이블의 비밀번호 순서
     public String getName() {
         return name;
     }

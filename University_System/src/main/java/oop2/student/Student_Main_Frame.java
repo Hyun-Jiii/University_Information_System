@@ -5,16 +5,18 @@
  */
 package oop2.student;
 
+import oop2.login.Login_Frame;
+
 /**
  *
  * @author PC
  */
-public class Student_Main_Frmae extends javax.swing.JFrame {
+public class Student_Main_Frame extends javax.swing.JFrame {
 
     /**
      * Creates new form Student_Main_Frmae
      */
-    public Student_Main_Frmae() {
+    public Student_Main_Frame() {
         initComponents();
     }
 
@@ -48,6 +50,7 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("학생메뉴");
 
         jLabel3.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel3.setText("학생 메뉴 선택");
@@ -72,6 +75,11 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
         jLabel1.setText("님");
 
         goback.setText("로그아웃");
+        goback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gobackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +141,13 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
+        // TODO add your handling code here:
+        Login_Frame login = new Login_Frame();
+        login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gobackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -150,20 +165,21 @@ public class Student_Main_Frmae extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frmae.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frmae.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frmae.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frmae.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Student_Main_Frmae().setVisible(true);
+                new Student_Main_Frame().setVisible(true);
             }
         });
     }

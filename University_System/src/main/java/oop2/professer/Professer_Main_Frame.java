@@ -5,6 +5,9 @@
  */
 package oop2.professer;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oop2.login.Login_Frame;
 
 /**
@@ -12,7 +15,6 @@ import oop2.login.Login_Frame;
  * @author User
  */
 public class Professer_Main_Frame extends javax.swing.JFrame {
-
     /**
      * Creates new form Frofesser_Frame
      */
@@ -124,7 +126,7 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ProfesserMain");
+        setTitle("교수메뉴");
 
         jLabel1.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel1.setText("교수 메뉴 선택");
@@ -222,7 +224,7 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Login_Frame login = new Login_Frame();
         login.setVisible(true);
-        dispose();
+        dispose();   
     }//GEN-LAST:event_gobackActionPerformed
 
     /**
@@ -279,4 +281,8 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
     private javax.swing.JButton school_insert;
     private javax.swing.JTextField user_name;
     // End of variables declaration//GEN-END:variables
+
+    private void showMessageDialog(Object object, String 맞음) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

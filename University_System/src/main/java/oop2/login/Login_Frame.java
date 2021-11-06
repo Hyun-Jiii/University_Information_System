@@ -5,10 +5,17 @@
  */
 package oop2.login;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oop2.professer.Professer_Main_Frame;
-import javax.swing.*;
 import static javax.swing.JOptionPane.showMessageDialog;
-import oop2.professer.Professer;
+import oop2.lecture.Lecture_Main_Frame;
+import oop2.school.School_Main_Frame;
+import oop2.student.Student_Main_Frame;
 /**
  *
  * @author PC
@@ -135,28 +142,96 @@ public class Login_Frame extends javax.swing.JFrame {
         // TODO add your handling code here: 
         String id_Field = ID_Field.getText(); //ID 필드에서 값 받아오기
         String pw_Field = new String(PW_Field.getPassword());//PW 필드에서 값 받아오기
-        char str = id_Field.charAt(0); //아이디를 입력하는 직군을 구분하기 위한 이니셜 저장
-        if(str == 'p'){ //교수 아이디를 구분하는 'p'
-            Professer pro = new Professer("9905171937818","김부성","컴소"); //파일 처리를 통해 찾는 알고리즘 필요
-            if(id_Field.equals(pro.getId()) && pw_Field.equals(pro.getPassWord())){
-                Professer_Main_Frame p = new Professer_Main_Frame();
-                p.setVisible(true);
-                dispose();
-            }else{
-                showMessageDialog(null,"아이디 혹은 비밀번호를 잘 못 입력하셨습니다.");
+        char a = id_Field.charAt(0); //아이디를 입력하는 직군을 구분하기 위한 이니셜 저장
+        BufferedReader reader = null;
+        String str;
+        String[] key;
+        int co = 0;
+        if(a =='p'){
+            try {
+                reader = new BufferedReader(new FileReader("professer.txt"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(str == 's'){ //학생을 구분하는 's'
+            try {
+                while((str = reader.readLine()) != null){
+                    if(str.contains(id_Field)){
+                        key = str.split("/");
+                        if(key[2].equals(pw_Field)){
+                            Professer_Main_Frame pro = new Professer_Main_Frame();
+                            pro.setVisible(true);
+                            dispose();
+                        }      
+                    }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }else if(a == 's'){
+            try {
+                reader = new BufferedReader(new FileReader("student.txt"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                while((str = reader.readLine()) != null){
+                    if(str.contains(id_Field)){
+                        key = str.split("/");
+                        if(key[2].equals(pw_Field)){
+                            Student_Main_Frame stu = new Student_Main_Frame();
+                            stu.setVisible(true);
+                            dispose();
+                        }      
+                    }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }else if(a == 'h'){
+            try {
+                reader = new BufferedReader(new FileReader("school.txt"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                while((str = reader.readLine()) != null){
+                    if(str.contains(id_Field)){
+                        key = str.split("/");
+                        if(key[2].equals(pw_Field)){
+                            School_Main_Frame sch = new School_Main_Frame();
+                            sch.setVisible(true);
+                            dispose();
+                        }      
+                    }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }else if(a == 'g'){
+            try {
+                reader = new BufferedReader(new FileReader("lecture.txt"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                while((str = reader.readLine()) != null){
+                    if(str.contains(id_Field)){
+                        key = str.split("/");
+                        if(key[2].equals(pw_Field)){
+                            Lecture_Main_Frame lec = new Lecture_Main_Frame();
+                            lec.setVisible(true);
+                            dispose();
+                        }      
+                    }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }else
+            showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
             
-        }else if(str == 'h'){//학사 담당자를 구분하는 'h'
-            
-        }else if(str == 'g'){//수업 담당자를 구분하는 'g'
-            
-        }
-        else{
-            showMessageDialog(null,"아이디 혹은 비밀번호를 잘 못 입력하셨습니다.");
-        }
     }//GEN-LAST:event_Login_ButtonActionPerformed
-
+  
     /**
      * @param args the command line arguments
      */

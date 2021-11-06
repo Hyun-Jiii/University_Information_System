@@ -1,5 +1,7 @@
 package oop2.lecture;
 
+import oop2.login.Login_Frame;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,12 +12,12 @@ package oop2.lecture;
  *
  * @author 82106
  */
-public class Lecture_Main_Fream extends javax.swing.JFrame {
+public class Lecture_Main_Frame extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame1
      */
-    public Lecture_Main_Fream() {
+    public Lecture_Main_Frame() {
         initComponents();
     }
 
@@ -36,6 +38,7 @@ public class Lecture_Main_Fream extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("수업메뉴");
 
         jLabel1.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel1.setText("수업 관리 메뉴");
@@ -112,6 +115,9 @@ public class Lecture_Main_Fream extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        Login_Frame login = new Login_Frame();
+        login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -131,14 +137,18 @@ public class Lecture_Main_Fream extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Fream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Fream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Fream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Fream.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -147,7 +157,7 @@ public class Lecture_Main_Fream extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Lecture_Main_Fream().setVisible(true);
+                new Lecture_Main_Frame().setVisible(true);
             }
         });
     }

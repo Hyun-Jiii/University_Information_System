@@ -5,6 +5,8 @@
  */
 package oop2.school;
 
+import oop2.login.Login_Frame;
+
 /**
  *
  * @author User
@@ -36,6 +38,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
         goback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("학사메뉴");
 
         jLabel1.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel1.setText("학사 관리 메뉴");
@@ -125,6 +128,9 @@ public class School_Main_Frame extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
+        Login_Frame login = new Login_Frame();
+        login.setVisible(true);
+        dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
     /**

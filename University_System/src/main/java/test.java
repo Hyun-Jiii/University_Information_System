@@ -1,3 +1,6 @@
+
+import java.io.IOException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,13 +16,9 @@ public class test {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Test");
-        System.out.println("Hi");
-        Login login = new Login();
-       AcademicManager aca = new AcademicManager("admin", 1234);
-       login.userLogin(aca.getAcaName(), aca.getAcaPassword());
+    public static void main(String[] args) throws IOException {
+       // TODO code application logic here
+       System.out.println("Test");
+       System.out.println("Hi");
     }
-    
 }

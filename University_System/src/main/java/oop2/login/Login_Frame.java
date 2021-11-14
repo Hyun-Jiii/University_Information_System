@@ -146,7 +146,9 @@ public class Login_Frame extends javax.swing.JFrame {
         BufferedReader reader = null;
         String str;
         String[] key;
-        if(a =='p'){ //아이디 고유 문자가 p -> 교수
+        if(id_Field.length() == 0 || pw_Field.length() == 0)
+            showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
+        else if(a =='p'){ //아이디 고유 문자가 p -> 교수
             try {
                 reader = new BufferedReader(new FileReader("professer.txt"));//읽을 파일 열기
             } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리

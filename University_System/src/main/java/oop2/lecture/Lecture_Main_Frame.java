@@ -1,5 +1,8 @@
 package oop2.lecture;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oop2.login.Login_Frame;
 
 /*
@@ -44,6 +47,11 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         jLabel1.setText("수업 관리 메뉴");
 
         lecture_insert.setText("강좌 등록");
+        lecture_insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecture_insertActionPerformed(evt);
+            }
+        });
 
         lecture_pay.setText("수강료 확인");
         lecture_pay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -119,6 +127,18 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void lecture_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_insertActionPerformed
+            // TODO add your handling code here:
+        Insert_Lecture insert = null;
+        try {
+            insert = new Insert_Lecture();
+        } catch (IOException ex) {
+            Logger.getLogger(Lecture_Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        insert.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lecture_insertActionPerformed
 
     /**
      * @param args the command line arguments

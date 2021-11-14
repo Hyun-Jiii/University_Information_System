@@ -5,8 +5,11 @@
  */
 package oop2.school;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture;
 import oop2.professer.Professer;
@@ -106,6 +109,7 @@ public class School_insert_user extends javax.swing.JFrame {
         buttonGroup1.add(stu_butt);
         stu_butt.setText("학생");
 
+        buttonGroup1.add(pro_butt);
         pro_butt.setText("교수");
 
         buttonGroup1.add(sch_butt);
@@ -196,46 +200,51 @@ public class School_insert_user extends javax.swing.JFrame {
         }else{
             if(sch_butt.isSelected()){ //학사관리자 파일에 입력
                 try{
-                    FileWriter writer = new FileWriter("school.txt",true); //school 파일 생성 또는 열기
+                    FileOutputStream file = new FileOutputStream("school.txt",true);//파일 열기
+                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    BufferedWriter writer = new BufferedWriter(output);
                     School sch = new School(pNum.getText(), name.getText()); //학사관리자 생성자로 객체 생성
                     str = String.format("%s/%s/%s/%s%n",sch.getId(),sch.getName(),sch.getPassWord(),sch.getPeopleNum());
                     //문자열로 저장, 나중에 읽을 때 "/"단위로 끊어서 읽기 위함
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close(); //사용 후 파일 닫기
                     showMessageDialog(null,sch.getId() +" " + sch.getName() + "직원이 등록 되었습니다.");//완료 메시지
-
                 }catch(IOException e){
                     e.printStackTrace();
                 }
             }else if(lec_butt.isSelected()){//수업 관리자 파일에 입력
                 try{
-                    FileWriter writer = new FileWriter("lecture.txt",true);
+                    FileOutputStream file = new FileOutputStream("lecture.txt",true);//파일 열기
+                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    BufferedWriter writer = new BufferedWriter(output);
                     Lecture lec = new Lecture(pNum.getText(), name.getText());
                     str = String.format("%s/%s/%s/%s%n",lec.getId(),lec.getName(),lec.getPassWord(),lec.getPeopleNum());
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
-                    showMessageDialog(null,lec.getId() +" " + lec.getName() + "교수가 등록 되었습니다.");
-
+                    showMessageDialog(null,lec.getId() +" " + lec.getName() + "직원이 등록 되었습니다.");
                 }catch(IOException e){
                     e.printStackTrace();
                 }
             }else if(stu_butt.isSelected()){ //학생 파일에 입력
                  try{
-                    FileWriter writer = new FileWriter("student.txt",true);//매개변수에 true를 넣어야 파일 유지 가능
+                    FileOutputStream file = new FileOutputStream("student.txt",true);//파일 열기
+                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    BufferedWriter writer = new BufferedWriter(output);
                     Student stu = new Student(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
-                    str = String.format("%s/%s/%s/%s%n",stu.getId(),stu.getName(),stu.getPassWord(),stu.getPeopleNum());
+                    str = String.format("%s/%s/%s/%s/%s%n",stu.getId(),stu.getName(),stu.getPassWord(),stu.getPeopleNum(),stu.getDepartMent());
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
-                    showMessageDialog(null,stu.getId() +" " + stu.getName() + "교수가 등록 되었습니다.");
-
+                    showMessageDialog(null,stu.getId() +" " + stu.getName() + "학생이 등록 되었습니다.");
                 }catch(IOException e){
                     e.printStackTrace();
                 }
             }else if(pro_butt.isSelected()){ //교수 파일에 입력
                 try{
-                    FileWriter writer = new FileWriter("professer.txt",true);
+                    FileOutputStream file = new FileOutputStream("professer.txt",true);//파일 열기
+                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    BufferedWriter writer = new BufferedWriter(output);
                     Professer pro = new Professer(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
-                    str = String.format("%s/%s/%s/%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum());
+                    str = String.format("%s/%s/%s/%s%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum(), pro.getDepartMent());
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
                     showMessageDialog(null,pro.getId() +" " + pro.getName() + "교수가 등록 되었습니다.");

@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import oop2.professer.Professer_Main_Frame;
 import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture_Main_Frame;
@@ -162,8 +163,11 @@ public class Login_Frame extends javax.swing.JFrame {
                             //맞으면 해당 메뉴 출력
                             pro.setVisible(true);
                             dispose();//현재창은 닫기
-                        }      
-                    }
+                        }
+                        else { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } 
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +186,11 @@ public class Login_Frame extends javax.swing.JFrame {
                             Student_Main_Frame stu = new Student_Main_Frame();
                             stu.setVisible(true);
                             dispose();
-                        }      
+                        }
+                         else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                            dispose();
+                        }
                     }
                 }
             } catch (IOException ex) {
@@ -202,7 +210,10 @@ public class Login_Frame extends javax.swing.JFrame {
                             School_Main_Frame sch = new School_Main_Frame();
                             sch.setVisible(true);
                             dispose();
-                        }      
+                        }
+                        else { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             } catch (IOException ex) {
@@ -222,7 +233,10 @@ public class Login_Frame extends javax.swing.JFrame {
                             Lecture_Main_Frame lec = new Lecture_Main_Frame();
                             lec.setVisible(true);
                             dispose();
-                        }      
+                        }
+                        else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             } catch (IOException ex) {

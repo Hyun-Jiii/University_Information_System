@@ -89,6 +89,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xac15;&#xc88c; &#xb4f1;&#xb85d;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lecture_insertActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="lecture_pay">
       <Properties>

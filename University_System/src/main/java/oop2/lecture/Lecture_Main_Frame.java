@@ -1,5 +1,12 @@
 package oop2.lecture;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.*;
 import oop2.login.Login_Frame;
 
 /*
@@ -13,12 +20,14 @@ import oop2.login.Login_Frame;
  * @author 82106
  */
 public class Lecture_Main_Frame extends javax.swing.JFrame {
-
+    String iD;
     /**
      * Creates new form NewJFrame1
      */
-    public Lecture_Main_Frame() {
+    public Lecture_Main_Frame(String iD) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         initComponents();
+        user_name.setText(iD);
+        this.iD = iD;
     }
 
     /**
@@ -33,12 +42,12 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lecture_insert = new javax.swing.JButton();
         lecture_pay = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         creat_lec = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         change_lec = new javax.swing.JButton();
+        user_name = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("수업메뉴");
@@ -47,18 +56,17 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         jLabel1.setText("수업 관리 메뉴");
 
         lecture_insert.setText("강좌 등록");
+        lecture_insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecture_insertActionPerformed(evt);
+            }
+        });
 
         lecture_pay.setText("수강료 확인");
         lecture_pay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lecture_pay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lecture_payActionPerformed(evt);
-            }
-        });
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -79,6 +87,11 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         });
 
         jButton2.setText("회원정보 수정");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         change_lec.setText("강의 수정");
         change_lec.setActionCommand("강좌 수정");
@@ -93,7 +106,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(41, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
@@ -130,9 +143,9 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(user_name))
                 .addContainerGap())
         );
 
@@ -150,7 +163,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-<<<<<<< HEAD
+
     private void lecture_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_insertActionPerformed
             // TODO add your handling code here:
         Insert_Lecture insert = null;
@@ -161,11 +174,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         }
         insert.setVisible(true);
     }//GEN-LAST:event_lecture_insertActionPerformed
-=======
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
->>>>>>> cd6829aab3b216707a36515ebd5242a5f5677d93
+
 
     private void creat_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creat_lecActionPerformed
         try {
@@ -177,47 +186,14 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_creat_lecActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        //회원 정보 수정
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Lecture_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Lecture_Main_Frame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton change_lec;
@@ -226,8 +202,8 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton lecture_insert;
     private javax.swing.JButton lecture_pay;
+    private javax.swing.JLabel user_name;
     // End of variables declaration//GEN-END:variables
 }

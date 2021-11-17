@@ -33,10 +33,13 @@ public class Insert_Lecture extends javax.swing.JFrame {
 
     public boolean checkLecNum() throws FileNotFoundException, UnsupportedEncodingException, IOException{
         String lec;
-        boolean check = true;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "utf-8"));
-        while((lec = str.readLine()) !=null){
-            check = lec.contains(lecture_num.getText());
+        boolean check = false;
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
+        while((lec = str.readLine()) != null){
+            if(lec.contains(lecture_num.getText())){
+                check = true;
+                break;
+            }
         }
         return check;
     }
@@ -182,7 +185,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 showMessageDialog(null, "이미 생성한 강좌 번호 입니다.");
             } else {
                 FileOutputStream file = new FileOutputStream("insertlecturelist.txt", true);//파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "utf-8");
+                OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
                 BufferedWriter writer = new BufferedWriter(output);
                 str = String.format("%s/%s/%s/%s/%s%n", lecture_num.getText(),getlec_name.getText(),getdepart.getText(),getCredit.getText() , lecture_info.getText());
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 강의 설명

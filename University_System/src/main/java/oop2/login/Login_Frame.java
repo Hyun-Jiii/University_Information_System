@@ -6,9 +6,11 @@
 package oop2.login;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -151,8 +153,10 @@ public class Login_Frame extends javax.swing.JFrame {
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
         else if(a =='p'){ //아이디 고유 문자가 p -> 교수
             try {
-                reader = new BufferedReader(new FileReader("professer.txt"));//읽을 파일 열기
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("professer.txt"), "UTF-8"));//읽을 파일 열기
             } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
@@ -176,8 +180,10 @@ public class Login_Frame extends javax.swing.JFrame {
             } 
         }else if(a == 's'){//아이디 고유 문자가 s -> 학생
             try {
-                reader = new BufferedReader(new FileReader("student.txt"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "UTF-8"));
             } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
@@ -200,8 +206,10 @@ public class Login_Frame extends javax.swing.JFrame {
             } 
         }else if(a == 'h'){//아이디 고유 문자가 h -> 학사
             try {
-                reader = new BufferedReader(new FileReader("school.txt"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "UTF-8"));
             } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
@@ -223,8 +231,10 @@ public class Login_Frame extends javax.swing.JFrame {
             } 
         }else if(a == 'g'){//아이디 고유 문자가 g -> 수업
             try {
-                reader = new BufferedReader(new FileReader("lecture.txt"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "UTF-8"));
             } catch (FileNotFoundException ex) {
+                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
@@ -232,7 +242,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            Lecture_Main_Frame lec = new Lecture_Main_Frame();
+                            Lecture_Main_Frame lec = new Lecture_Main_Frame(key[1]);
                             lec.setVisible(true);
                             dispose();
                         }

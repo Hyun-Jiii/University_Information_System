@@ -175,6 +175,13 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         insert.setVisible(true);
     }//GEN-LAST:event_lecture_insertActionPerformed
 
+<<<<<<< HEAD
+=======
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+>>>>>>> 31583a53ce5c568525536965bd208127dcdfb0eb
 
     private void creat_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creat_lecActionPerformed
         try {

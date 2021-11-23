@@ -19,18 +19,23 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture_Main_Frame;
 import oop2.school.School_Main_Frame;
 import oop2.student.Student_Main_Frame;
+import oop2.main.User;
 /**
  *
  * @author PC
  */
 public class Login_Frame extends javax.swing.JFrame {
 
+
+    User user = new User();
     /**
      * Creates new form Login_Frame
      */
     public Login_Frame() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,13 +196,13 @@ public class Login_Frame extends javax.swing.JFrame {
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            Student_Main_Frame stu = new Student_Main_Frame();
+                            Student_Main_Frame stu = new Student_Main_Frame(key[1]); //임시로 로그인 시 사용자 정보를 넘김
+                            stu.StudentName.setText(stu.getStuName());
                             stu.setVisible(true);
                             dispose();
                         }
                          else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
                             JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
-                            dispose();
                         }
                     }
                 }

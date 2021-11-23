@@ -7,10 +7,14 @@ package oop2.student;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +37,20 @@ public class Application_Frame extends javax.swing.JFrame{
     /**
      * Creates new form Application_For_Classes
      */
+    
+    public boolean checkApplication() throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        String app;
+        boolean check = false;
+//        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"))
+//                while((lec = str.readLine()) != null){
+//            if(lec.contains(lecture_num.getText())){
+//                check = true;
+//                break;
+//            }
+//        }
+        return check;
+    }
+    
       public Application_Frame() {
         initComponents();
        // Course_Table.setModel(listModel);
@@ -265,7 +283,32 @@ public class Application_Frame extends javax.swing.JFrame{
     private void Course_TableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Course_TableMouseClicked
         // 해당 과목 클릭으로 수강신청
         DefaultTableModel model = (DefaultTableModel) Course_Table.getModel();
+        boolean check;
+        String str;
+        try{
+            check = checkApplication();
+            
+        }catch(Exception ex){
+            Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        try{
+            String stuCredit = null;
+                    
+            for(int i=0; i<listModel.getSize(); i++){
+                String[] listTemp = new String[4];
+                String[] listTempDetail = new String[2];
+                listTempDetail = listModel.getElementAt(i).split("/");
+                listTemp = listTempDetail[0].split(":");
+                
+                if(model.getValueAt(Course_Table.getSelectedRow(), 0).equals(listTemp[1])){
+                    sumCredit -= Integer.parseInt(stuCredit);
+                    //throw
+                }
+            }
+        }catch(Exception ex){
+            
+        }
     }//GEN-LAST:event_Course_TableMouseClicked
 
   

@@ -5,12 +5,16 @@
  */
 package oop2.professer;
 
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,14 +30,11 @@ public class Lecture_manage extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void clearTable(){
+    public void clearTable(){//테이블에 출력된 정보 초기화
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setNumRows(0);
     }
-    
-    
-
-    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,37 +44,37 @@ public class Lecture_manage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        AttendDance = new javax.swing.JButton();
+        grade = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         import_data = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton3.setText("출석부");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        AttendDance.setText("출석부");
+        AttendDance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                AttendDanceActionPerformed(evt);
             }
         });
 
-        jButton4.setText("성적");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        grade.setText("성적");
+        grade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                gradeActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
         jLabel1.setText("강좌 관리");
 
-        jButton1.setText("뒤로가기");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        back.setText("뒤로가기");
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
 
@@ -106,9 +107,9 @@ public class Lecture_manage extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(AttendDance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(grade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(135, 135, 135)
@@ -127,28 +128,63 @@ public class Lecture_manage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(AttendDance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(grade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(back)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void gradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeActionPerformed
+        // TODO add your handling code here:       
+    }//GEN-LAST:event_gradeActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void AttendDanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendDanceActionPerformed
         // TODO add your handling code here:
         // 강좌 선택-> 각 출석부 보이기
-        
+        int index = jTable1.getSelectedRow();
+        BufferedReader reader = null;
+        JTable table =null;
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);//목록 여러개 클릭 불가 
+    
+        if(index<0)// 테이블 선택된거 없을 때
+            JOptionPane.showMessageDialog(null,"강좌를 선택해주세요");
+        else if(index==0)//파일처리
+        try{
+            String str = (String)(jTable1.getValueAt(index, 0));
+            reader = new BufferedReader(new FileReader("C:\\Users\\diddm\\Desktop\\AttendanceBook_file.txt"));//파일처리 열기
+            String firstLine = reader.readLine().trim();
+            String[] columnsName = firstLine.split(",");
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            model.setColumnIdentifiers(columnsName);
+            
+            Object[] tableLines = reader.lines().toArray();
+            for(int i = 0;i<tableLines.length;i++){
+                String line = tableLines[i].toString().trim();
+                String[] dataRow = line.split("/");
+                model.addRow(dataRow);
+                //
+                AttendanceBook adb = new AttendanceBook();
+                adb.setVisible(true);
+                
+            }
+        }    catch (Exception ex) {
+                 Logger.getLogger(Lecture_manage.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        else if(index==1)//객체
+            try {
+                reader = new BufferedReader(new FileReader("C:\\Users\\diddm\\Desktop\\AttendanceBook_oop2"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lecture_manage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
         AttendanceBook adb = new AttendanceBook();
         adb.setVisible(true);  
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_AttendDanceActionPerformed
 
     private void import_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_dataActionPerformed
         // TODO add your handling code here:
@@ -177,10 +213,10 @@ public class Lecture_manage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_import_dataActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,12 +254,16 @@ public class Lecture_manage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AttendDance;
+    private javax.swing.JButton back;
+    private javax.swing.JButton grade;
     private javax.swing.JButton import_data;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    void initComponents() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

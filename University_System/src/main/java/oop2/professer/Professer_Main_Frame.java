@@ -38,7 +38,6 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         user_name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        insert_lecture = new javax.swing.JButton();
         lecture_manage = new javax.swing.JButton();
         pro_ex_Info = new javax.swing.JButton();
         goback = new javax.swing.JButton();
@@ -136,9 +135,12 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
         jLabel4.setText("님");
 
-        insert_lecture.setLabel("강좌 등록");
-
         lecture_manage.setText("강좌 관리");
+        lecture_manage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecture_manageActionPerformed(evt);
+            }
+        });
 
         pro_ex_Info.setLabel("회원 정보 변경");
 
@@ -166,9 +168,7 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lecture_manage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(insert_lecture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(lecture_manage))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel1))
@@ -183,13 +183,11 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(insert_lecture)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lecture_manage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pro_ex_Info)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
@@ -223,6 +221,12 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         login.setVisible(true);
         dispose();   
     }//GEN-LAST:event_gobackActionPerformed
+
+    private void lecture_manageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_manageActionPerformed
+        // TODO add your handling code here:
+        Lecture_manage lm = new Lecture_manage();
+        lm.setVisible(true);
+    }//GEN-LAST:event_lecture_manageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +268,6 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton goback;
-    private javax.swing.JButton insert_lecture;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;

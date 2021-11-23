@@ -177,7 +177,6 @@ public class AttendanceBook extends javax.swing.JFrame {
         clearTable();
         String filePath = "C:\\Users\\diddm\\Desktop\\AttendanceBook.txt";
         File file = new File(filePath); 
-        
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String firstLines = br.readLine().trim();

@@ -24,7 +24,7 @@ public class User {
     public User(){
     }
     
-    public User(String name){
+    public User(String name){ //임시로 사용자 이름 넘기는 값
         this.name = name;
     }
     

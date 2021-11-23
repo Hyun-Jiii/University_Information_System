@@ -140,6 +140,11 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         jLabel4.setText("님");
 
         lecture_manage.setText("강좌 관리");
+        lecture_manage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lecture_manageActionPerformed(evt);
+            }
+        });
 
         goback.setText("로그아웃");
         goback.addActionListener(new java.awt.event.ActionListener() {
@@ -245,10 +250,19 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // 성적 입력 버튼입니다.
-        InputGrade application = new InputGrade(); // 강좌 수정 창으로 이동
+        InputGrade application = new InputGrade(); // 수정하기
         application.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void lecture_manageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_manageActionPerformed
+        // TODO add your handling code here:
+        // 강좌 관리 이동 버튼
+        Lecture_manage application = new Lecture_manage(); // 강좌 관리 창으로 이동
+        application.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_lecture_manageActionPerformed
 
     /**
      * @param args the command line arguments

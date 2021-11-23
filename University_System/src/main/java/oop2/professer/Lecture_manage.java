@@ -140,11 +140,19 @@ public class Lecture_manage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void gradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeActionPerformed
-        // TODO add your handling code here:       
+        // 성적 버튼
+        InputGrade application = new InputGrade(); // 성적 입력 창으로 이동
+        application.setVisible(true);
+        dispose();
     }//GEN-LAST:event_gradeActionPerformed
 
     private void AttendDanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendDanceActionPerformed
         // TODO add your handling code here:
+        
+        AttendanceBook application = new AttendanceBook(); // 출석부 클래스로 이동
+        application.setVisible(true);
+        dispose();
+        
         // 강좌 선택-> 각 출석부 보이기
         int index = jTable1.getSelectedRow();
         BufferedReader reader = null;
@@ -215,6 +223,9 @@ public class Lecture_manage extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
+        // 뒤로 가기 버튼
+        Professer_Main_Frame application = new Professer_Main_Frame(); // 교수 메뉴 선택 창으로 이동
+        application.setVisible(true);
         dispose();
     }//GEN-LAST:event_backActionPerformed
 
@@ -263,7 +274,7 @@ public class Lecture_manage extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    void initComponents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    //void initComponents() {
+      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   // }
 }

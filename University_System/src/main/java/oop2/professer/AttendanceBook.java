@@ -200,7 +200,10 @@ public class AttendanceBook extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        dispose();
+        // 뒤로 가기 버튼
+        Lecture_manage application = new Lecture_manage(); // 강좌 관리 창으로 이동
+        application.setVisible(true);
+        dispose();     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

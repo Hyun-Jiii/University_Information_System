@@ -213,6 +213,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xac15;&#xc88c; &#xad00;&#xb9ac;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lecture_manageActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="goback">
       <Properties>

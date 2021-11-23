@@ -24,9 +24,25 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         /**
      * Creates new form Student_Main_Frmae
      */
-    public Student_Main_Frame() {
+    String stu_name ="";
+    
+    
+    public Student_Main_Frame(){
+        initComponents();
+    };
+    
+    public Student_Main_Frame(String stuName) {
+        stu_name = stuName;
         initComponents();
     }
+    
+    public String getStuName(){
+        return this.stu_name;
+    }
+    
+   
+ 
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,8 +55,8 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        app_info_btn = new javax.swing.JButton();
+        app_btn = new javax.swing.JButton();
         stu_ex_Info = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         goback = new javax.swing.JButton();
@@ -63,16 +79,26 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         jLabel3.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
         jLabel3.setText("학생 메뉴 선택");
 
-        jButton1.setText("수강 정보");
-
-        jButton2.setText("수강 신청");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        app_info_btn.setText("수강 정보");
+        app_info_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                app_info_btnActionPerformed(evt);
+            }
+        });
+
+        app_btn.setText("수강 신청");
+        app_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                app_btnActionPerformed(evt);
             }
         });
 
         stu_ex_Info.setLabel("회원 정보 변경");
+        stu_ex_Info.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_ex_InfoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("님");
 
@@ -83,7 +109,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
             }
         });
 
-        StudentName.setText("ere");
+        StudentName.setText("huuuh");
         StudentName.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,8 +134,8 @@ public class Student_Main_Frame extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(app_info_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(app_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -123,9 +149,9 @@ public class Student_Main_Frame extends javax.swing.JFrame{
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(2, 2, 2)
-                .addComponent(jButton1)
+                .addComponent(app_info_btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(app_btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(stu_ex_Info)
                 .addGap(20, 20, 20)
@@ -139,12 +165,12 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void app_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_btnActionPerformed
         // TODO add your handling code here:
-        Application_Frame application = new Application_Frame();//수강신청 페이지로 이동
-        application.setVisible(true);
+        Application_Frame view = new Application_Frame();//수강신청 페이지로 이동
+        view.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_app_btnActionPerformed
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
@@ -153,10 +179,27 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
+    private void app_info_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_info_btnActionPerformed
+        // TODO add your handling code here:
+        CourseInformation_Frame view = new CourseInformation_Frame();//수강정보 페이지로 이동
+        view.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_app_info_btnActionPerformed
+
+    private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
+        // TODO add your handling code here:
+        UpateStudentInfo_Frame view = new UpateStudentInfo_Frame();//회원정보  수정 페이지
+        view.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_stu_ex_InfoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
+        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -184,23 +227,26 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Student_Main_Frame().setVisible(true);
+//                Student_Main_Frame ss = new Student_Main_Frame();
+//                ss.setVisible(true);
+//                ss.StudentName.setText("테스트할려고 아무거나 넣음");
+                  new Student_Main_Frame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel StudentName;
+    public javax.swing.JLabel StudentName;
+    private javax.swing.JButton app_btn;
+    private javax.swing.JButton app_info_btn;
     private javax.swing.JButton goback;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton stu_ex_Info;
     // End of variables declaration//GEN-END:variables
-
-    private String User() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//
+//    private String User() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

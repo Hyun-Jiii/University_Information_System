@@ -153,7 +153,7 @@ public class Login_Frame extends javax.swing.JFrame {
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
         else if(a =='p'){ //아이디 고유 문자가 p -> 교수
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("professer.txt"), "UTF-8"));//읽을 파일 열기
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("professer.txt"), "euc-kr"));//읽을 파일 열기
             } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
@@ -231,18 +231,12 @@ public class Login_Frame extends javax.swing.JFrame {
             } 
         }else if(a == 'g'){//아이디 고유 문자가 g -> 수업
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "UTF-8"));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "euc-kr"));
                 while((str = reader.readLine()) != null){
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            Lecture_Main_Frame lec = new Lecture_Main_Frame(key[1]);
+                            Lecture_Main_Frame lec = new Lecture_Main_Frame(key[0], a);
                             lec.setVisible(true);
                             dispose();
                         }
@@ -253,7 +247,7 @@ public class Login_Frame extends javax.swing.JFrame {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
         }else
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
             

@@ -5,6 +5,13 @@
  */
 package oop2.main;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+
 /**
  *
  * @author User
@@ -39,5 +46,28 @@ public class User {
     
     public void exchageInfo(){
         
+    }
+    
+    public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+        String filename = null;
+        if(a == 'p')
+            filename = "professer.txt";
+        else if(a=='h')
+            filename = "school.txt";
+        else if(a=='g')
+            filename = "lecture.txt";
+        else if(a=='s')
+            filename = "student.txt";
+        String str;
+        String[] key;
+        String name = null;
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
+        while((str = read.readLine()) != null){
+            if(str.contains(id)){
+                key = str.split("/");
+                name = key[1];
+            }
+        }
+        return name;
     }
 }

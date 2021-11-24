@@ -140,6 +140,9 @@
         <Property name="text" type="java.lang.String" value="&#xac15;&#xc758; &#xc218;&#xc815;"/>
         <Property name="actionCommand" type="java.lang.String" value="&#xac15;&#xc88c; &#xc218;&#xc815;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="change_lecActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="user_name">
     </Component>

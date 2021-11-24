@@ -1,13 +1,12 @@
 package oop2.lecture;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.*;
 import oop2.login.Login_Frame;
+import oop2.main.Exchange_Pw;
+import oop2.main.User;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,14 +19,15 @@ import oop2.login.Login_Frame;
  * @author 82106
  */
 public class Lecture_Main_Frame extends javax.swing.JFrame {
-    String iD;
+    String id;
     /**
      * Creates new form NewJFrame1
      */
-    public Lecture_Main_Frame(String iD) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public Lecture_Main_Frame(String num, char job) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         initComponents();
-        user_name.setText(iD);
-        this.iD = iD;
+        User u = new User();
+        user_name.setText(u.searchName(job, num));
+        this.id = num;
     }
 
     /**
@@ -95,6 +95,11 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
 
         change_lec.setText("강의 수정");
         change_lec.setActionCommand("강좌 수정");
+        change_lec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                change_lecActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,19 +174,16 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         Insert_Lecture insert = null;
         try {
             insert = new Insert_Lecture();
+             insert.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(Lecture_Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        insert.setVisible(true);
     }//GEN-LAST:event_lecture_insertActionPerformed
 
-<<<<<<< HEAD
-=======
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
->>>>>>> 31583a53ce5c568525536965bd208127dcdfb0eb
 
     private void creat_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creat_lecActionPerformed
         try {
@@ -196,7 +198,19 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //회원 정보 수정
+        Exchange_Pw e = new Exchange_Pw(id);
+        e.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void change_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_lecActionPerformed
+        // TODO add your handling code here:
+        try {
+           Delete_Lecture d = new Delete_Lecture();
+           d.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Lecture_Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_change_lecActionPerformed
 
     /**
      * @param args the command line arguments

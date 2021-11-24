@@ -66,8 +66,8 @@ public class Insert_Lecture extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         getlec_name = new javax.swing.JTextField();
-        getdepart = new javax.swing.JTextField();
         getCredit = new javax.swing.JTextField();
+        depart_list = new javax.swing.JComboBox<>();
 
         jLabel4.setText("jLabel4");
 
@@ -103,6 +103,8 @@ public class Insert_Lecture extends javax.swing.JFrame {
 
         jLabel6.setText("학  점");
 
+        depart_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "전산학과", "전자공학과", "화학공학과", "기계공학과", "항공우주공학과" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,8 +116,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel5))
@@ -126,17 +127,17 @@ public class Insert_Lecture extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel6))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getCredit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getdepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getlec_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lecture_num, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(getCredit)
+                            .addComponent(getlec_name)
+                            .addComponent(lecture_num, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(depart_list, 0, 1, Short.MAX_VALUE)))
                     .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(55, 55, 55))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {getCredit, getdepart, getlec_name, lecture_num});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {getCredit, getlec_name, lecture_num});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +155,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(getdepart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -179,15 +180,15 @@ public class Insert_Lecture extends javax.swing.JFrame {
         String str;   
         try {
             check = checkLecNum();
-            if (lecture_num.getText().isEmpty() || lecture_info.getText().isEmpty() || getlec_name.getText().isEmpty() ||getdepart.getText().isEmpty()||getCredit.getText().isEmpty()) {
+            if (lecture_num.getText().isEmpty() || lecture_info.getText().isEmpty() || getlec_name.getText().isEmpty()||getCredit.getText().isEmpty()) {
                 showMessageDialog(null, "정보를 입력해 주세요");
             } else if (check) {
                 showMessageDialog(null, "이미 생성한 강좌 번호 입니다.");
             } else {
                 FileOutputStream file = new FileOutputStream("insertlecturelist.txt", true);//파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
+                OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
                 BufferedWriter writer = new BufferedWriter(output);
-                str = String.format("%s/%s/%s/%s/%s%n", lecture_num.getText(),getlec_name.getText(),getdepart.getText(),getCredit.getText() , lecture_info.getText());
+                str = String.format("%s/%s/%s/%s/%s/%s%n", lecture_num.getText(),getlec_name.getText(),depart_list.getSelectedItem(),getCredit.getText() , lecture_info.getText(),false);
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 강의 설명
                 writer.write(str);
                 writer.close();
@@ -207,8 +208,8 @@ public class Insert_Lecture extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> depart_list;
     private javax.swing.JTextField getCredit;
-    private javax.swing.JTextField getdepart;
     private javax.swing.JTextField getlec_name;
     private javax.swing.JButton goback;
     private javax.swing.JButton insert;

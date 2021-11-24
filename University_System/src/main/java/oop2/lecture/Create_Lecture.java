@@ -36,7 +36,7 @@ public class Create_Lecture extends javax.swing.JFrame {
     public void addList() throws FileNotFoundException, IOException{ //개설전 강의 리스트 테이블에 출력
         String lec;
         String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "UTF-8"));
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
         DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
         while((lec = str.readLine()) != null){
             key = lec.split("/");
@@ -189,7 +189,7 @@ public class Create_Lecture extends javax.swing.JFrame {
         String str;
         row = lecture_list.getSelectedRow();
         try {
-            BufferedReader ch = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "UTF-8"));
+            BufferedReader ch = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));
             while((str = ch.readLine()) != null){
                 if(str.contains( model.getValueAt(row, 0).toString())){
                     check = true;
@@ -205,7 +205,7 @@ public class Create_Lecture extends javax.swing.JFrame {
             }else {
 
                 FileOutputStream file = new FileOutputStream("lecturelist.txt", true);//파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
+                OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
                 BufferedWriter writer = new BufferedWriter(output);
                 str = String.format("%s/%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4), "0");
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 담당 교수, 최대 인원, 최소 인원, 강의 설명, 개설여부

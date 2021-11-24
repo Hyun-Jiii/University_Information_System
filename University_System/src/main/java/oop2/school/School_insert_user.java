@@ -7,7 +7,6 @@ package oop2.school;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -201,7 +200,7 @@ public class School_insert_user extends javax.swing.JFrame {
             if(sch_butt.isSelected()){ //학사관리자 파일에 입력
                 try{
                     FileOutputStream file = new FileOutputStream("school.txt",true);//파일 열기
-                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    OutputStreamWriter output = new OutputStreamWriter(file,"euc-kr");
                     BufferedWriter writer = new BufferedWriter(output);
                     School sch = new School(pNum.getText(), name.getText()); //학사관리자 생성자로 객체 생성
                     str = String.format("%s/%s/%s/%s%n",sch.getId(),sch.getName(),sch.getPassWord(),sch.getPeopleNum());
@@ -215,7 +214,7 @@ public class School_insert_user extends javax.swing.JFrame {
             }else if(lec_butt.isSelected()){//수업 관리자 파일에 입력
                 try{
                     FileOutputStream file = new FileOutputStream("lecture.txt",true);//파일 열기
-                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    OutputStreamWriter output = new OutputStreamWriter(file,"euc-kr");
                     BufferedWriter writer = new BufferedWriter(output);
                     Lecture lec = new Lecture(pNum.getText(), name.getText());
                     str = String.format("%s/%s/%s/%s%n",lec.getId(),lec.getName(),lec.getPassWord(),lec.getPeopleNum());

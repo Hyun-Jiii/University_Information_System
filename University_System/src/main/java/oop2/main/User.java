@@ -17,6 +17,8 @@ import java.io.UnsupportedEncodingException;
  * @author User
  */
 public class User {
+    
+
     //학사 담당자, 수업 담당자, 학생, 교수의 상위 클래스
     protected String name; //개인의 이름
     protected String id;  //개인 아이디
@@ -25,6 +27,18 @@ public class User {
     protected String departMent; //학과
     public final static int ID = 0;  // 각 테이블의 아이디 순서
     public final static int PW = 2;  // 각 테이블의 비밀번호 순서
+    
+    public User(){
+    }
+    
+    public User(String name){ //임시로 사용자 이름 넘기는 값
+        this.name = name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+        
     public String getName() {
         return name;
     }

@@ -146,11 +146,11 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
                 .addComponent(lecture_pay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jButton3)
-                    .addComponent(user_name))
+                    .addComponent(user_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -180,10 +180,19 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lecture_insertActionPerformed
 
+<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+//=======
+>>>>>>> origin/main
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+<<<<<<< HEAD
+=======
+//>>>>>>> 31583a53ce5c568525536965bd208127dcdfb0eb
+>>>>>>> origin/main
 
     private void creat_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creat_lecActionPerformed
         try {

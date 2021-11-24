@@ -5,6 +5,7 @@
  */
 package oop2.professer;
 
+import java.util.ArrayList;
 import oop2.login.Login_Frame;
 
 /**
@@ -39,11 +40,10 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         user_name = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        insert_lecture = new javax.swing.JButton();
         lecture_manage = new javax.swing.JButton();
-        pro_ex_Info = new javax.swing.JButton();
         goback = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jInternalFrame1.setTitle("학사메인화면");
         jInternalFrame1.setVisible(true);
@@ -139,14 +139,10 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
         jLabel4.setText("님");
 
-        insert_lecture.setLabel("강좌 등록");
-
         lecture_manage.setText("강좌 관리");
-
-        pro_ex_Info.setLabel("회원 정보 변경");
-        pro_ex_Info.addActionListener(new java.awt.event.ActionListener() {
+        lecture_manage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pro_ex_InfoActionPerformed(evt);
+                lecture_manageActionPerformed(evt);
             }
         });
 
@@ -161,6 +157,13 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("성적 입력");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -182,14 +185,12 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(pro_ex_Info))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lecture_manage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(insert_lecture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lecture_manage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -197,15 +198,13 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(insert_lecture)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addGap(6, 6, 6)
                 .addComponent(lecture_manage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pro_ex_Info)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(goback)
                     .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,12 +247,22 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void pro_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pro_ex_InfoActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        UpdateProfesserInfo application = new UpdateProfesserInfo(); // 회원 정보 수정 창으로 이동
+        // 성적 입력 버튼입니다.
+        InputGrade application = new InputGrade(); // 수정하기
         application.setVisible(true);
         dispose();
-    }//GEN-LAST:event_pro_ex_InfoActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void lecture_manageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_manageActionPerformed
+        // TODO add your handling code here:
+        // 강좌 관리 이동 버튼
+        Lecture_manage application = new Lecture_manage(); // 강좌 관리 창으로 이동
+        application.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_lecture_manageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,8 +304,8 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton goback;
-    private javax.swing.JButton insert_lecture;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JInternalFrame jInternalFrame2;
     private javax.swing.JLabel jLabel1;
@@ -304,7 +313,6 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton lecture_manage;
-    private javax.swing.JButton pro_ex_Info;
     private javax.swing.JButton school_change;
     private javax.swing.JButton school_del;
     private javax.swing.JButton school_insert;
@@ -312,6 +320,10 @@ public class Professer_Main_Frame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void showMessageDialog(Object object, String 맞음) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    boolean setInputGrade(String causeNum, String causeName, ArrayList<String> studentList, String grade) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

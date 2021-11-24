@@ -63,8 +63,8 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
-                          <Component id="jButton2" max="32767" attributes="0"/>
+                          <Component id="app_info_btn" max="32767" attributes="0"/>
+                          <Component id="app_btn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -84,9 +84,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="app_info_btn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="app_btn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="stu_ex_Info" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -109,23 +109,29 @@
         <Property name="text" type="java.lang.String" value="&#xd559;&#xc0dd; &#xba54;&#xb274; &#xc120;&#xd0dd;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="app_info_btn">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc218;&#xac15; &#xc815;&#xbcf4;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="app_info_btnActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="app_btn">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc218;&#xac15; &#xc2e0;&#xccad;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="app_btnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="stu_ex_Info">
       <Properties>
         <Property name="label" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xc815;&#xbcf4; &#xbcc0;&#xacbd;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stu_ex_InfoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -142,9 +148,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="StudentName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ere"/>
+        <Property name="text" type="java.lang.String" value="huuuh"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

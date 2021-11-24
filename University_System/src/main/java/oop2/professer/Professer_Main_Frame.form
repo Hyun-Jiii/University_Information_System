@@ -151,15 +151,13 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                      <Component id="pro_ex_Info" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lecture_manage" max="32767" attributes="0"/>
-                          <Component id="insert_lecture" max="32767" attributes="0"/>
-                          <Component id="jButton1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lecture_manage" max="32767" attributes="0"/>
+                              <Component id="jButton1" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -172,15 +170,13 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="insert_lecture" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="lecture_manage" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="pro_ex_Info" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="goback" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="user_name" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -213,22 +209,12 @@
         <Property name="text" type="java.lang.String" value="&#xb2d8;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="insert_lecture">
-      <Properties>
-        <Property name="label" type="java.lang.String" value="&#xac15;&#xc88c; &#xb4f1;&#xb85d;"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="lecture_manage">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xac15;&#xc88c; &#xad00;&#xb9ac;"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="pro_ex_Info">
-      <Properties>
-        <Property name="label" type="java.lang.String" value="&#xd68c;&#xc6d0; &#xc815;&#xbcf4; &#xbcc0;&#xacbd;"/>
-      </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pro_ex_InfoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lecture_manageActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="goback">
@@ -245,6 +231,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc131;&#xc801; &#xc785;&#xb825;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

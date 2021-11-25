@@ -56,12 +56,6 @@ public class Application_Frame extends javax.swing.JFrame{
        // Course_Table.setModel(listModel);
     }
     
-    public Application_Frame(String mcode, String inName) {
-        this.mcode = mcode;
-        this.inName = inName;
-        initComponents();
-        //Course_Table.setModel(listModel);
-    }
 
     
     public void clearTable(){

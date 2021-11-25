@@ -13,13 +13,18 @@ import oop2.login.Login_Frame;
  * @author User
  */
 public class Professer_Main_Frame extends javax.swing.JFrame {
-
+    String name = "";
     /**
      * Creates new form Frofesser_Frame
      */
-    public Professer_Main_Frame() {
+    public Professer_Main_Frame () {
         initComponents();
     }
+    
+    public Professer_Main_Frame (String name){
+        name = name;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

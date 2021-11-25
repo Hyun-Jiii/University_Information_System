@@ -5,6 +5,9 @@
  */
 package oop2.main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author User
@@ -21,6 +24,9 @@ public class User {
     public final static int ID = 0;  // 각 테이블의 아이디 순서
     public final static int PW = 2;  // 각 테이블의 비밀번호 순서
     
+    String[] UserArray = {id, name,passWord, peopleNum, departMent};
+    ArrayList<String> User = new ArrayList<>(Arrays.asList(UserArray));
+    
     public User(){
     }
     
@@ -35,6 +41,7 @@ public class User {
     public String getName() {
         return name;
     }
+    
     public String getId() {
         return id;
     }

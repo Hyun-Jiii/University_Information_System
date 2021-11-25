@@ -7,19 +7,23 @@ package oop2.professer;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import oop2.professer.Lecture_manage;
 
-public class AttendanceBook extends javax.swing.JFrame {
-
+public class AttendanceBook extends javax.swing.JFrame{
+    DefaultTableModel model;
+    
     public AttendanceBook() {
         initComponents();
     }
     public void clearTable(){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) Attendance_table.getModel();
         model.setNumRows(0);
     }
 
@@ -40,7 +44,7 @@ public class AttendanceBook extends javax.swing.JFrame {
         canvas1 = new java.awt.Canvas();
         import_data = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Attendance_table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
@@ -111,15 +115,15 @@ public class AttendanceBook extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Attendance_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "번호", "강좌 이름", "이름", "학번", "학점"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(Attendance_table);
 
         jButton1.setText("뒤로가기");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -175,24 +179,21 @@ public class AttendanceBook extends javax.swing.JFrame {
         // TODO add your handling code here:
         // 출석부 테이블에 출력
         clearTable();
-        String filePath = "C:\\Users\\diddm\\Desktop\\AttendanceBook.txt";
+        String filePath = "AttendanceBook.txt";//출석부파일
         File file = new File(filePath); 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String firstLines = br.readLine().trim();
             String [] columnsName = firstLines.split(",");
-            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
             model.setColumnIdentifiers(columnsName);
             
             Object[] tableLines = br.lines().toArray();
             
-            for(int i = 0;i<tableLines.length;i++)
-            {
+            for(int i = 0;i<tableLines.length;i++){
                 String line = tableLines[i].toString().trim();
                 String[] dataRow = line.split("/");
                 model.addRow(dataRow);
-            }
-            
+          }
         } catch (Exception ex) {
             Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,48 +201,16 @@ public class AttendanceBook extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        // 뒤로 가기 버튼
-        Lecture_manage application = new Lecture_manage(); // 강좌 관리 창으로 이동
-        application.setVisible(true);
-        dispose();     
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AttendanceBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AttendanceBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AttendanceBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AttendanceBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AttendanceBook().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTable Attendance_table;
     private javax.swing.JTable Course;
     private java.awt.Canvas canvas1;
     private java.awt.Choice choice1;
@@ -255,7 +224,6 @@ public class AttendanceBook extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

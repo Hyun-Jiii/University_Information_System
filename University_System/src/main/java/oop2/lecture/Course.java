@@ -10,17 +10,17 @@ package oop2.lecture;
  * @author User
  */
 public class Course {//강좌 객체 강좌 정보를 저장
-    private String courseNum;
-    private String courseName;
-    private String professer;
-    private String department;
-    private String grade;
-    private String course_content;
-    private String max;
-    private String min;
-    private boolean open;
-
-    public Course(String courseNum, String courseName, String professer, String department, String grade, String course_content, String max, String min, boolean open) {
+    private String courseNum; //강좌 번호
+    private String courseName; //강좌 이름
+    private String professer; //담당 교수
+    private String department; // 담당 학과
+    private String grade; //학점
+    private String course_content; //강의 설명
+    private String max; //최대 인원
+    private String min; //최저 인원
+    private String open; //개설 여부
+   
+    public Course(String courseNum, String courseName, String professer, String department, String grade, String course_content, String max, String min, String open) {
         this.courseNum = courseNum;
         this.courseName = courseName;
         this.professer = professer;
@@ -96,12 +96,14 @@ public class Course {//강좌 객체 강좌 정보를 저장
         this.course_content = course_content;
     }
 
-    public boolean isOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(boolean open) {
+    public void setOpen(String open) {
         this.open = open;
     }
+
+    
     
 }

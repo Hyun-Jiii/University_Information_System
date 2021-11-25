@@ -9,7 +9,7 @@ import oop2.main.User;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class Lecture extends User { //User 클래스를 상속 받은 수업 담당자 클래스
     public Lecture (String peoplenum, String name){ //객체 생성을 위한 생성자

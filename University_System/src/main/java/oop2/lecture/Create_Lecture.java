@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -21,30 +22,21 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class Create_Lecture extends javax.swing.JFrame {
-
+    ArrayList<Course> lecList;
+    LectureAdapter a;
     /**
      * Creates new form Create_Lecture
      */
-    public Create_Lecture() throws IOException {
+    public Create_Lecture() throws IOException  {
+        this.lecList = new ArrayList<>();
         initComponents();
-        addList();
+        a = new LectureAdapter();
+        a.addList(lecture_list);
     }
-    
-    public void addList() throws FileNotFoundException, IOException{ //개설전 강의 리스트 테이블에 출력
-        String lec;
-        String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
-        while((lec = str.readLine()) != null){
-            key = lec.split("/");
-            Object[] list = { key[0], key[1], key[2], key[3], key[4]};
-            table.addRow(list);
-        }
-    }
-    
+        
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,35 +176,45 @@ public class Create_Lecture extends javax.swing.JFrame {
         // TODO add your handling code here:
         // 강의 개설
         DefaultTableModel model =  (DefaultTableModel) lecture_list.getModel();
-        int row = -1;
+        int row = -1; //행선택 변수
         boolean check = false; // 이미 개설되어 있는지 확인
         String str;
-        row = lecture_list.getSelectedRow();
+        row = lecture_list.getSelectedRow(); //테이블 행 선택 함수
+        FileOutputStream file;
         try {
-            BufferedReader ch = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));
-            while((str = ch.readLine()) != null){
-                if(str.contains( model.getValueAt(row, 0).toString())){
-                    check = true;
-                    break;
-                }                
-            }
-            if (row == -1) {
+            check = a.checkEqules(model.getValueAt(row, 0).toString(), "lecturelist.txt");
+            //이미 개설된 강좌 체크
+            if (row == -1) { // 강좌 미선택시
                 showMessageDialog(null, "강좌를 선택해 주세요");
             } else if (lecture_pro.getText().isEmpty() || max_num.getText().isEmpty() || min_num.getText().isEmpty()) {
+                //강좌에 대한 정보를 미입력시
                 showMessageDialog(null, "정보를 입력해 주세요");
-            } else if(check){
+            } else if(check){ // 이미 개설된 강좌번호 선택시
                 showMessageDialog(null, "이미 개설된 강좌입니다.");
-            }else {
-
-                FileOutputStream file = new FileOutputStream("lecturelist.txt", true);//파일 열기
+            }else { //강좌 개설
+                a.getLectureList(lecList);//개설전 강좌 정보를 lecList에 담기
+                file = new FileOutputStream("insertlecturelist.txt");
+                BufferedWriter nWriter = new BufferedWriter(new OutputStreamWriter(file,"euc-kr"));
+                for(int i = 0; i < lecList.size(); i++ ){ //lecList만큼 반복
+                    if(lecList.get(i).getCourseNum().equals((String)model.getValueAt(row, 0))){
+                        lecList.get(i).setOpen("true"); //개설한 강좌와 같은 강의 번호가 있으면 개설 여부를 true로 변경
+                    }
+                    str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                    //개설여부 저장을 위해 다시 파일에 저장
+                    nWriter.write(str);
+                }
+                nWriter.close();// 파일 닫기
+                
+                //개설된 강좌를 메모장에 저장
+                file = new FileOutputStream("lecturelist.txt", true);//파일 열기
                 OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
                 BufferedWriter writer = new BufferedWriter(output);
-                str = String.format("%s/%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4), "0");
+                str = String.format("%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4));
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 담당 교수, 최대 인원, 최소 인원, 강의 설명, 개설여부
                 writer.write(str);
                 writer.close();
                 str = (String) model.getValueAt(row, 0) + ".txt";
-                File newFile = new File(str);
+                File newFile = new File(str); //강좌번호로 이루어진 파일 생성
                 newFile.createNewFile();
                 showMessageDialog(null, "강좌가 개설되었습니다.");
             }

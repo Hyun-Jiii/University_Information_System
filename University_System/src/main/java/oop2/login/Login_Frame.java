@@ -22,7 +22,7 @@ import oop2.student.Student_Main_Frame;
 import oop2.main.User;
 /**
  *
- * @author PC
+ * @author 김부성
  */
 public class Login_Frame extends javax.swing.JFrame {
 

@@ -20,21 +20,23 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class Exchange_Lecture extends javax.swing.JFrame {
     String id;
     ArrayList<Course> lecList = new ArrayList<>();
+    LectureAdapter a;
     /**
      * Creates new form Exchange_Lecture
      */
     public Exchange_Lecture(String id)  {
         initComponents();
         lecture_num.setEnabled(false);
+        a = new LectureAdapter();
         this.id = id;
         try {
             setInfo(id);
-            addList();
+            a.getLectureList(lecList);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -42,18 +44,6 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         }
     }
     
-    public void addList() throws FileNotFoundException, UnsupportedEncodingException, IOException{ //파일에 있는 내용을 수업 객체리스트로 생성
-        String str;
-        String[] key;
-        //int co = 0;
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        while((str = read.readLine()) != null){
-            key = str.split("/");
-            lecList.add(new Course(key[0],key[1],null,key[2],key[3],key[4],null,null,false));
-        }
-        read.close();
-        //return co;
-    }
     
     public void setInfo(String id) throws FileNotFoundException, UnsupportedEncodingException, IOException{ //GUI화면에 선택한 정보 화면에 출력
         String str;
@@ -76,12 +66,12 @@ public class Exchange_Lecture extends javax.swing.JFrame {
             case "항공우주공학과":
                 comboIndex = 4; break;
         }
-        lecture_num.setText(key[0]);
-        lecture_name.setText(key[1]);
-        depart_list.setSelectedIndex(comboIndex);
-        getGrade.setText(key[3]);
-        lecture_info.setText(key[4]);
-        read.close();
+        lecture_num.setText(key[0]); //강의 번호 설정
+        lecture_name.setText(key[1]);//강의 이름 설정
+        depart_list.setSelectedIndex(comboIndex); //담당학과 설정
+        getGrade.setText(key[3]); //학점 설정
+        lecture_info.setText(key[4]); //강의설명 설정
+        read.close(); //파일 닫기
     }
 
     /**
@@ -113,7 +103,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("강의정보 수정");
-        setPreferredSize(new java.awt.Dimension(301, 497));
+        setPreferredSize(new java.awt.Dimension(301, 540));
         setSize(new java.awt.Dimension(301, 497));
 
         jLabel1.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
@@ -187,7 +177,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lecture_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,7 +201,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
                 .addComponent(insert)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(goback)
-                .addContainerGap())
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,30 +211,25 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         // TODO add your handling code here:
         FileOutputStream file;
         String str;
-        
+       
         try {
-            for(int i = 0; i < lecList.size(); i++){
+            file = new FileOutputStream("insertlecturelist.txt");
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
+            for(int i = 0; i < lecList.size(); i++){//id이랑 일치하는 객체 정보 변경
                 if(lecList.get(i).getCourseNum().equals(id)){
                     lecList.get(i).setCourseName(lecture_name.getText());
                     lecList.get(i).setDepartment(depart_list.getSelectedItem().toString());
                     lecList.get(i).setGrade(getGrade.getText());
                     lecList.get(i).setCourse_content(lecture_info.getText());
                 }
-            }
-            
-            file = new FileOutputStream("insertlecturelist.txt");
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
-            /*
-            for(Course a : lecList){
-                str = String.format("%s/%s/%s/%s/%/s/%s%n", a.getCourseNum(),a.getCourseName(), a.getDepartment(), a.getGrade(), a.getCourse_content(), a.isOpen());
+                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
                 writer.write(str);
+                //변경 후 저장하거나 그대로 다시 파일에 저장
             }
-            */
-            for(int i = 0; i < lecList.size(); i++ ){
-                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).isOpen());
-                writer.write(str);
-            }
-            writer.close();
+            writer.close(); //파일 닫기
+            Delete_Lecture l = new Delete_Lecture(); 
+            l.setVisible(true); //다시 수정 화면으로 이동
+            dispose();//창닫기
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -255,8 +240,14 @@ public class Exchange_Lecture extends javax.swing.JFrame {
     }//GEN-LAST:event_insertActionPerformed
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
-        // TODO add your handling code here:
-        dispose();
+        try {
+            // TODO add your handling code here:
+            Delete_Lecture l = new Delete_Lecture();
+            l.setVisible(true);
+            dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_gobackActionPerformed
 
 

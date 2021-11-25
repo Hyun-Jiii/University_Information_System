@@ -16,7 +16,7 @@ import oop2.student.Student;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class School_insert_user extends javax.swing.JFrame {
 

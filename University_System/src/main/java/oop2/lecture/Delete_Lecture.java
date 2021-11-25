@@ -5,18 +5,16 @@
  */
 package oop2.lecture;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,58 +23,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Delete_Lecture extends javax.swing.JFrame {
     ArrayList<Course> lecList = new ArrayList<>(); //강좌 객체 배열
+    LectureAdapter a;
     /**
      * Creates new form Delete_Lecture
      */
     public Delete_Lecture() throws UnsupportedEncodingException, IOException {
         initComponents();
-        addList();
+        a = new LectureAdapter();
+        a.exChangeList(lecture_list);//개설여부가 false인 강의만 출력
     }
-    
-    public void addList() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        //개설하기전 수업 리스트를 읽어와서 테이블에 나타낸다.
-        String lec;
-        String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
-        while((lec = str.readLine()) != null){
-            key = lec.split("/");
-            if(key[5].equals("false")){
-                Object[] list = { key[0], key[1], key[2], key[3]};
-                table.addRow(list);
-            }else
-                continue;
-            
-        }
-    }
-    
-    public void deleteList(){
-        DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
-        int row = table.getRowCount();
-        for(int i = row-1; i>=0; i--){
-            table.removeRow(i);
-        }
-    }
-   
-    public String getKey(){ //테이블에 선택된 키값 전달 
-        String key = null;
-        DefaultTableModel model = (DefaultTableModel)lecture_list.getModel();
-        int row = lecture_list.getSelectedRow();
-        key = (String) model.getValueAt(row, 0);
-        return key;
-    }
-    
-    public void getLectureList() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        String str;
-        String[] key;
-        lecList.clear();
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        while((str = read.readLine()) != null ){
-            key = str.split("/");
-            lecList.add(new Course(key[0],key[1],null,key[2],key[3],key[4],null,null,false));
-        }
-    }
-   
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,8 +44,8 @@ public class Delete_Lecture extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         lecture_list = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        exchange = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,21 +68,26 @@ public class Delete_Lecture extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lecture_list);
 
-        jButton1.setText("수정");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exchange.setText("수정");
+        exchange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exchangeActionPerformed(evt);
             }
         });
 
-        jButton2.setText("삭제");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        delete.setText("삭제");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
 
         jButton3.setText("뒤로가기");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,8 +98,8 @@ public class Delete_Lecture extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exchange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
@@ -149,9 +110,9 @@ public class Delete_Lecture extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(exchange)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(delete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)))
                 .addContainerGap())
@@ -160,50 +121,49 @@ public class Delete_Lecture extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         String str;
-        String key = getKey();
+        String key = a.getKey(lecture_list);
         FileOutputStream file;   
+        DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
         try {
-            getLectureList();
+            a.getLectureList(lecList);
             for(int i = 0; i<lecList.size(); i++){
                 if(key.equals(lecList.get(i).getCourseNum()))
                     lecList.remove(i);
             }
-            file = new FileOutputStream("insertlecturelist.txt");
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
-            for(int i = 0; i< lecList.size();i++){
-            str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(), lecList.get(i).getCourseName(), lecList.get(i).getDepartment(),lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).isOpen());
-                                                        //강좌 번호, 강좌 이름, 당담학과, 학점, 강의 설명, 개설여부
-            writer.write(str);
-        }
-        writer.close();
-        deleteList();
-        addList();  
+            file = new FileOutputStream("insertlecturelist.txt"); //새로쓸 파일 열기
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr")); // 쓰기
+            for(int i = 0; i< lecList.size();i++){ //리스트의 크기만큼 실행
+                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(), lecList.get(i).getCourseName(), lecList.get(i).getDepartment(),lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                //format을 이용하여 메모장에 저장할 내용 str에 저장  //강좌 번호, 강좌 이름, 당담학과, 학점, 강의 설명, 개설여부
+                writer.write(str);//메모장에 쓰기
+            }
+            writer.close(); //닫기
+            model.setNumRows(0);
+            a.exChangeList(lecture_list);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Delete_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Delete_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_deleteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:     
-        try {  
-            Exchange_Lecture e = new Exchange_Lecture(getKey());
-            e.setVisible(true);
-            deleteList();
-            addList();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Delete_Lecture.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Delete_Lecture.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void exchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exchangeActionPerformed
+        // TODO add your handling code here:
+        Exchange_Lecture e = new Exchange_Lecture(a.getKey(lecture_list));//수정 화면으로 넘어가기
+        e.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_exchangeActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton exchange;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable lecture_list;

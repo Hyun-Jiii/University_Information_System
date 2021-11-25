@@ -6,13 +6,9 @@
 
 package oop2.lecture;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -22,27 +18,17 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class Insert_Lecture extends javax.swing.JFrame {
-    
+    LectureAdapter a;
     /** Creates new form Insert_Lecture */
     public Insert_Lecture() throws IOException {
         initComponents();
+        a = new LectureAdapter();
     }
 
-    public boolean checkLecNum() throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        String lec;
-        boolean check = false;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        while((lec = str.readLine()) != null){
-            if(lec.contains(lecture_num.getText())){
-                check = true;
-                break;
-            }
-        }
-        return check;
-    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -179,7 +165,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
         boolean check;
         String str;   
         try {
-            check = checkLecNum();
+            check = a.checkEqules(lecture_num.getText(), "insertlecturelist.txt");
             if (lecture_num.getText().isEmpty() || lecture_info.getText().isEmpty() || getlec_name.getText().isEmpty()||getCredit.getText().isEmpty()) {
                 showMessageDialog(null, "정보를 입력해 주세요");
             } else if (check) {

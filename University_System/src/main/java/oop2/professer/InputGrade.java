@@ -7,23 +7,48 @@ package oop2.professer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
+import javax.swing.table.DefaultTableModel;
 import oop2.professer.Professer;
 import oop2.professer.AttendanceBook;
+import oop2.professer.Lecture_manage;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
+import oop2.lecture.Insert_Lecture;
+import oop2.school.School;
 
 /**
- *  학생 성적 입력 by 교수
+ * InputGrade.java -학생 성적 입력하는 클래스
+ *
  * @author 정수연
  */
+// 강좌 뷰 테이블에서 성적버튼 클릭 => 출석부 파일 열기(read) -> 임시 출석부 파일 생성
+// 이 클래스 다이어로그에서 정보 입력하고 확인 버튼 누르기
+// 다이어로그에서 입력한 값 파일 저장
+// 출석부 뒷 열에 성적 입력된 것 확인 가능
+// file에 성적 값 입력하고 확인 하기
+// try/catch -> 성공메시지 / 오류 메시지 출력 
+// 오류 메시지 (1) 성적 입력 실패 or 값 입력 실패
+// 오류 메시지 (2) 해당되는 테이블(값)이 없습니다. 
+// 오류 메시지 (3) 이미 성적 부여 완료되었습니다. 수정하시겠습니까? -> 확인 or 취소 버튼 생성
+// 자바 파일에서 문자열 찾기 -> 저장된 값 찾기
+// 문자열 찾아 null 값에 성적 입력
 public class InputGrade extends javax.swing.JFrame {
 
-    String causeNum;  // 강좌 번호
-    String grade;         // 학점
+    //String causeNum;  // 강좌 번호
+    //String causeName; // 강좌명
+    //String studentNum;  // 학번
+   // String studentName;  // 학생 이름
+    //String grade;         // 학점
     String gradeNum;  // 학점 점수
-    
-     ArrayList<String> studentList = new ArrayList<>();  // 학생 리스트 배열
-     ArrayList<String> causeList = new ArrayList<>();  // 강좌 리스트 배열
-    
+
     /**
      * Creates new form InputGrade
      */
@@ -45,17 +70,19 @@ public class InputGrade extends javax.swing.JFrame {
         jDialog2 = new javax.swing.JDialog();
         jOptionPane1 = new javax.swing.JOptionPane();
         jOptionPane2 = new javax.swing.JOptionPane();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        grade = new javax.swing.JComboBox<>();
         OK_Btn = new javax.swing.JButton();
         Cancel_Btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        studentName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        causeName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        causeNum = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        studentNum = new javax.swing.JTextField();
 
         jDialog1.setTitle("성적 입력 성공");
         jDialog1.setSize(new java.awt.Dimension(200, 200));
@@ -96,11 +123,11 @@ public class InputGrade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("성적 입력");
 
-        jComboBox1.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "F" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        grade.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        grade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "F" }));
+        grade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                gradeActionPerformed(evt);
             }
         });
 
@@ -127,22 +154,42 @@ public class InputGrade extends javax.swing.JFrame {
         jLabel2.setText("학점");
 
         jLabel3.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jLabel3.setText("학생");
+        jLabel3.setText("이름");
 
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        studentName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        studentName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentNameActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jLabel5.setText("과목명");
+        jLabel5.setText("강좌명");
 
-        jTextField2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        causeName.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        causeName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                causeNameActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel6.setText("강좌번호");
+
+        causeNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                causeNumActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
+        jLabel7.setText("학번");
+
+        studentNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentNumActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,14 +210,16 @@ public class InputGrade extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, 84, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))))))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                        .addComponent(grade, 0, 84, Short.MAX_VALUE)
+                                        .addComponent(causeNum)
+                                        .addComponent(causeName, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                                    .addComponent(studentNum, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(jLabel1)))
@@ -181,23 +230,27 @@ public class InputGrade extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(causeNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(causeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(studentNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(grade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OK_Btn)
                     .addComponent(Cancel_Btn))
@@ -207,11 +260,20 @@ public class InputGrade extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setUseInfo(ArrayList<String> studentList, String causeNum) {  //유저(학생)정보
-        this.studentList = studentList;
-        this.causeNum = causeNum;
+    public void CreateFile() {  // 성적 입력 파일 생성 및 저장
+        try {
+            BufferedWriter gradeList = new BufferedWriter(new java.io.FileWriter("Gradeview.txt", true));
+
+            gradeList.write("");  // 버퍼에 데이터 입력
+            gradeList.newLine();  // 버퍼에 개행 삽입
+            gradeList.flush();  // 버퍼의 내용을 파일에 강제 전송
+            gradeList.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
+
     private void Cancel_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BtnActionPerformed
         // TODO add your handling code here:
         // 취소 버튼
@@ -220,51 +282,106 @@ public class InputGrade extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_Cancel_BtnActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void gradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeActionPerformed
         // TODO add your handling code here:
         // 성적 체크박스
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        // 학점별 학점수 초기화
+        switch (grade.getSelectedIndex()) {
+            case 'A':
+                gradeNum = "4.0";  // A 학점
+                break;
+            case 'B':
+                gradeNum = "3.0";  // B 학점
+                break;
+            case 'C':
+                gradeNum = "2.0";  // C 학점
+                break;
+            case 'D':
+                gradeNum = "1.0";   // D 학점
+                break;
+            case 'F':
+                gradeNum = "0";    // F 학점
+                break;
+        }
+    }//GEN-LAST:event_gradeActionPerformed
 
     private void OK_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_BtnActionPerformed
         // 확인 버튼 기능
+
+        boolean check = false;
+        String str;
         
-        // 학점별 학점수 초기화
-        switch (jComboBox1.getSelectedIndex()) {
-            case 1:
-                grade = "A";    // A 학점
-                gradeNum= "4.0";
-                break;
-            case 2:
-                grade = "B";    // B 학점
-                gradeNum = "3.0";
-                break;
-            case 3:
-                grade = "C";    // C 학점
-                gradeNum = "2.0";
-                break;
-            case 4:
-                grade = "D";    // D 학점
-                gradeNum = "1.0";
-                break;
-            case 5:
-                grade = "F";    // F 학점
-                gradeNum = "0";
-                break;
+        try {
+
+            if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty() || studentName.getText().isEmpty()) {
+                showMessageDialog(null, "정보를 모두 입력해 주세요");
+            }else if (check) {
+                showMessageDialog(null, "이미 성적 부여 완료되었습니다.");  // 수정 여부 묻기 -> 모달 다이어로그(확인/취소)
+            } else {
+                FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
+                OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
+                BufferedWriter writer = new BufferedWriter(output);
+                str = String.format("%s/%s/%s/%s/%s%n", causeNum.getText(), causeName.getText(), studentNum.getText(), studentName.getText(), grade.getSelectedIndex());
+                //강좌 번호, 강좌명, 학번, 이름, 학점
+                writer.write(str);
+                writer.close();
+                JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "성적 입력을 실패하셨습니다.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE); // 성적 입력 실패
+        } catch (IOException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       // 성적 입력 성공
-        JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);
-        // this.dispose();
-    
-        // 성적 입력 실패
-         JOptionPane.showMessageDialog(null, "성적 입력을 실패하셨습니다.", "성적 입력 실패" , JOptionPane.WARNING_MESSAGE);
- 
+
+        String filePath = "GradeView.txt";
+        File file = new File(filePath);
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String firstLines = br.readLine().trim();
+            String[] columnsName = firstLines.split("/");
+            //DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            //model.setColumnIdentifiers(columnsName);
+
+            Object[] tableLines = br.lines().toArray();
+
+            for (int i = 0; i < tableLines.length; i++) {
+                String line = tableLines[i].toString().trim();
+                String[] dataRow = line.split("/");   // 문자열 구분
+                // model.addRow(dataRow);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }//finally{
+        // if(br !=null) br.close();
+        // }
+
+
     }//GEN-LAST:event_OK_BtnActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-        // 과목명 리스트 입력
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void causeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_causeNameActionPerformed
+        // 강좌명 입력
+        this.causeName = causeNum;
+    }//GEN-LAST:event_causeNameActionPerformed
+
+    private void causeNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_causeNumActionPerformed
+
+        // 강좌번호 입력
+        this.causeNum = causeNum;
+    }//GEN-LAST:event_causeNumActionPerformed
+
+    private void studentNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentNumActionPerformed
+        // 학번 입력
+        this.studentNum = studentNum;
+    }//GEN-LAST:event_studentNumActionPerformed
+
+    private void studentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentNameActionPerformed
+        // 학생 이름 입력
+        this.studentName = studentName;
+    }//GEN-LAST:event_studentNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,13 +400,17 @@ public class InputGrade extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InputGrade.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InputGrade.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InputGrade.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InputGrade.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -304,7 +425,9 @@ public class InputGrade extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_Btn;
     private javax.swing.JButton OK_Btn;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField causeName;
+    private javax.swing.JTextField causeNum;
+    private javax.swing.JComboBox<String> grade;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -313,10 +436,10 @@ public class InputGrade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JOptionPane jOptionPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField studentName;
+    private javax.swing.JTextField studentNum;
     // End of variables declaration//GEN-END:variables
 }

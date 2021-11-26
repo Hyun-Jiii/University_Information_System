@@ -60,7 +60,7 @@ public class UpateStudentInfo_Frame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
-        jLabel1.setText("회워정보 변경");
+        jLabel1.setText("회원정보 변경");
 
         jLabel2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel2.setText("이름");
@@ -104,7 +104,6 @@ public class UpateStudentInfo_Frame extends javax.swing.JFrame {
         });
 
         cancel.setText("취소");
-        cancel.setActionCommand("취소");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

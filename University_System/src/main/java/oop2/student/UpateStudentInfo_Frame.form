@@ -119,7 +119,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="&#xad74;&#xb9bc;" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6cc;&#xc815;&#xbcf4; &#xbcc0;&#xacbd;"/>
+        <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0;&#xc815;&#xbcf4; &#xbcc0;&#xacbd;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -231,7 +231,6 @@
     <Component class="javax.swing.JButton" name="cancel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
-        <Property name="actionCommand" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
       </Properties>
     </Component>
   </SubComponents>

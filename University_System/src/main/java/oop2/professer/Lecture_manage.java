@@ -147,8 +147,7 @@ public class Lecture_manage extends javax.swing.JFrame {
     }//GEN-LAST:event_gradeActionPerformed
 
     private void AttendDanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendDanceActionPerformed
-        // TODO add your handling code here:
-        
+        // 출석부 버튼 
         AttendanceBook application = new AttendanceBook(); // 출석부 클래스로 이동
         application.setVisible(true);
         dispose();

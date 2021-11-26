@@ -29,8 +29,8 @@ import oop2.student.Student;
  * @author 김현지
  */
 public class Application_Frame extends javax.swing.JFrame{
-    String now_id;
-    String now_name;
+    String nowId;
+    String nowName;
     LinkedList<Student> lectureEnrolmentList = new LinkedList<Student>();
     DefaultListModel<String> listModel = new DefaultListModel<String>();
     int sumCredit = 0;//신청 총 학점
@@ -56,6 +56,11 @@ public class Application_Frame extends javax.swing.JFrame{
        // Course_Table.setModel(listModel);
     }
     
+      public Application_Frame(String nowName) {
+        this.nowName = nowName;
+        initComponents();
+       // Course_Table.setModel(listModel);
+    }
 
     
     public void clearTable(){
@@ -68,14 +73,16 @@ public class Application_Frame extends javax.swing.JFrame{
     }
     
     public void CreateFile(){ //수강신청한 정보를 담는 파일 생성
-        String name= now_name; //수정해야됨
+        nowName = getName(); //수정해야됨
         
         File studentDir = new File(System.getProperty("java.io.studentDir")); //파일이 생성되는 경로
-        File file = new File(studentDir + now_name +".txt"); //파일이 없다면 학생 이름으로 파일을 생성한다,
+        File file = new File(studentDir + nowName +".txt"); //파일이 없다면 학생 이름으로 파일을 생성한다,
         
         try{
-            if(file.createNewFile()){
-            }
+//            if(file.createNewFile()){
+//                
+//            }
+            FileOutputStream nfile = new FileOutputStream("test.txt",true);
         }catch(IOException ex){
         }
     }
@@ -107,6 +114,7 @@ public class Application_Frame extends javax.swing.JFrame{
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        StudentName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +173,8 @@ public class Application_Frame extends javax.swing.JFrame{
 
         jLabel4.setText("/18");
 
+        StudentName.setText("StudentName");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,11 +196,13 @@ public class Application_Frame extends javax.swing.JFrame{
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
+                                    .addComponent(StudentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
                                     .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Credit_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Credit_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel4)
                                     .addGap(9, 9, 9))
@@ -221,7 +233,8 @@ public class Application_Frame extends javax.swing.JFrame{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(Credit_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(StudentName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -272,6 +285,12 @@ public class Application_Frame extends javax.swing.JFrame{
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         CreateFile();
+        
+//        try{
+//            int i;
+//        }catch(IOException ex){
+//            System.out.println("error");
+//        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void Course_TableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Course_TableMouseClicked
@@ -351,6 +370,7 @@ public class Application_Frame extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Course_Table;
     private javax.swing.JTextField Credit_Total;
+    public javax.swing.JLabel StudentName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

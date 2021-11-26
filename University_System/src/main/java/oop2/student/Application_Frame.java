@@ -29,8 +29,8 @@ import oop2.student.Student;
  * @author 김현지
  */
 public class Application_Frame extends javax.swing.JFrame{
-    String mcode;
-    String inName;
+    String now_id;
+    String now_name;
     LinkedList<Student> lectureEnrolmentList = new LinkedList<Student>();
     DefaultListModel<String> listModel = new DefaultListModel<String>();
     int sumCredit = 0;//신청 총 학점
@@ -68,10 +68,10 @@ public class Application_Frame extends javax.swing.JFrame{
     }
     
     public void CreateFile(){ //수강신청한 정보를 담는 파일 생성
-        String name=("stuname"); //수정해야됨
+        String name= now_name; //수정해야됨
         
         File studentDir = new File(System.getProperty("java.io.studentDir")); //파일이 생성되는 경로
-        File file = new File(studentDir + name + ".txt"); //파일이 없다면 학생 이름으로 파일을 생성한다,
+        File file = new File(studentDir + now_name +".txt"); //파일이 없다면 학생 이름으로 파일을 생성한다,
         
         try{
             if(file.createNewFile()){

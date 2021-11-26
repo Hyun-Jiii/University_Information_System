@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.lang.*;
 import oop2.main.User;
 import oop2.login.Login_Frame;
 
@@ -21,24 +22,31 @@ import oop2.login.Login_Frame;
  */
 //public class Student_Main_Frame extends javax.swing.JFrame implements oop2.main.User {
 public class Student_Main_Frame extends javax.swing.JFrame{
+    User user = new User();
+    Login_Frame lf = new Login_Frame();
+    String nowName;
         /**
      * Creates new form Student_Main_Frmae
      */
-    String stu_name ="";
     
     
     public Student_Main_Frame(){
         initComponents();
     };
     
-    public Student_Main_Frame(String stuName) {
-        stu_name = stuName;
+    public Student_Main_Frame(String nowName) {
+        this.nowName = nowName;
         initComponents();
     }
     
-    public String getStuName(){
-        return this.stu_name;
-    }
+//    public Student_Main_Frame(String stuName) {
+//        stu_name = stuName;
+//        initComponents();
+//    }
+    
+//    public String getStuName(){
+//        return this.stu_name;
+//    }
     
    
  
@@ -181,14 +189,15 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
     private void app_info_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_info_btnActionPerformed
         // TODO add your handling code here:
-        CourseInformation_Frame view = new CourseInformation_Frame();//수강정보 페이지로 이동
-        view.setVisible(true);
+        CourseInformation_Frame info = new CourseInformation_Frame();//수강정보 페이지로 이동
+        info.setVisible(true);
         dispose();
     }//GEN-LAST:event_app_info_btnActionPerformed
 
     private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
         // TODO add your handling code here:
         UpateStudentInfo_Frame view = new UpateStudentInfo_Frame();//회원정보  수정 페이지
+        view.StudentName.setText(nowName);
         view.setVisible(true);
         dispose();
     }//GEN-LAST:event_stu_ex_InfoActionPerformed
@@ -227,10 +236,10 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                Student_Main_Frame ss = new Student_Main_Frame();
-//                ss.setVisible(true);
-//                ss.StudentName.setText("테스트할려고 아무거나 넣음");
-                  new Student_Main_Frame().setVisible(true);
+//                Student_Main_Frame stu = new Student_Main_Frame();
+//                stu.setVisible(true);
+//                stu.StudentName.setText(stu.getName());
+                new Student_Main_Frame().setVisible(true);
             }
         });
     }

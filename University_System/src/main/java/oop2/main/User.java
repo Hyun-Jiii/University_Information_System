@@ -24,15 +24,25 @@ public class User {
     public final static int ID = 0;  // 각 테이블의 아이디 순서
     public final static int PW = 2;  // 각 테이블의 비밀번호 순서
     
-    String[] UserArray = {id, name,passWord, peopleNum, departMent};
-    ArrayList<String> User = new ArrayList<>(Arrays.asList(UserArray));
-    
-    public User(){
+     public User(){
     }
-    
-    public User(String name){ //임시로 사용자 이름 넘기는 값
+   
+    public String[] getUser(){
+        String[] Temp = { name, id, passWord, peopleNum, departMent}; //사용의 모든 정보를 저장해두는 String
+        return Temp;
+    }
+    public void setUser(){
         this.name = name;
+        this.id = id;
+        this.passWord = passWord;
+        this.peopleNum = peopleNum;
+        this.departMent = departMent;
     }
+   
+    
+//    public User(String name){ //임시로 사용자 이름 넘기는 값
+//        this.name = name;
+//    }
     
     public void setName(String name){
         this.name = name;

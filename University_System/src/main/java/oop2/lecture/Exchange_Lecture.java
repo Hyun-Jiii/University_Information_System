@@ -17,6 +17,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,49 +31,42 @@ public class Exchange_Lecture extends javax.swing.JFrame {
     /**
      * Creates new form Exchange_Lecture
      */
-    public Exchange_Lecture(String id)  {
+    public Exchange_Lecture() throws IOException  {
         initComponents();
         lecture_num.setEnabled(false);
         a = new LectureAdapter();
-        this.id = id;
-        try {
-            setInfo(id);
-            a.getLectureList(lecList);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        a.exChangeList(lecture_list);
+        a.getLectureList(lecList);   
     }
     
     
-    public void setInfo(String id) throws FileNotFoundException, UnsupportedEncodingException, IOException{ //GUI화면에 선택한 정보 화면에 출력
+    public void setInfo() throws FileNotFoundException, UnsupportedEncodingException, IOException{ //GUI화면에 선택한 정보 화면에 출력
         String str;
         String[] key = null;
         int comboIndex = 0;
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
-        while((str = read.readLine()) != null){
-            if(str.contains(id)) //id값이 포함되어 있으면
-                key = str.split("/");
+        id = a.getKey(lecture_list);
+        try (BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"))) {
+            while((str = read.readLine()) != null){
+                if(str.contains(id)) //id값이 포함되어 있으면
+                    key = str.split("/");
+            }   switch(key[2]){ //콤보박스에 따라 정보 저장
+                case "전산학과":
+                    comboIndex = 0; break;
+                case "전자공학과":
+                    comboIndex = 1; break;
+                case "화학공학과":
+                    comboIndex = 2; break;
+                case "기계공학과":
+                    comboIndex = 3; break;
+                case "항공우주공학과":
+                    comboIndex = 4; break;
+            }   lecture_num.setText(key[0]); //강의 번호 설정
+            lecture_name.setText(key[1]);//강의 이름 설정
+            depart_list.setSelectedIndex(comboIndex); //담당학과 설정
+            getGrade.setText(key[3]); //학점 설정
+            lecture_info.setText(key[4]); //강의설명 설정
+            //파일 닫기
         }
-        switch(key[2]){ //콤보박스에 따라 정보 저장
-            case "전산학과":
-                comboIndex = 0; break;
-            case "전자공학과":
-                comboIndex = 1; break;
-            case "화학공학과":
-                comboIndex = 2; break;
-            case "기계공학과":
-                comboIndex = 3; break;
-            case "항공우주공학과":
-                comboIndex = 4; break;
-        }
-        lecture_num.setText(key[0]); //강의 번호 설정
-        lecture_name.setText(key[1]);//강의 이름 설정
-        depart_list.setSelectedIndex(comboIndex); //담당학과 설정
-        getGrade.setText(key[3]); //학점 설정
-        lecture_info.setText(key[4]); //강의설명 설정
-        read.close(); //파일 닫기
     }
 
     /**
@@ -85,7 +80,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        insert = new javax.swing.JButton();
+        exchange = new javax.swing.JButton();
         goback = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         lecture_info = new javax.swing.JTextField();
@@ -98,21 +93,24 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         lecture_num = new javax.swing.JTextField();
         depart_list = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lecture_list = new javax.swing.JTable();
+        delete = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("강의정보 수정");
-        setPreferredSize(new java.awt.Dimension(301, 540));
-        setSize(new java.awt.Dimension(301, 497));
+        setPreferredSize(new java.awt.Dimension(831, 472));
+        setSize(new java.awt.Dimension(831, 472));
 
         jLabel1.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         jLabel1.setText("강의 정보 수정");
 
-        insert.setText("수정");
-        insert.addActionListener(new java.awt.event.ActionListener() {
+        exchange.setText("수정");
+        exchange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertActionPerformed(evt);
+                exchangeActionPerformed(evt);
             }
         });
 
@@ -137,99 +135,134 @@ public class Exchange_Lecture extends javax.swing.JFrame {
 
         jLabel8.setText("원하는 정보를 수정하여 주세요");
 
+        lecture_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "강좌 번호", "강좌 이름", "담당 학과", "학점", "강의 설명"
+            }
+        ));
+        lecture_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lecture_listMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lecture_list);
+
+        delete.setText("삭제");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lecture_num, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(lecture_name)
-                                    .addComponent(getGrade)
-                                    .addComponent(depart_list, 0, 1, Short.MAX_VALUE)))
-                            .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6))
+                            .addGap(30, 30, 30)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lecture_num)
+                                .addComponent(lecture_name)
+                                .addComponent(getGrade)
+                                .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(85, 85, 85))))
+                        .addGap(54, 54, 54)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(exchange, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lecture_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(lecture_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(getGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(insert)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(goback)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(exchange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(goback))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(lecture_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(lecture_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(getGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(34, 34, 34)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+    private void exchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exchangeActionPerformed
         // TODO add your handling code here:
         FileOutputStream file;
         String str;
-       
+        DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
         try {
-            file = new FileOutputStream("insertlecturelist.txt");
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
-            for(int i = 0; i < lecList.size(); i++){//id이랑 일치하는 객체 정보 변경
-                if(lecList.get(i).getCourseNum().equals(id)){
-                    lecList.get(i).setCourseName(lecture_name.getText());
-                    lecList.get(i).setDepartment(depart_list.getSelectedItem().toString());
-                    lecList.get(i).setGrade(getGrade.getText());
-                    lecList.get(i).setCourse_content(lecture_info.getText());
+            if(lecture_num.getText().isEmpty()){
+                showMessageDialog(null, "강좌를 선택해 주세요");
+             }
+             else{
+                file = new FileOutputStream("insertlecturelist.txt");
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
+                for(int i = 0; i < lecList.size(); i++){//id이랑 일치하는 객체 정보 변경
+                    if(lecList.get(i).getCourseNum().equals(id)){
+                        lecList.get(i).setCourseName(lecture_name.getText());
+                        lecList.get(i).setDepartment(depart_list.getSelectedItem().toString());
+                        lecList.get(i).setGrade(getGrade.getText());
+                        lecList.get(i).setCourse_content(lecture_info.getText());
+                    }
+                    str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                    writer.write(str);
+                    //변경 후 저장하거나 그대로 다시 파일에 저장
                 }
-                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
-                writer.write(str);
-                //변경 후 저장하거나 그대로 다시 파일에 저장
+                writer.close(); //파일 닫기
+                model.setNumRows(0);
+                a.exChangeList(lecture_list);
             }
-            writer.close(); //파일 닫기
-            Delete_Lecture l = new Delete_Lecture(); 
-            l.setVisible(true); //다시 수정 화면으로 이동
-            dispose();//창닫기
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -237,25 +270,66 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_insertActionPerformed
+    }//GEN-LAST:event_exchangeActionPerformed
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
+         // TODO add your handling code here:
+        dispose();   
+    }//GEN-LAST:event_gobackActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+        String str;
+        String key = null; 
+        FileOutputStream file;   
+        DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
+         try {
+     
+             if(lecture_num.getText().isEmpty()){
+                showMessageDialog(null, "강좌를 선택해 주세요");
+             }
+             else{
+                 key = a.getKey(lecture_list);
+                a.getLectureList(lecList);
+                for(int i = 0; i<lecList.size(); i++){
+                    if(key.equals(lecList.get(i).getCourseNum()))
+                        lecList.remove(i);
+                }
+                file = new FileOutputStream("insertlecturelist.txt");
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr")); // 쓰기
+                for(int i = 0; i< lecList.size();i++){ //리스트의 크기만큼 실행
+                    str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(), lecList.get(i).getCourseName(), lecList.get(i).getDepartment(),lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                    //format을 이용하여 메모장에 저장할 내용 str에 저장  //강좌 번호, 강좌 이름, 당담학과, 학점, 강의 설명, 개설여부
+                    writer.write(str);//메모장에 쓰기
+                }
+                writer.close(); //닫기
+                model.setNumRows(0);
+                a.exChangeList(lecture_list);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+        }                            
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void lecture_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lecture_listMouseClicked
         try {
             // TODO add your handling code here:
-            Delete_Lecture l = new Delete_Lecture();
-            l.setVisible(true);
-            dispose();
+            setInfo();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_gobackActionPerformed
-
+    }//GEN-LAST:event_lecture_listMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton delete;
     private javax.swing.JComboBox<String> depart_list;
+    private javax.swing.JButton exchange;
     private javax.swing.JTextField getGrade;
     private javax.swing.JButton goback;
-    private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -264,7 +338,9 @@ public class Exchange_Lecture extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lecture_info;
+    private javax.swing.JTable lecture_list;
     private javax.swing.JTextField lecture_name;
     private javax.swing.JTextField lecture_num;
     // End of variables declaration//GEN-END:variables

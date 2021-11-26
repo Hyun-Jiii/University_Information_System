@@ -206,9 +206,10 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
 
     private void change_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_lecActionPerformed
         // TODO add your handling code here:
+        Exchange_Lecture d;
         try {
-           Delete_Lecture d = new Delete_Lecture();
-           d.setVisible(true);
+            d = new Exchange_Lecture();
+            d.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(Lecture_Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
         }

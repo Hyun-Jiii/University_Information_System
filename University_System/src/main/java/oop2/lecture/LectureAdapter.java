@@ -42,7 +42,7 @@ public class LectureAdapter {
         while((lec = str.readLine()) != null){
             key = lec.split("/");
             if(key[5].equals("false")){
-                Object[] list = { key[0], key[1], key[2], key[3]};
+                Object[] list = { key[0], key[1], key[2], key[3],key[4]};
                 table.addRow(list);
             }else
                 continue;
@@ -79,5 +79,18 @@ public class LectureAdapter {
             }
         }
         return check;
+    }
+    
+    public void addCList(JTable lecture_list) throws FileNotFoundException, IOException{ 
+        //개설전 강의 리스트 테이블에 출력
+        String lec;
+        String[] key ;
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));
+        DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
+        while((lec = str.readLine()) != null){
+            key = lec.split("/");
+            Object[] list = { key[0], key[1], key[2], key[3], key[4], key[5], key[6], key[7]};
+            table.addRow(list);//행추가
+        }
     }
 }

@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -26,6 +27,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
     public Insert_Lecture() throws IOException {
         initComponents();
         a = new LectureAdapter();
+        a.addList(lecture_list);
     }
 
 
@@ -54,6 +56,8 @@ public class Insert_Lecture extends javax.swing.JFrame {
         getlec_name = new javax.swing.JTextField();
         getCredit = new javax.swing.JTextField();
         depart_list = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lecture_list = new javax.swing.JTable();
 
         jLabel4.setText("jLabel4");
 
@@ -91,12 +95,30 @@ public class Insert_Lecture extends javax.swing.JFrame {
 
         depart_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "전산학과", "전자공학과", "화학공학과", "기계공학과", "항공우주공학과" }));
 
+        lecture_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "강좌 번호", "강좌 이름", "담당 학과", "학점", "강의 설명"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(lecture_list);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -117,10 +139,12 @@ public class Insert_Lecture extends javax.swing.JFrame {
                             .addComponent(getCredit)
                             .addComponent(getlec_name)
                             .addComponent(lecture_num, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(depart_list, 0, 1, Short.MAX_VALUE)))
+                            .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lecture_info, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {getCredit, getlec_name, lecture_num});
@@ -154,7 +178,11 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 .addComponent(insert)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(goback)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -164,6 +192,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean check;
         String str;   
+        DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
         try {
             check = a.checkEqules(lecture_num.getText(), "insertlecturelist.txt");
             if (lecture_num.getText().isEmpty() || lecture_info.getText().isEmpty() || getlec_name.getText().isEmpty()||getCredit.getText().isEmpty()) {
@@ -180,6 +209,8 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 writer.close();
                 showMessageDialog(null, "강좌가 등록되었습니다.");
             }
+            model.setNumRows(0);
+            a.addList(lecture_list);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -207,7 +238,9 @@ public class Insert_Lecture extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lecture_info;
+    private javax.swing.JTable lecture_list;
     private javax.swing.JTextField lecture_num;
     // End of variables declaration//GEN-END:variables
 

@@ -102,8 +102,5 @@ public class Course {//강좌 객체 강좌 정보를 저장
 
     public void setOpen(String open) {
         this.open = open;
-    }
-
-    
-    
+    } 
 }

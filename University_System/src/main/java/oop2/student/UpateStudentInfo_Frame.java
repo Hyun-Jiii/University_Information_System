@@ -12,7 +12,10 @@ import oop2.login.Login_Frame;
  * @author 김현지
  */
 public class UpateStudentInfo_Frame extends javax.swing.JFrame {
-    String stu_name ="";
+    String nowName; //사용자 정보 가져오기
+    String nowPW; //현재 비밀번호
+    String newPW; //새로운 비밀번호
+    String checkPW; //비밀번호 확인
 
     /**
      * Creates new form StudentInfomation_Frame
@@ -21,13 +24,13 @@ public class UpateStudentInfo_Frame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public UpateStudentInfo_Frame(String stuName) {
-        stu_name = stuName;
+    public UpateStudentInfo_Frame(String nowName) {
+        this.nowName = nowName;
         initComponents();
     }
     
-    public String getStuName(){
-        return this.stu_name;
+    public String getNowName(){
+        return this.nowName;
     }
 
     /**
@@ -104,7 +107,11 @@ public class UpateStudentInfo_Frame extends javax.swing.JFrame {
         });
 
         cancel.setText("취소");
-        cancel.setActionCommand("취소");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,6 +195,13 @@ public class UpateStudentInfo_Frame extends javax.swing.JFrame {
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_okActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+        Student_Main_Frame view = new Student_Main_Frame(nowName);
+        view.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments

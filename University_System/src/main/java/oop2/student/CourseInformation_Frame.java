@@ -18,12 +18,15 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class CourseInformation_Frame extends javax.swing.JFrame {
-    Student stu = new Student(true);
 
     /**
      * Creates new form CourseInformation_Frmae
      */
     public CourseInformation_Frame() {
+        initComponents();
+    }
+    
+    public CourseInformation_Frame(String stuname) {
         initComponents();
     }
     
@@ -45,7 +48,7 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Course = new javax.swing.JTable();
         update_btn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +72,12 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("메인페이지로 돌아가기");
+        back.setText("메인페이지로 돌아가기");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +94,7 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(update_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(back)
                         .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
@@ -96,7 +104,7 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(update_btn)
-                    .addComponent(jButton1))
+                    .addComponent(back))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
@@ -127,6 +135,13 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
             Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_update_btnActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        Student_Main_Frame main = new Student_Main_Frame();
+        main.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,7 +181,7 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Course;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton update_btn;

@@ -25,18 +25,18 @@ import oop2.main.User;
  * @author 김부성
  */
 public class Login_Frame extends javax.swing.JFrame {
-
-
     User user = new User();
+    String[] nowUser;
+    String nowName;
+    
     /**
      * Creates new form Login_Frame
      */
     public Login_Frame() {
+        nowUser = user.getUser();
         initComponents();
     }
     
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,9 +196,14 @@ public class Login_Frame extends javax.swing.JFrame {
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            Student_Main_Frame stu = new Student_Main_Frame(key[1]); //임시로 로그인 시 사용자 정보를 넘김
-                            stu.StudentName.setText(stu.getStuName());
+                            Student_Main_Frame stu = new Student_Main_Frame(); //임시로 로그인 시 사용자 정보를 넘김
+                            nowName = key[1];
+                            stu.StudentName.setText(nowName);
                             stu.setVisible(true);
+
+//                            nowName = key[1];
+//                            new Student_Main_Frame(nowName).setVisible(true);
+                            
                             dispose();
                         }
                          else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
@@ -257,7 +262,7 @@ public class Login_Frame extends javax.swing.JFrame {
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
             
     }//GEN-LAST:event_Login_ButtonActionPerformed
-  
+    
     /**
      * @param args the command line arguments
      */

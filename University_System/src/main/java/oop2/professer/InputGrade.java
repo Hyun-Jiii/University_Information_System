@@ -13,40 +13,31 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import javax.swing.table.DefaultTableModel;
 import oop2.professer.Professer;
 import oop2.professer.AttendanceBook;
 import oop2.professer.Lecture_manage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.JOptionPane.showMessageDialog;
-import oop2.lecture.Insert_Lecture;
-import oop2.school.School;
 
 /**
  * InputGrade.java -학생 성적 입력하는 클래스
  *
  * @author 정수연
  */
-// 강좌 뷰 테이블에서 성적버튼 클릭 => 출석부 파일 열기(read) -> 임시 출석부 파일 생성
-// 이 클래스 다이어로그에서 정보 입력하고 확인 버튼 누르기
-// 다이어로그에서 입력한 값 파일 저장
-// 출석부 뒷 열에 성적 입력된 것 확인 가능
-// file에 성적 값 입력하고 확인 하기
+
+
 // try/catch -> 성공메시지 / 오류 메시지 출력 
 // 오류 메시지 (1) 성적 입력 실패 or 값 입력 실패
 // 오류 메시지 (2) 해당되는 테이블(값)이 없습니다. 
 // 오류 메시지 (3) 이미 성적 부여 완료되었습니다. 수정하시겠습니까? -> 확인 or 취소 버튼 생성
+// 오류 메시지 (4) 값 불일치(강좌번호와 강좌명 불일치/학번과 이름 불일치)
 // 자바 파일에서 문자열 찾기 -> 저장된 값 찾기
-// 문자열 찾아 null 값에 성적 입력
+
+import javax.swing.DefaultComboBoxModel;
+
 public class InputGrade extends javax.swing.JFrame {
 
-    //String causeNum;  // 강좌 번호
-    //String causeName; // 강좌명
-    //String studentNum;  // 학번
-   // String studentName;  // 학생 이름
-    //String grade;         // 학점
     String gradeNum;  // 학점 점수
 
     /**
@@ -54,6 +45,25 @@ public class InputGrade extends javax.swing.JFrame {
      */
     public InputGrade() {
         initComponents();
+        init();
+    }
+
+    public void init() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        String fileName = ("Gradeview.txt");
+        File file = new File(fileName);
+        try (Scanner in = new Scanner(file)) {
+            while (in.hasNextLine()) {
+                String line;
+                line = in.nextLine();  // ctrl + alt + f
+                model.addElement(line);
+                grade.setModel(model);
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("File can not found");  // 파일을 찾을 수 없음 오류 문구 표시
+
+        }
     }
 
     /**
@@ -124,7 +134,7 @@ public class InputGrade extends javax.swing.JFrame {
         setTitle("성적 입력");
 
         grade.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        grade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "F" }));
+        grade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "입력", "A", "B", "C", "D", "F" }));
         grade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gradeActionPerformed(evt);
@@ -285,24 +295,12 @@ public class InputGrade extends javax.swing.JFrame {
     private void gradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeActionPerformed
         // TODO add your handling code here:
         // 성적 체크박스
-        // 학점별 학점수 초기화
-        switch (grade.getSelectedIndex()) {
-            case 'A':
-                gradeNum = "4.0";  // A 학점
-                break;
-            case 'B':
-                gradeNum = "3.0";  // B 학점
-                break;
-            case 'C':
-                gradeNum = "2.0";  // C 학점
-                break;
-            case 'D':
-                gradeNum = "1.0";   // D 학점
-                break;
-            case 'F':
-                gradeNum = "0";    // F 학점
-                break;
-        }
+        grade.addItem("입력");
+        grade.addItem("A");
+        grade.addItem("B");
+        grade.addItem("C");
+        grade.addItem("D");
+        grade.addItem("F");
     }//GEN-LAST:event_gradeActionPerformed
 
     private void OK_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_BtnActionPerformed
@@ -310,22 +308,38 @@ public class InputGrade extends javax.swing.JFrame {
 
         boolean check = false;
         String str;
-        
         try {
 
-            if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty() || studentName.getText().isEmpty()) {
-                showMessageDialog(null, "정보를 모두 입력해 주세요");
-            }else if (check) {
-                showMessageDialog(null, "이미 성적 부여 완료되었습니다.");  // 수정 여부 묻기 -> 모달 다이어로그(확인/취소)
+            if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty()
+                    || studentName.getText().isEmpty() || grade.getSelectedItem() == ("입력")) {   // 값이 하나라도 입력되지 않았을 경우
+                JOptionPane.showMessageDialog(null, "정보를 모두 입력해 주세요.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
+            } else if (check) {
+                JOptionPane.showMessageDialog(null, "이미 성적 부여가 완료된 값입니다.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
             } else {
                 FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
                 OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
                 BufferedWriter writer = new BufferedWriter(output);
-                str = String.format("%s/%s/%s/%s/%s%n", causeNum.getText(), causeName.getText(), studentNum.getText(), studentName.getText(), grade.getSelectedIndex());
+               
+                // 학점별 학점수 초기화
+                    if(grade.getSelectedItem()=="A") 
+                        gradeNum = "4.0";                            // A 학점
+                    else if(grade.getSelectedItem()=="B") 
+                        gradeNum = "3.0";                            // B 학점
+                    else if(grade.getSelectedItem()=="C") 
+                        gradeNum = "2.0";                            // C 학점
+                    else if(grade.getSelectedItem()=="D") 
+                        gradeNum = "1.0";                            // D 학점
+                    else if(grade.getSelectedItem()=="F") 
+                        gradeNum = "0.0";                            // F 학점
+                 
+                str = String.format("%s/%s/%s/%s/%s/%s%n", causeNum.getText(), causeName.getText(), studentNum.getText(), studentName.getText(), grade.getSelectedItem(), gradeNum);
                 //강좌 번호, 강좌명, 학번, 이름, 학점
                 writer.write(str);
                 writer.close();
                 JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공
+                InputGrade pro = new InputGrade();  // 성적 입력 완료 후 기존 성적 입력 창으로 이동
+                pro.setVisible(true);
+                dispose();
             }
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
@@ -342,22 +356,17 @@ public class InputGrade extends javax.swing.JFrame {
 
             String firstLines = br.readLine().trim();
             String[] columnsName = firstLines.split("/");
-            //DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-            //model.setColumnIdentifiers(columnsName);
 
             Object[] tableLines = br.lines().toArray();
 
             for (int i = 0; i < tableLines.length; i++) {
                 String line = tableLines[i].toString().trim();
                 String[] dataRow = line.split("/");   // 문자열 구분
-                // model.addRow(dataRow);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-        }//finally{
-        // if(br !=null) br.close();
-        // }
+        }
 
 
     }//GEN-LAST:event_OK_BtnActionPerformed

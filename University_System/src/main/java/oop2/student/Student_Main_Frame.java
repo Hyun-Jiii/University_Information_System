@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.lang.*;
 import oop2.main.User;
 import oop2.login.Login_Frame;
 
@@ -21,24 +22,31 @@ import oop2.login.Login_Frame;
  */
 //public class Student_Main_Frame extends javax.swing.JFrame implements oop2.main.User {
 public class Student_Main_Frame extends javax.swing.JFrame{
+    User user = new User();
+    Login_Frame lf = new Login_Frame();
+    String nowName;
         /**
      * Creates new form Student_Main_Frmae
      */
-    String stu_name ="";
     
     
     public Student_Main_Frame(){
         initComponents();
     };
     
-    public Student_Main_Frame(String stuName) {
-        stu_name = stuName;
+    public Student_Main_Frame(String nowName) {
+        this.nowName = nowName;
         initComponents();
     }
     
-    public String getStuName(){
-        return this.stu_name;
-    }
+//    public Student_Main_Frame(String stuName) {
+//        stu_name = stuName;
+//        initComponents();
+//    }
+    
+//    public String getStuName(){
+//        return this.stu_name;
+//    }
     
    
  
@@ -61,6 +69,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         jLabel1 = new javax.swing.JLabel();
         goback = new javax.swing.JButton();
         StudentName = new javax.swing.JLabel();
+        credit = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,6 +121,13 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         StudentName.setText("huuuh");
         StudentName.setToolTipText("");
 
+        credit.setText("수강료 조회");
+        credit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,34 +148,37 @@ public class Student_Main_Frame extends javax.swing.JFrame{
                                 .addGap(17, 17, 17)))
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(app_info_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(app_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(56, 56, 56)
+                        .addComponent(stu_ex_Info)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(stu_ex_Info)
-                .addGap(53, 53, 53))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(app_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(app_info_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(credit))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(app_info_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(app_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
+                .addComponent(credit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(stu_ex_Info)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(goback)
                     .addComponent(jLabel1)
                     .addComponent(StudentName))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -167,8 +186,10 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
     private void app_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_btnActionPerformed
         // TODO add your handling code here:
-        Application_Frame view = new Application_Frame();//수강신청 페이지로 이동
-        view.setVisible(true);
+        Application_Frame af = new Application_Frame();//수강신청 페이지로 이동
+//        nowName = User.name;
+        af.StudentName.setText(nowName);
+        af.setVisible(true);
         dispose();
     }//GEN-LAST:event_app_btnActionPerformed
 
@@ -181,17 +202,23 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
     private void app_info_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_info_btnActionPerformed
         // TODO add your handling code here:
-        CourseInformation_Frame view = new CourseInformation_Frame();//수강정보 페이지로 이동
-        view.setVisible(true);
+        CourseInformation_Frame info = new CourseInformation_Frame();//수강정보 페이지로 이동
+        info.setVisible(true);
         dispose();
     }//GEN-LAST:event_app_info_btnActionPerformed
 
     private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
         // TODO add your handling code here:
         UpateStudentInfo_Frame view = new UpateStudentInfo_Frame();//회원정보  수정 페이지
+        nowName = nowName;
+        view.StudentName.setText(nowName);
         view.setVisible(true);
         dispose();
     }//GEN-LAST:event_stu_ex_InfoActionPerformed
+
+    private void creditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_creditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,10 +254,10 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                Student_Main_Frame ss = new Student_Main_Frame();
-//                ss.setVisible(true);
-//                ss.StudentName.setText("테스트할려고 아무거나 넣음");
-                  new Student_Main_Frame().setVisible(true);
+//                Student_Main_Frame stu = new Student_Main_Frame();
+//                stu.setVisible(true);
+//                stu.StudentName.setText(stu.getName());
+                new Student_Main_Frame().setVisible(true);
             }
         });
     }
@@ -239,6 +266,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
     public javax.swing.JLabel StudentName;
     private javax.swing.JButton app_btn;
     private javax.swing.JButton app_info_btn;
+    private javax.swing.JButton credit;
     private javax.swing.JButton goback;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

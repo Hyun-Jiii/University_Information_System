@@ -13,15 +13,66 @@ import oop2.main.User;
  * @author User
  */
 public class Student extends User { //User클래스를 상속 받은 학생 클래스
-    Student(boolean b) {//Student 사용을 위해 임시로 생성
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    /**
+     *
+     * @param peoplenum
+     * @param name
+     * @param department
+     */
     public Student (String peoplenum, String name, String department){//객체 생성을 위한 생성자
         this.name = name;
         this.peopleNum = peoplenum;
         this.departMent = department;
         int random = (int)(Math.random()*(1000-100))+100;
-        this.id = "s"+ Integer.toString(random);
+        this.id = "S"+ Integer.toString(random);
         this.passWord = peoplenum.substring(6);
+    }
+    
+    public Student (String num, String name, String peoplenum, String department){//객체 생성을 위한 생성자
+        this.name = name;
+        this.peopleNum = peoplenum;
+        this.departMent = department;
+        this.id = "S"+ num;
+        this.passWord = peoplenum.substring(6);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public String getPeopleNum() {
+        return peopleNum;
+    }
+
+    public void setPeopleNum(String peopleNum) {
+        this.peopleNum = peopleNum;
+    }
+
+    public String getDepartMent() {
+        return departMent;
+    }
+
+    public void setDepartMent(String departMent) {
+        this.departMent = departMent;
     }
 }

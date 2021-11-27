@@ -16,7 +16,7 @@ public class Lecture extends User { //User 클래스를 상속 받은 수업 담
         this.name = name;
         this.peopleNum = peoplenum;
         int random = (int)(Math.random()*(1000-100))+100;
-        this.id = "g"+ Integer.toString(random);
+        this.id = "G"+ Integer.toString(random);
         this.passWord = peoplenum.substring(6);
     }
 }

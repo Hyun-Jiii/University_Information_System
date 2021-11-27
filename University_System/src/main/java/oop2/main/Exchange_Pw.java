@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import oop2.lecture.Lecture;
+import oop2.professor.Professor;
+import oop2.school.School;
+import oop2.student.Student;
 
 /**
  *
@@ -24,7 +28,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class Exchange_Pw extends javax.swing.JFrame {
     String pw;
     String id;
-    ArrayList<User> user = new ArrayList<>();
     /** Creates new form Exchange_Pw */
     public Exchange_Pw(String id) {
         initComponents();
@@ -36,14 +39,34 @@ public class Exchange_Pw extends javax.swing.JFrame {
         String str;
         String pw = null;
         String[] key;
-        if(id.charAt(0) == 'p') 
-            filename = "professer.txt";
-        else if(id.charAt(0) =='h')
-            filename = "school.txt";
-        else if(id.charAt(0) =='g')
-            filename = "lecture.txt";
-        else if(id.charAt(0) =='s')
-            filename = "student.txt";            
+        switch (id.charAt(0)) {
+            case 'p':
+                {
+                    filename = "professor.txt";
+                    ArrayList<Professor> user = new ArrayList<>();
+                    break;
+                }
+            case 'h':
+                {
+                    filename = "school.txt";
+                    ArrayList<School> user = new ArrayList<>();
+                    break;
+                }
+            case 'g':
+                {
+                    filename = "lecture.txt";
+                    ArrayList<Lecture> user = new ArrayList<>();
+                    break;
+                }
+            case 's':
+                {
+                    filename = "student.txt";
+                    ArrayList<Student> user = new ArrayList<>();
+                    break;
+                }
+            default:
+                break;
+        }
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
         while((str = read.readLine()) != null ){
             if(str.contains(id)){
@@ -111,42 +134,42 @@ public class Exchange_Pw extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(72, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(now_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(new_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(check_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(change, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(now_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(new_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(check_pw, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(change, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(39, 39, 39)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,21 +206,28 @@ public class Exchange_Pw extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             pw = searchPW();
+            System.out.println(pw);
+            System.out.println(new_pw.getText());
+            System.out.println(check_pw.getText());
+            if(now_pw.getText().isEmpty() || new_pw.getText().isEmpty() || check_pw.getText().isEmpty() )
+                showMessageDialog(null,"빈칸을 입력하여주세요");
+            else{
+                if(pw.equals(now_pw.getText())){
+                    if(new_pw.getText().equals(check_pw.getText())){
+                        pw = new_pw.getText();
+                        showMessageDialog(null,pw);
+                        System.out.println(pw);
+                    }else
+                        showMessageDialog(null,"비밀번호 확인이 일치하지 않습니다.");
+                }else
+                    showMessageDialog(null,"현재 비밀번호가 일치하지 않습니다.");
+            }
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(!now_pw.getText().isEmpty() || !new_pw.getText().isEmpty() || !check_pw.getText().isEmpty() )
-            showMessageDialog(null,"비밀번호 확인이 일치하지 않습니다.");
-            if(pw.equals(now_pw.getText())){
-                if(new_pw.getText().equals(check_pw.getText())){
-                    pw = new_pw.getText();
-                    showMessageDialog(null,pw);
-                }else
-                    showMessageDialog(null,"비밀번호 확인이 일치하지 않습니다.");
-        }else
-            showMessageDialog(null,"현재 비밀번호가 일치하지 않습니다.");
+
     }//GEN-LAST:event_changeActionPerformed
 
     /**

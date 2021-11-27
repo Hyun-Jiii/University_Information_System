@@ -34,8 +34,8 @@ public class Create_Lecture extends javax.swing.JFrame {
         this.lecList = new ArrayList<>();
         initComponents();
         a = new LectureAdapter();
-        a.addList(lecture_list);
-        a.addCList(clecture_list);
+        a.lec_AddList(lecture_list);
+        a.lec_AddCList(clecture_list);
     }
     
     
@@ -252,7 +252,7 @@ public class Create_Lecture extends javax.swing.JFrame {
                 newFile.createNewFile();
                 showMessageDialog(null, "강좌가 개설되었습니다.");
                 model1.setNumRows(0);
-                a.addCList(clecture_list);
+                a.lec_AddCList(clecture_list);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);

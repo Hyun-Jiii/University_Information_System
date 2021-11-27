@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oop2.professer;
+package oop2.professor;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import oop2.professer.Lecture_manage;
+import oop2.professor.Lecture_manage;
 
 public class AttendanceBook extends javax.swing.JFrame{
     DefaultTableModel model;

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture;
-import oop2.professer.Professer;
+import oop2.professor.Professor;
 import oop2.student.Student;
 
 /**
@@ -46,10 +46,8 @@ public class School_insert_user extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         insert_Ok = new javax.swing.JButton();
         insert_Exit = new javax.swing.JButton();
-        lec_butt = new javax.swing.JRadioButton();
         stu_butt = new javax.swing.JRadioButton();
         pro_butt = new javax.swing.JRadioButton();
-        sch_butt = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         pNum = new javax.swing.JTextField();
         name = new javax.swing.JTextField();
@@ -102,17 +100,11 @@ public class School_insert_user extends javax.swing.JFrame {
 
         insert_Exit.setText("취소");
 
-        buttonGroup1.add(lec_butt);
-        lec_butt.setText("수업");
-
         buttonGroup1.add(stu_butt);
         stu_butt.setText("학생");
 
         buttonGroup1.add(pro_butt);
         pro_butt.setText("교수");
-
-        buttonGroup1.add(sch_butt);
-        sch_butt.setText("학사");
 
         jLabel4.setText("주민번호 : ");
 
@@ -139,16 +131,13 @@ public class School_insert_user extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(pNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(sch_butt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(57, 57, 57)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lec_butt)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(stu_butt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(pro_butt))))))
+                                        .addComponent(pro_butt))
+                                    .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(insert_Ok)
@@ -157,7 +146,7 @@ public class School_insert_user extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addComponent(jLabel1)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,10 +154,8 @@ public class School_insert_user extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lec_butt)
                     .addComponent(stu_butt)
-                    .addComponent(pro_butt)
-                    .addComponent(sch_butt))
+                    .addComponent(pro_butt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(depart_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,7 +170,7 @@ public class School_insert_user extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insert_Ok)
                     .addComponent(insert_Exit))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,34 +184,7 @@ public class School_insert_user extends javax.swing.JFrame {
         }else if(pNum.getText().isEmpty() || pNum.getText().length() != 13){
             showMessageDialog(null,"주민번호를 입력해주세요!!");
         }else{
-            if(sch_butt.isSelected()){ //학사관리자 파일에 입력
-                try{
-                    FileOutputStream file = new FileOutputStream("school.txt",true);//파일 열기
-                    OutputStreamWriter output = new OutputStreamWriter(file,"euc-kr");
-                    BufferedWriter writer = new BufferedWriter(output);
-                    School sch = new School(pNum.getText(), name.getText()); //학사관리자 생성자로 객체 생성
-                    str = String.format("%s/%s/%s/%s%n",sch.getId(),sch.getName(),sch.getPassWord(),sch.getPeopleNum());
-                    //문자열로 저장, 나중에 읽을 때 "/"단위로 끊어서 읽기 위함
-                    writer.write(str); //파일에 객체 정보를 저장
-                    writer.close(); //사용 후 파일 닫기
-                    showMessageDialog(null,sch.getId() +" " + sch.getName() + "직원이 등록 되었습니다.");//완료 메시지
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }else if(lec_butt.isSelected()){//수업 관리자 파일에 입력
-                try{
-                    FileOutputStream file = new FileOutputStream("lecture.txt",true);//파일 열기
-                    OutputStreamWriter output = new OutputStreamWriter(file,"euc-kr");
-                    BufferedWriter writer = new BufferedWriter(output);
-                    Lecture lec = new Lecture(pNum.getText(), name.getText());
-                    str = String.format("%s/%s/%s/%s%n",lec.getId(),lec.getName(),lec.getPassWord(),lec.getPeopleNum());
-                    writer.write(str); //파일에 객체 정보를 저장
-                    writer.close();
-                    showMessageDialog(null,lec.getId() +" " + lec.getName() + "직원이 등록 되었습니다.");
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }else if(stu_butt.isSelected()){ //학생 파일에 입력
+            if(stu_butt.isSelected()){ //학생 파일에 입력
                  try{
                     FileOutputStream file = new FileOutputStream("student.txt",true);//파일 열기
                     OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
@@ -242,7 +202,7 @@ public class School_insert_user extends javax.swing.JFrame {
                     FileOutputStream file = new FileOutputStream("professer.txt",true);//파일 열기
                     OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
                     BufferedWriter writer = new BufferedWriter(output);
-                    Professer pro = new Professer(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
+                    Professor pro = new Professor(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
                     str = String.format("%s/%s/%s/%s%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum(), pro.getDepartMent());
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
@@ -311,11 +271,9 @@ public class School_insert_user extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JRadioButton lec_butt;
     private javax.swing.JTextField name;
     private javax.swing.JTextField pNum;
     private javax.swing.JRadioButton pro_butt;
-    private javax.swing.JRadioButton sch_butt;
     private javax.swing.JRadioButton stu_butt;
     // End of variables declaration//GEN-END:variables
 }

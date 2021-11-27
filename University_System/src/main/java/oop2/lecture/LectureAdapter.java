@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class LectureAdapter {
-    public void addList(JTable lecture_list) throws FileNotFoundException, IOException{ 
+    public void lec_AddList(JTable lecture_list) throws FileNotFoundException, IOException{ 
         //개설전 강의 리스트 테이블에 출력
         String lec;
         String[] key ;
@@ -81,8 +81,8 @@ public class LectureAdapter {
         return check;
     }
     
-    public void addCList(JTable lecture_list) throws FileNotFoundException, IOException{ 
-        //개설전 강의 리스트 테이블에 출력
+    public void lec_AddCList(JTable lecture_list) throws FileNotFoundException, IOException{ 
+        //개설후 강의 리스트 테이블에 출력
         String lec;
         String[] key ;
         BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));

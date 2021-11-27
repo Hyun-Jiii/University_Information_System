@@ -5,17 +5,13 @@
  */
 package oop2.main;
 
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-=======
-import java.util.ArrayList;
-import java.util.Arrays;
->>>>>>> origin/main
+
 
 /**
  *
@@ -83,13 +79,13 @@ public class User {
     
     public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         String filename = null;
-        if(a == 'p')
+        if(a == 'P')
             filename = "professer.txt";
-        else if(a=='h')
+        else if(a=='H')
             filename = "school.txt";
-        else if(a=='g')
+        else if(a=='G')
             filename = "lecture.txt";
-        else if(a=='s')
+        else if(a=='S')
             filename = "student.txt";
         String str;
         String[] key;

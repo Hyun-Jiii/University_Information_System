@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oop2.professer;
+package oop2.professor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import oop2.professer.Professer;
+import oop2.professor.Professor;
 
 /**
  * 등록된 강좌 수정  by 교수
@@ -213,7 +213,7 @@ public class ManageCause extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // 취소 기능
-        Professer_Main_Frame pro = new Professer_Main_Frame();
+        Professor_Main_Frame pro = new Professor_Main_Frame();
         pro.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

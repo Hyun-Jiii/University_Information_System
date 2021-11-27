@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import oop2.professer.Professer_Main_Frame;
+import oop2.professor.Professor_Main_Frame;
 import static javax.swing.JOptionPane.showMessageDialog;
 import oop2.lecture.Lecture_Main_Frame;
 import oop2.school.School_Main_Frame;
@@ -156,7 +156,7 @@ public class Login_Frame extends javax.swing.JFrame {
         String[] key;
         if(id_Field.length() == 0 || pw_Field.length() == 0)
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-        else if(a =='p'){ //아이디 고유 문자가 p -> 교수
+        else if(a =='P'){ //아이디 고유 문자가 p -> 교수
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("professer.txt"), "euc-kr"));//읽을 파일 열기
             } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
@@ -170,7 +170,7 @@ public class Login_Frame extends javax.swing.JFrame {
                         key = str.split("/"); // "/"를 이용해 배열에 저장
                         //table에 따라 [0] : id, [1] : name, [2] : pw, [3] : peopleNum, [4] : departMent
                         if(key[2].equals(pw_Field)){ //비밀번호가 같은지 검사
-                            Professer_Main_Frame pro = new Professer_Main_Frame();
+                            Professor_Main_Frame pro = new Professor_Main_Frame();
                             //맞으면 해당 메뉴 출력
                             pro.setVisible(true);
                             dispose();//현재창은 닫기
@@ -183,7 +183,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 's'){//아이디 고유 문자가 s -> 학생
+        }else if(a == 'S'){//아이디 고유 문자가 s -> 학생
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "UTF-8"));
             } catch (FileNotFoundException ex) {
@@ -214,7 +214,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 'h'){//아이디 고유 문자가 h -> 학사
+        }else if(a == 'H'){//아이디 고유 문자가 h -> 학사
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "UTF-8"));
             } catch (FileNotFoundException ex) {
@@ -239,7 +239,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } 
-        }else if(a == 'g'){//아이디 고유 문자가 g -> 수업
+        }else if(a == 'G'){//아이디 고유 문자가 g -> 수업
             try {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "euc-kr"));
                 while((str = reader.readLine()) != null){
@@ -250,7 +250,7 @@ public class Login_Frame extends javax.swing.JFrame {
                             lec.setVisible(true);
                             dispose();
                         }
-                        else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
+                        else{ //비밀번호가 다를 경우
                             JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                     }

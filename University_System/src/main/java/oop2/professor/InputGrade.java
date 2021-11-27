@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oop2.professer;
+package oop2.professor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import oop2.professer.Professer;
-import oop2.professer.AttendanceBook;
-import oop2.professer.Lecture_manage;
+import oop2.professor.Professor;
+import oop2.professor.AttendanceBook;
+import oop2.professor.Lecture_manage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -287,7 +287,7 @@ public class InputGrade extends javax.swing.JFrame {
     private void Cancel_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BtnActionPerformed
         // TODO add your handling code here:
         // 취소 버튼
-        Professer_Main_Frame pro = new Professer_Main_Frame();
+        Professor_Main_Frame pro = new Professor_Main_Frame();
         pro.setVisible(true);
         dispose();
     }//GEN-LAST:event_Cancel_BtnActionPerformed

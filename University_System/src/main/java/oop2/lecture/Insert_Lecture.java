@@ -27,7 +27,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
     public Insert_Lecture() throws IOException {
         initComponents();
         a = new LectureAdapter();
-        a.addList(lecture_list);
+        a.lec_AddList(lecture_list);
     }
 
 
@@ -210,7 +210,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 showMessageDialog(null, "강좌가 등록되었습니다.");
             }
             model.setNumRows(0);
-            a.addList(lecture_list);
+            a.lec_AddList(lecture_list);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

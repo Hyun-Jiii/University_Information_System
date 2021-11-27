@@ -41,14 +41,18 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="delete" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="insert" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="exchange" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="insert" min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="pro_ex_info" max="32767" attributes="0"/>
+                  <Component id="exchange" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,9 +64,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="insert" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="delete" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="exchange" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pro_ex_info" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -91,17 +95,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="delete">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc0ad;&#xc81c;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="exchange">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc218;&#xc815;"/>
+        <Property name="text" type="java.lang.String" value="&#xc870;&#xd68c; &#xbc0f; &#xc218;&#xc815;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exchangeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="pro_ex_info">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0;&#xc815;&#xbcf4;&#xbcc0;&#xacbd;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">

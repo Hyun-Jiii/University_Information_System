@@ -16,7 +16,7 @@ public class School extends User { //User 클래스를 상속 받은 학사 관�
         this.name = name;
         this.peopleNum = peoplenum;
         int random = (int)(Math.random()*(1000-100))+100;
-        this.id = "h"+ Integer.toString(random);
+        this.id = "H"+ Integer.toString(random);
         this.passWord = peoplenum.substring(6);
     }
 }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import oop2.lecture.Course;
+import oop2.professor.Professor;
 import oop2.student.Student;
 
 /**
@@ -50,18 +51,28 @@ public class SchoolAdapter {
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "euc-kr"));
         while((str = read.readLine()) != null ){
             key = str.split("/");
-            stulist.add(new Student(key[0].substring(0+1),key[1],key[3],key[4]));
+            stulist.add(new Student(key[0].substring(1),key[1],key[3],key[4]));
         }
     }
     
-    public void getSearch(int index, String info, JTable tablelist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+    public void getProList(ArrayList<Professor> prolist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        String str;
+        String[] key;
+        prolist.clear();
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));
+        while((str = read.readLine()) != null ){
+            key = str.split("/");
+            prolist.add(new Professor(key[0].substring(1),key[1],key[3],key[4]));
+        }
+    }
+    
+    public void getSearch(int index, String info, JTable tablelist,String job, String file) throws FileNotFoundException, UnsupportedEncodingException, IOException{
         String str;
         String[] key;
         DefaultTableModel model = (DefaultTableModel)tablelist.getModel();
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "euc-kr"));
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
         model.setNumRows(0);
-        if(index==0)
-            info = "S"+info;
+        info = job+info;
         while((str=read.readLine())!=null){
             key = str.split("/");
             if(key[index].equals(info)){

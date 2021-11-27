@@ -86,7 +86,7 @@ public class Create_Lecture extends javax.swing.JFrame {
         jScrollPane1.setViewportView(clecture_list);
 
         jLabel1.setFont(new java.awt.Font("굴림", 0, 24)); // NOI18N
-        jLabel1.setText("강좌 개설");
+        jLabel1.setText("강의 개설");
 
         jLabel2.setText("담당 교수");
 
@@ -120,7 +120,7 @@ public class Create_Lecture extends javax.swing.JFrame {
 
         jLabel5.setText("등록된 강좌");
 
-        jLabel6.setText("개설된 강좌");
+        jLabel6.setText("개설된 강의");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

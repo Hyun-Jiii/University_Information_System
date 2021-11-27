@@ -142,7 +142,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="&#xad74;&#xb9bc;" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#xac15;&#xc88c; &#xac1c;&#xc124;"/>
+        <Property name="text" type="java.lang.String" value="&#xac15;&#xc758; &#xac1c;&#xc124;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -211,7 +211,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xac1c;&#xc124;&#xb41c; &#xac15;&#xc88c;"/>
+        <Property name="text" type="java.lang.String" value="&#xac1c;&#xc124;&#xb41c; &#xac15;&#xc758;"/>
       </Properties>
     </Component>
   </SubComponents>

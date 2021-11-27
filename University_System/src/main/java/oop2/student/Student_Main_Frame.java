@@ -7,12 +7,16 @@ package oop2.student;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.lang.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oop2.main.User;
 import oop2.login.Login_Frame;
 
@@ -22,9 +26,10 @@ import oop2.login.Login_Frame;
  */
 //public class Student_Main_Frame extends javax.swing.JFrame implements oop2.main.User {
 public class Student_Main_Frame extends javax.swing.JFrame{
-    User user = new User();
+    User u = new User();
     Login_Frame lf = new Login_Frame();
     String nowName;
+    String nowId;
         /**
      * Creates new form Student_Main_Frmae
      */
@@ -34,8 +39,9 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         initComponents();
     };
     
-    public Student_Main_Frame(String nowName) {
-        this.nowName = nowName;
+    public Student_Main_Frame(String nowId, char job) throws UnsupportedEncodingException, IOException {
+        this.nowId = nowId;
+        nowName = u.searchName(job, nowId);
         initComponents();
     }
     
@@ -186,11 +192,15 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
     private void app_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_btnActionPerformed
         // TODO add your handling code here:
-        Application_Frame af = new Application_Frame();//수강신청 페이지로 이동
+        Application_Frame af;
+        try {
+            af = new Application_Frame(nowId);
+            af.setVisible(true);
+            dispose();//수강신청 페이지로 이동
+        } catch (IOException ex) {
+            Logger.getLogger(Student_Main_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        nowName = User.name;
-        af.StudentName.setText(nowName);
-        af.setVisible(true);
-        dispose();
     }//GEN-LAST:event_app_btnActionPerformed
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
@@ -210,8 +220,6 @@ public class Student_Main_Frame extends javax.swing.JFrame{
     private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
         // TODO add your handling code here:
         UpateStudentInfo_Frame view = new UpateStudentInfo_Frame();//회원정보  수정 페이지
-        nowName = nowName;
-        view.StudentName.setText(nowName);
         view.setVisible(true);
         dispose();
     }//GEN-LAST:event_stu_ex_InfoActionPerformed
@@ -223,44 +231,6 @@ public class Student_Main_Frame extends javax.swing.JFrame{
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-
-        
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Student_Main_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                Student_Main_Frame stu = new Student_Main_Frame();
-//                stu.setVisible(true);
-//                stu.StudentName.setText(stu.getName());
-                new Student_Main_Frame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel StudentName;

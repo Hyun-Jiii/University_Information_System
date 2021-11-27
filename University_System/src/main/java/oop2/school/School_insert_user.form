@@ -197,6 +197,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xcde8;&#xc18c;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insert_ExitActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="stu_butt">
       <Properties>

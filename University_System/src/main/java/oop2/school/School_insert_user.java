@@ -99,6 +99,11 @@ public class School_insert_user extends javax.swing.JFrame {
         });
 
         insert_Exit.setText("취소");
+        insert_Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insert_ExitActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(stu_butt);
         stu_butt.setText("학생");
@@ -187,7 +192,7 @@ public class School_insert_user extends javax.swing.JFrame {
             if(stu_butt.isSelected()){ //학생 파일에 입력
                  try{
                     FileOutputStream file = new FileOutputStream("student.txt",true);//파일 열기
-                    OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
+                    OutputStreamWriter output = new OutputStreamWriter(file,"euc-kr");
                     BufferedWriter writer = new BufferedWriter(output);
                     Student stu = new Student(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
                     str = String.format("%s/%s/%s/%s/%s%n",stu.getId(),stu.getName(),stu.getPassWord(),stu.getPeopleNum(),stu.getDepartMent());
@@ -199,11 +204,11 @@ public class School_insert_user extends javax.swing.JFrame {
                 }
             }else if(pro_butt.isSelected()){ //교수 파일에 입력
                 try{
-                    FileOutputStream file = new FileOutputStream("professer.txt",true);//파일 열기
+                    FileOutputStream file = new FileOutputStream("professor.txt",true);//파일 열기
                     OutputStreamWriter output = new OutputStreamWriter(file,"utf-8");
                     BufferedWriter writer = new BufferedWriter(output);
                     Professor pro = new Professor(pNum.getText(), name.getText(), depart_list.getSelectedItem().toString());
-                    str = String.format("%s/%s/%s/%s%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum(), pro.getDepartMent());
+                    str = String.format("%s/%s/%s/%s/%s%n",pro.getId(),pro.getName(),pro.getPassWord(),pro.getPeopleNum(), pro.getDepartMent());
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
                     showMessageDialog(null,pro.getId() +" " + pro.getName() + "교수가 등록 되었습니다.");
@@ -218,44 +223,10 @@ public class School_insert_user extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_insert_OkActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(School_insert_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(School_insert_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(School_insert_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(School_insert_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        /* Create and display the form */
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new School_insert_user().setVisible(true);
-            }
-        });
-        
-    }
+    private void insert_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insert_ExitActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_insert_ExitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

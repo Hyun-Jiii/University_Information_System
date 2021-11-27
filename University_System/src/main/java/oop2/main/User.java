@@ -80,7 +80,7 @@ public class User {
     public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         String filename = null;
         if(a == 'P')
-            filename = "professer.txt";
+            filename = "professor.txt";
         else if(a=='H')
             filename = "school.txt";
         else if(a=='G')

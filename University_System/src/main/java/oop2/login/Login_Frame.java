@@ -196,9 +196,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            Student_Main_Frame stu = new Student_Main_Frame(); //임시로 로그인 시 사용자 정보를 넘김
-                            nowName = key[1];
-                            stu.StudentName.setText(nowName);
+                            Student_Main_Frame stu = new Student_Main_Frame(key[0],a); //임시로 로그인 시 사용자 정보를 넘김
                             stu.setVisible(true);
 
 //                            nowName = key[1];
@@ -227,7 +225,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     if(str.contains(id_Field)){
                         key = str.split("/");
                         if(key[2].equals(pw_Field)){
-                            School_Main_Frame sch = new School_Main_Frame();
+                            School_Main_Frame sch = new School_Main_Frame(key[0], a);
                             sch.setVisible(true);
                             dispose();
                         }

@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -31,23 +33,24 @@ public class User {
     
      public User(){
     }
-   
-    public String[] getUser(){
-        String[] Temp = { name, id, passWord, peopleNum, departMent}; //사용의 모든 정보를 저장해두는 String
-        return Temp;
-    }
-    public void setUser(){
-        this.name = name;
-        this.id = id;
+     public User(String id, String name, String passWord, String peopleNum, String departMent){//학생,교수 객체 받기용
+         this.id = id;
+         this.name = name;
+         this.passWord =passWord;
+         this.peopleNum = peopleNum;
+         this.departMent = departMent;
+     }
+     
+     public User(String id, String name, String passWord, String peopleNum){//수업, 학사관리자 객체 받기용
+         this.id = id;
+         this.name = name;
+         this.passWord =passWord;
+         this.peopleNum = peopleNum;
+     }
+
+    public void setPassWord(String passWord) {
         this.passWord = passWord;
-        this.peopleNum = peopleNum;
-        this.departMent = departMent;
     }
-   
-    
-//    public User(String name){ //임시로 사용자 이름 넘기는 값
-//        this.name = name;
-//    }
     
     public void setName(String name){
         this.name = name;
@@ -73,28 +76,33 @@ public class User {
         return departMent;
     }
     
-    public void exchageInfo(){
-        
-    }
-    
-    public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public static String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         String filename = null;
-        if(a == 'P')
-            filename = "professor.txt";
-        else if(a=='H')
-            filename = "school.txt";
-        else if(a=='G')
-            filename = "lecture.txt";
-        else if(a=='S')
-            filename = "student.txt";
+        String name = null;
+
+        switch (a) {
+            case 'P':
+                filename = "professor.txt";
+                break;
+            case 'H':
+                filename = "school.txt";
+                break;
+            case 'G':
+                filename = "lecture.txt";
+                break;
+            case 'S':
+                filename = "student.txt";
+                break;
+        }
         String str;
         String[] key;
-        String name = null;
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
-        while((str = read.readLine()) != null){
-            if(str.contains(id)){
+        BufferedReader read;
+        read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
+        while ((str = read.readLine()) != null) {
+            if (str.contains(id)) {
                 key = str.split("/");
                 name = key[1];
+
             }
         }
         return name;

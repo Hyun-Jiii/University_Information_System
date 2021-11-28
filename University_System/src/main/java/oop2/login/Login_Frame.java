@@ -33,7 +33,6 @@ public class Login_Frame extends javax.swing.JFrame {
      * Creates new form Login_Frame
      */
     public Login_Frame() {
-        nowUser = user.getUser();
         initComponents();
     }
     

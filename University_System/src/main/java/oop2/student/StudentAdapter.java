@@ -6,7 +6,6 @@
 package oop2.student;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class StudentAdapter {
             table.addRow(list);//행추가
         }
     }
+    
     public void getCLecList(ArrayList<Course> cleclist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
         //수강신청 화면 테이블에 출력할 배열 불러오기
         String str;
@@ -45,21 +45,31 @@ public class StudentAdapter {
             cleclist.add(new Course(key[0],key[1],key[4],key[3]));//강좌 번호, 강좌 이름, 담당교수, 학점
         }
     }
-    
-    public void getStuLecList(ArrayList<Course> sel_sleclist, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+
+    public void getStuLecList(ArrayList<Course> sel_sleclist, String id){
         //학생이 수강신청한 강좌 불러오기(학생 개인의 수강정보)
         String str;
         String[] key;
         sel_sleclist.clear();
         String file = String.format("%s.txt", id);
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
-        while((str=read.readLine()) != null){
-            key = str.split("/");
-            sel_sleclist.add(new Course(key[0],key[1],key[2],key[3],key[4]));
-            //강좌 번호, 강좌 이름, 성적
+        BufferedReader read;
+        try {
+            read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+
+            while ((str = read.readLine()) != null) {
+                key = str.split("/");
+                sel_sleclist.add(new Course(key[0], key[1], key[2], key[3], key[4], key[5]));
+            }
+                //강좌 번호, 강좌 이름, 담당 교수, 강의 학점,학점, 성적
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(StudentAdapter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(StudentAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String getkey(JTable tablelist){
         //테이블의 키값을 반환하는 함수
         String key = null;
@@ -68,7 +78,7 @@ public class StudentAdapter {
         key = (String) model.getValueAt(row, 0);
         return key;
     }
-    
+
     public void slec_addList(JTable tablelist, ArrayList<Course> sleclist) throws UnsupportedEncodingException{ //수강신청한 강의 리스트 출력
         DefaultTableModel table = (DefaultTableModel) tablelist.getModel();
         table.setNumRows(0);
@@ -77,7 +87,7 @@ public class StudentAdapter {
             table.addRow(list);//행추가
         }
     }
-    
+
     public void clec_ex_addList(JTable tablelist, ArrayList<Course> cleclist) throws UnsupportedEncodingException{ //변경된 수강신청할 수 있는 리스트 출력
         DefaultTableModel table = (DefaultTableModel) tablelist.getModel();
         table.setNumRows(0);
@@ -86,12 +96,13 @@ public class StudentAdapter {
             table.addRow(list);//행추가
         }
     }
-    
+
     public void getSleclist(ArrayList<Course> sel_sleclist, ArrayList<Course> sleclist, String id){
         //학생 개인의 수강 정보에 들어있는 수강 정보를 비교하여 수강신청 배열에 넣는다
         try {     
             String str;
             String[] key;
+            sleclist.clear();
             getStuLecList(sel_sleclist, id);
             String file = "lecturelist.txt";
             BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));

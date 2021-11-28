@@ -19,8 +19,8 @@ public class Course {//강좌 객체 강좌 정보를 저장
     private String max; //최대 인원
     private String min; //최저 인원
     private String open; //개설 여부
-    private String sGrade =null;//학생 학점
-    private String score=null; //학생 점수
+    private String sGrade =" ";//학생 학점
+    private String score=" "; //학생 점수
 
     public Course(){}
    
@@ -36,10 +36,11 @@ public class Course {//강좌 객체 강좌 정보를 저장
         this.open = open;
     }
 
-    public Course(String num, String name, String professor,String sGrade, String score){//학생의 성적 확인용
+    public Course(String num, String name, String professor,String grade,String sGrade, String score){//학생의 성적 확인용
         this.courseNum = num;
         this.courseName = name;
         this.professor = professor;
+        this.grade = grade;
         this.sGrade = sGrade;
         this.score = score;
     }

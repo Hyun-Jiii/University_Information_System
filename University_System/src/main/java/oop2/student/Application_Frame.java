@@ -11,26 +11,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 import oop2.lecture.Course;
 import oop2.main.User;
-import oop2.student.Student;
 
 /**
  *
@@ -66,7 +57,11 @@ public class Application_Frame extends javax.swing.JFrame{
         if(f.exists()){
             a.getSleclist(sel_sleclist, sleclist, nowId);
             a.cheackList(sleclist, cleclist);
+            for(int i = 0; i<sleclist.size(); i++){
+                sumCredit += Integer.parseInt(sleclist.get(i).getGrade());
+            }
         }
+        Credit_Total.setText(Integer.toString(sumCredit));
         a.clec_addList(Course_Table, cleclist);
         a.slec_addList(stu_lec, sleclist);
     }
@@ -77,7 +72,7 @@ public class Application_Frame extends javax.swing.JFrame{
         FileOutputStream file = new FileOutputStream(filename);//파일 열기          
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file,"euc-kr"));
         for(int i = 0; i<sel_sleclist.size();i++){
-            str = String.format("%s/%s/%s/%s/%s%n",sel_sleclist.get(i).getCourseNum(),sleclist.get(i).getCourseName(),sleclist.get(i).getProfessor(),sleclist.get(i).getsGrade(),sleclist.get(i).getScore());
+            str = String.format("%s/%s/%s/%s/%s/%s%n",sel_sleclist.get(i).getCourseNum(),sleclist.get(i).getCourseName(),sleclist.get(i).getProfessor(),sleclist.get(i).getGrade(),sleclist.get(i).getsGrade(),sleclist.get(i).getScore());
             writer.write(str);
         }
         writer.close();  
@@ -350,20 +345,28 @@ public class Application_Frame extends javax.swing.JFrame{
     //뒤로가기
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        Student_Main_Frame stu = new Student_Main_Frame();
-        stu.setVisible(true);
-        dispose();
+        Student_Main_Frame stu;
+        try {
+            stu = new Student_Main_Frame(nowId,'S');
+            stu.setVisible(true);
+            dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_gobackActionPerformed
-    //학생 개인 파일에 저장
+    //수강 정보 학생 개인 파일에 저장
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:
         try {
+            sel_sleclist.clear();
             for(int i=0; i<sleclist.size(); i++){ //학생이 수강신청 성공한 배열에 저장
-                sel_sleclist.add(new Course(sleclist.get(i).getCourseNum(), sleclist.get(i).getCourseName(), sleclist.get(i).getProfessor(), sleclist.get(i).getsGrade(),sleclist.get(i).getScore() ));
+                sel_sleclist.add(new Course(sleclist.get(i).getCourseNum(), sleclist.get(i).getCourseName(), sleclist.get(i).getProfessor(),sleclist.get(i).getGrade(), sleclist.get(i).getsGrade(),sleclist.get(i).getScore() ));
             }
             CreateFile();
             showMessageDialog(null, "수강신청에 성공하였습니다!!");
-            //dispose();
+            Student_Main_Frame stu = new Student_Main_Frame(nowId,'S');
+            stu.setVisible(true);
+            dispose();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -412,10 +415,8 @@ public class Application_Frame extends javax.swing.JFrame{
             }
             //선택된 강의 수강신청 가능한 강의 배열에 추가
             cleclist.add(new Course(lec_num.getText(), lec_name.getText(), pro_name.getText(), lec_grade.getText()));
-
             //강의 리스트 테이블 업데이트
             a.clec_ex_addList(Course_Table, cleclist);
-
             //수강신청한 강의 테이블 업데이트
             a.slec_addList(stu_lec, sleclist);
             //수강신청한 강의 배열의 학점 수 만큼 신청학점 추가
@@ -484,8 +485,6 @@ public class Application_Frame extends javax.swing.JFrame{
         } catch (IOException ex) {
             Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        
     }//GEN-LAST:event_insertActionPerformed
 
 

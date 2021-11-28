@@ -8,6 +8,7 @@ package oop2.school;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import oop2.login.Login_Frame;
+import oop2.main.Exchange_Pw;
 import oop2.main.User;
 
 /**
@@ -15,12 +16,13 @@ import oop2.main.User;
  * @author User
  */
 public class School_Main_Frame extends javax.swing.JFrame {
-
+    String nowId;
     /**
      * Creates new form NewJFrame
      */
     public School_Main_Frame(String num, char job) throws UnsupportedEncodingException, IOException {
         initComponents();
+        nowId = num;
         User u = new User();
         user_name.setText(u.searchName(job, num));
         cheack_stu.setSelected(true);
@@ -40,7 +42,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         insert = new javax.swing.JButton();
         exchange = new javax.swing.JButton();
-        pro_ex_info = new javax.swing.JButton();
+        sch_ex_info = new javax.swing.JButton();
         user_name = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         goback = new javax.swing.JButton();
@@ -67,7 +69,12 @@ public class School_Main_Frame extends javax.swing.JFrame {
             }
         });
 
-        pro_ex_info.setText("회원정보변경");
+        sch_ex_info.setText("회원정보변경");
+        sch_ex_info.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sch_ex_infoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("님");
 
@@ -111,7 +118,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(pro_ex_info, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sch_ex_info, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(exchange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -130,7 +137,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(exchange)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pro_ex_info)
+                .addComponent(sch_ex_info)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(user_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,6 +174,14 @@ public class School_Main_Frame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
+    private void sch_ex_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sch_ex_infoActionPerformed
+        // TODO add your handling code here:
+        Exchange_Pw e = new Exchange_Pw(nowId);
+        e.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_sch_ex_infoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -181,7 +196,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JButton pro_ex_info;
+    private javax.swing.JButton sch_ex_info;
     private javax.swing.JTextField user_name;
     // End of variables declaration//GEN-END:variables
 }

@@ -101,7 +101,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="lecture_pay">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc218;&#xac15;&#xb8cc; &#xd655;&#xc778;"/>
+        <Property name="text" type="java.lang.String" value="&#xc218;&#xac15;&#xb8cc; &#xbc1c;&#xae09;"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Events>

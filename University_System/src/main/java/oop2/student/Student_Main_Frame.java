@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import oop2.main.User;
 import oop2.login.Login_Frame;
+import oop2.main.Exchange_Pw;
 
 /**
  *
@@ -32,31 +33,18 @@ public class Student_Main_Frame extends javax.swing.JFrame{
     String nowId;
         /**
      * Creates new form Student_Main_Frmae
+     * @param nowId
+     * @param job
      */
     
     
-    public Student_Main_Frame(){
-        initComponents();
-    };
-    
     public Student_Main_Frame(String nowId, char job) throws UnsupportedEncodingException, IOException {
+        initComponents();
+        System.out.println(nowId);
         this.nowId = nowId;
         nowName = u.searchName(job, nowId);
-        initComponents();
+        StudentName.setText(nowName);
     }
-    
-//    public Student_Main_Frame(String stuName) {
-//        stu_name = stuName;
-//        initComponents();
-//    }
-    
-//    public String getStuName(){
-//        return this.stu_name;
-//    }
-    
-   
- 
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,20 +200,23 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 
     private void app_info_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_info_btnActionPerformed
         // TODO add your handling code here:
-        CourseInformation_Frame info = new CourseInformation_Frame();//수강정보 페이지로 이동
+        CourseInformation_Frame info = new CourseInformation_Frame(nowId);//수강정보 페이지로 이동
         info.setVisible(true);
         dispose();
     }//GEN-LAST:event_app_info_btnActionPerformed
 
     private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
         // TODO add your handling code here:
-        UpateStudentInfo_Frame view = new UpateStudentInfo_Frame();//회원정보  수정 페이지
-        view.setVisible(true);
+        Exchange_Pw e = new Exchange_Pw(nowId);//회원정보  수정 페이지
+        e.setVisible(true);
         dispose();
     }//GEN-LAST:event_stu_ex_InfoActionPerformed
 
     private void creditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditActionPerformed
         // TODO add your handling code here:
+        CourseBill b = new CourseBill(nowId);
+        b.setVisible(true);
+        dispose();
     }//GEN-LAST:event_creditActionPerformed
 
     /**

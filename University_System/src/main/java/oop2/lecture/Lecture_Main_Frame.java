@@ -63,7 +63,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
             }
         });
 
-        lecture_pay.setText("수강료 확인");
+        lecture_pay.setText("수강료 발급");
         lecture_pay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lecture_pay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +161,9 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
 
     private void lecture_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_payActionPerformed
         // TODO add your handling code here:
+        All_Stu_Bill b = new All_Stu_Bill(id);
+        b.setVisible(true);
+        dispose();
     }//GEN-LAST:event_lecture_payActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

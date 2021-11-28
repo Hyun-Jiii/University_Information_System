@@ -6,11 +6,14 @@
 package oop2.student;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import oop2.main.User;
 
 /**
  *
@@ -18,22 +21,45 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class CourseInformation_Frame extends javax.swing.JFrame {
-
+    String nowId;
+    String nowName;
+    User u = new User();
+    String fileName;
     /**
      * Creates new form CourseInformation_Frmae
      */
-    public CourseInformation_Frame() {
+    
+    public CourseInformation_Frame(String nowId) {
         initComponents();
+        this.nowId = nowId;
+        fileName = String.format("%s.txt", nowId);
+        System.out.println(fileName);
+        createTable(fileName);
     }
     
-    public CourseInformation_Frame(String stuname) {
-        initComponents();
-    }
-    
-    public void clearTable(){
+    public void createTable(String file){
+        String str;
+        String[] key;
         DefaultTableModel model = (DefaultTableModel) Course.getModel();
         model.setNumRows(0);
-    }
+        BufferedReader read;
+        try {
+            read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+            while((str=read.readLine()) != null){
+                key = str.split("/");
+                Object[] list = { key[0],key[1],key[2],key[3],key[4]};
+                model.addRow(list);
+            }
+        }catch (FileNotFoundException ex) {
+            Logger.getLogger(CourseInformation_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CourseInformation_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+        
+
+        
+      
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,46 +138,16 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        Student_Main_Frame main = new Student_Main_Frame();
-        main.setVisible(true);
-        dispose();
+        Student_Main_Frame main;
+        try {
+            main = new Student_Main_Frame(nowId, 'S');
+            main.setVisible(true);
+             dispose();  
+        } catch (IOException ex) {
+            Logger.getLogger(CourseInformation_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_backActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CourseInformation_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CourseInformation_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CourseInformation_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CourseInformation_Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CourseInformation_Frame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Course;

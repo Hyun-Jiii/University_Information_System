@@ -56,7 +56,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="pro_ex_info" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="sch_ex_info" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                           <Component id="exchange" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="26" max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
               <EmptySpace pref="9" max="32767" attributes="0"/>
               <Component id="exchange" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pro_ex_info" min="-2" max="-2" attributes="0"/>
+              <Component id="sch_ex_info" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="user_name" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -118,10 +118,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exchangeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="pro_ex_info">
+    <Component class="javax.swing.JButton" name="sch_ex_info">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xd68c;&#xc6d0;&#xc815;&#xbcf4;&#xbcc0;&#xacbd;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sch_ex_infoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="user_name">
     </Component>

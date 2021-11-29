@@ -62,8 +62,8 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         stu_ex_Info = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         goback = new javax.swing.JButton();
-        StudentName = new javax.swing.JLabel();
         credit = new javax.swing.JButton();
+        StudentName = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,15 +112,14 @@ public class Student_Main_Frame extends javax.swing.JFrame{
             }
         });
 
-        StudentName.setText("huuuh");
-        StudentName.setToolTipText("");
-
         credit.setText("수강료 조회");
         credit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 creditActionPerformed(evt);
             }
         });
+
+        StudentName.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,14 +131,14 @@ public class Student_Main_Frame extends javax.swing.JFrame{
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 21, Short.MAX_VALUE)
+                                .addGap(0, 16, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(goback)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(StudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)))
+                                .addComponent(StudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)))
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
@@ -171,7 +170,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(goback)
                     .addComponent(jLabel1)
-                    .addComponent(StudentName))
+                    .addComponent(StudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -224,7 +223,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel StudentName;
+    private javax.swing.JTextField StudentName;
     private javax.swing.JButton app_btn;
     private javax.swing.JButton app_info_btn;
     private javax.swing.JButton credit;

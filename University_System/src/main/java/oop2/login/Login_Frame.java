@@ -86,11 +86,6 @@ public class Login_Frame extends javax.swing.JFrame {
         jLabel3.setText("비밀번호");
 
         ID_Field.setToolTipText("");
-        ID_Field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_FieldActionPerformed(evt);
-            }
-        });
 
         Login_Button.setText("로그인");
         Login_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -141,10 +136,6 @@ public class Login_Frame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ID_FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_FieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_FieldActionPerformed
-
     private void Login_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_ButtonActionPerformed
         // TODO add your handling code here: 
         String id_Field = ID_Field.getText(); //ID 필드에서 값 받아오기
@@ -157,7 +148,7 @@ public class Login_Frame extends javax.swing.JFrame {
             showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
         else if(a =='P'){ //아이디 고유 문자가 p -> 교수
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("professer.txt"), "euc-kr"));//읽을 파일 열기
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));//읽을 파일 열기
             } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
                 Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnsupportedEncodingException ex) {
@@ -169,7 +160,7 @@ public class Login_Frame extends javax.swing.JFrame {
                         key = str.split("/"); // "/"를 이용해 배열에 저장
                         //table에 따라 [0] : id, [1] : name, [2] : pw, [3] : peopleNum, [4] : departMent
                         if(key[2].equals(pw_Field)){ //비밀번호가 같은지 검사
-                            Professor_Main_Frame pro = new Professor_Main_Frame();
+                            Professor_Main_Frame pro = new Professor_Main_Frame(key[0]);
                             //맞으면 해당 메뉴 출력
                             pro.setVisible(true);
                             dispose();//현재창은 닫기

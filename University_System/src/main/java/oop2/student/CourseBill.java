@@ -140,10 +140,12 @@ public class CourseBill extends javax.swing.JFrame {
 
         jLabel3.setText("총 학점");
 
+        all_grade.setEditable(false);
         all_grade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setText("금액");
 
+        bill.setEditable(false);
         bill.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setText("점");

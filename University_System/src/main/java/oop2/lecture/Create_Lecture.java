@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,11 +32,24 @@ public class Create_Lecture extends javax.swing.JFrame {
      * Creates new form Create_Lecture
      */
     public Create_Lecture() throws IOException  {
-        this.lecList = new ArrayList<>();
         initComponents();
+        this.lecList = new ArrayList<>();
         a = new LectureAdapter();
         a.lec_AddList(lecture_list);
         a.lec_AddCList(clecture_list);
+    }
+    
+    public boolean checkPro() throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        String str;
+        String[] key;
+        boolean check = false;
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));
+        while((str = read.readLine())!=null){
+            key = str.split("/");
+            if(key[4].equals(lecture_pro))
+                check = true;
+        }
+        return check;
     }
     
     
@@ -76,11 +90,18 @@ public class Create_Lecture extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(clecture_list);
@@ -115,7 +136,22 @@ public class Create_Lecture extends javax.swing.JFrame {
             new String [] {
                 "강좌 번호", "강좌 이름", "담당학과", "학점", "강의 설명"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(lecture_list);
 
         jLabel5.setText("등록된 강좌");
@@ -216,6 +252,7 @@ public class Create_Lecture extends javax.swing.JFrame {
         row = lecture_list.getSelectedRow(); //테이블 행 선택 함수
         FileOutputStream file;
         try {
+            boolean proCheck = checkPro();
             check = a.checkEqules(model.getValueAt(row, 0).toString(), "lecturelist.txt");
             //이미 개설된 강좌 체크
             if (row == -1) { // 강좌 미선택시
@@ -225,6 +262,8 @@ public class Create_Lecture extends javax.swing.JFrame {
                 showMessageDialog(null, "정보를 입력해 주세요");
             } else if(check){ // 이미 개설된 강좌번호 선택시
                 showMessageDialog(null, "이미 개설된 강좌입니다.");
+            }else if(!proCheck){
+                showMessageDialog(null, "존재하지 않는 교수입니다.");
             }else { //강좌 개설
                 a.getLectureList(lecList);//개설전 강좌 정보를 lecList에 담기
                 file = new FileOutputStream("insertlecturelist.txt");

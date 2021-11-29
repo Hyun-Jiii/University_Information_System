@@ -51,6 +51,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
         String str;
         String[] key;
         File f;
+        User u = new User();
         DefaultTableModel table = (DefaultTableModel) all_stu_bill.getModel();
         try {
             for (int i = 0; i < slist.size(); i++) {
@@ -63,7 +64,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
                         key = str.split("/");
                         sum += Integer.parseInt(key[3]);
                     }
-                    Object[] list = {slist.get(i), User.searchName('S', slist.get(i)), Integer.toString(sum), Integer.toString(sum*10000) };
+                    Object[] list = {slist.get(i), u.searchName('S', slist.get(i)), Integer.toString(sum), Integer.toString(sum*10000) };
                     table.addRow(list);
                 }
             }

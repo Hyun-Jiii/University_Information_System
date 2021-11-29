@@ -274,7 +274,6 @@ public class Exchange_Pw extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
-        
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 

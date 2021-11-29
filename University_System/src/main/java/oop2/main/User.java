@@ -11,8 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -76,10 +74,9 @@ public class User {
         return departMent;
     }
     
-    public static String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         String filename = null;
         String name = null;
-
         switch (a) {
             case 'P':
                 filename = "professor.txt";
@@ -102,7 +99,6 @@ public class User {
             if (str.contains(id)) {
                 key = str.split("/");
                 name = key[1];
-
             }
         }
         return name;

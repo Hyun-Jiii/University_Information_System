@@ -146,6 +146,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="all_grade">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
@@ -156,6 +157,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="bill">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>

@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import static javax.swing.JOptionPane.showMessageDialog;
-import oop2.lecture.Lecture;
 import oop2.professor.Professor;
 import oop2.student.Student;
 
@@ -25,6 +24,7 @@ public class School_insert_user extends javax.swing.JFrame {
      */
     public School_insert_user() {
         initComponents();
+        stu_butt.setSelected(true);
     }
 
     /**

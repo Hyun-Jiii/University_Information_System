@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import oop2.login.Login_Frame;
 import oop2.main.Exchange_Pw;
 import oop2.main.User;
 
@@ -114,6 +115,11 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         });
 
         goback.setText("뒤로가기");
+        goback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gobackActionPerformed(evt);
+            }
+        });
 
         user_name.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
@@ -184,11 +190,18 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel table = (DefaultTableModel)lec_list.getModel();
         int row = lec_list.getSelectedRow();
-        String next;
-        next = (String) table.getValueAt(row, 0);
-        
-        
+        System.out.println((String) table.getValueAt(row, 0));
+        AttendanceBook b = new AttendanceBook(nowId,(String) table.getValueAt(row, 0),(String) table.getValueAt(row, 1));
+        b.setVisible(true);
+        dispose();
     }//GEN-LAST:event_manageCourseActionPerformed
+
+    private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
+        // TODO add your handling code here:
+        Login_Frame l = new Login_Frame();
+        l.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_gobackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exchange_info;

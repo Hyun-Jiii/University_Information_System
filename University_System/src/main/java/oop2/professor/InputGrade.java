@@ -6,16 +6,6 @@
 package oop2.professor;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
-import oop2.professor.Professor;
-import oop2.professor.AttendanceBook;
-import oop2.professor.Lecture_manage;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,38 +24,20 @@ import java.util.logging.Logger;
 // 오류 메시지 (4) 값 불일치(강좌번호와 강좌명 불일치/학번과 이름 불일치)
 // 자바 파일에서 문자열 찾기 -> 저장된 값 찾기
 
-import javax.swing.DefaultComboBoxModel;
-
 public class InputGrade extends javax.swing.JFrame {
 
     String gradeNum;  // 학점 점수
-
+    String gradeChar;//학점
+    String nowId;
+    String nowNum;
     /**
      * Creates new form InputGrade
      */
-    public InputGrade() {
+    public InputGrade(String nowId, String nowNum) {
         initComponents();
-        init();
+        
+        
     }
-
-    public void init() {
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        String fileName = ("Gradeview.txt");
-        File file = new File(fileName);
-        try (Scanner in = new Scanner(file)) {
-            while (in.hasNextLine()) {
-                String line;
-                line = in.nextLine();  // ctrl + alt + f
-                model.addElement(line);
-                grade.setModel(model);
-            }
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("File can not found");  // 파일을 찾을 수 없음 오류 문구 표시
-
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,12 +106,7 @@ public class InputGrade extends javax.swing.JFrame {
         setTitle("성적 입력");
 
         grade.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        grade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "입력", "A", "B", "C", "D", "F" }));
-        grade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeActionPerformed(evt);
-            }
-        });
+        grade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D", "F" }));
 
         OK_Btn.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         OK_Btn.setText("확인");
@@ -166,81 +133,63 @@ public class InputGrade extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel3.setText("이름");
 
+        studentName.setEditable(false);
         studentName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        studentName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentNameActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel5.setText("강좌명");
 
+        causeName.setEditable(false);
         causeName.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
-        causeName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                causeNameActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel6.setText("강좌번호");
 
-        causeNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                causeNumActionPerformed(evt);
-            }
-        });
+        causeNum.setEditable(false);
 
         jLabel7.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel7.setText("학번");
 
-        studentNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentNumActionPerformed(evt);
-            }
-        });
+        studentNum.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Cancel_Btn)
-                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(OK_Btn)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                        .addComponent(grade, 0, 84, Short.MAX_VALUE)
-                                        .addComponent(causeNum)
-                                        .addComponent(causeName, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
-                                    .addComponent(studentNum, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel1)))
-                .addGap(52, 104, Short.MAX_VALUE))
+                        .addGap(108, 108, 108)
+                        .addComponent(Cancel_Btn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(OK_Btn))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(studentName, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                    .addComponent(grade, 0, 84, Short.MAX_VALUE)
+                                    .addComponent(causeNum)
+                                    .addComponent(causeName, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                                .addComponent(studentNum, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(76, 80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(causeNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -260,78 +209,54 @@ public class InputGrade extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(grade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OK_Btn)
                     .addComponent(Cancel_Btn))
-                .addGap(31, 31, 31))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void CreateFile() {  // 성적 입력 파일 생성 및 저장
-        try {
-            BufferedWriter gradeList = new BufferedWriter(new java.io.FileWriter("Gradeview.txt", true));
-
-            gradeList.write("");  // 버퍼에 데이터 입력
-            gradeList.newLine();  // 버퍼에 개행 삽입
-            gradeList.flush();  // 버퍼의 내용을 파일에 강제 전송
-            gradeList.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void Cancel_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BtnActionPerformed
         // TODO add your handling code here:
         // 취소 버튼
-        Professor_Main_Frame pro = new Professor_Main_Frame();
-        pro.setVisible(true);
+    
+       
         dispose();
     }//GEN-LAST:event_Cancel_BtnActionPerformed
 
-    private void gradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeActionPerformed
-        // TODO add your handling code here:
-        // 성적 체크박스
-        grade.addItem("입력");
-        grade.addItem("A");
-        grade.addItem("B");
-        grade.addItem("C");
-        grade.addItem("D");
-        grade.addItem("F");
-    }//GEN-LAST:event_gradeActionPerformed
-
     private void OK_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_BtnActionPerformed
         // 확인 버튼 기능
-
-        boolean check = false;
         String str;
         try {
-
             if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty()
-                    || studentName.getText().isEmpty() || grade.getSelectedItem() == ("입력")) {   // 값이 하나라도 입력되지 않았을 경우
+                    || studentName.getText().isEmpty() || grade.getSelectedItem() == ("A")) {   // 값이 하나라도 입력되지 않았을 경우
                 JOptionPane.showMessageDialog(null, "정보를 모두 입력해 주세요.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
-            } else if (check) {
-                JOptionPane.showMessageDialog(null, "이미 성적 부여가 완료된 값입니다.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
             } else {
                 FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
                 OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
                 BufferedWriter writer = new BufferedWriter(output);
                
                 // 학점별 학점수 초기화
-                    if(grade.getSelectedItem()=="A") 
-                        gradeNum = "4.0";                            // A 학점
-                    else if(grade.getSelectedItem()=="B") 
-                        gradeNum = "3.0";                            // B 학점
-                    else if(grade.getSelectedItem()=="C") 
-                        gradeNum = "2.0";                            // C 학점
-                    else if(grade.getSelectedItem()=="D") 
-                        gradeNum = "1.0";                            // D 학점
-                    else if(grade.getSelectedItem()=="F") 
-                        gradeNum = "0.0";                            // F 학점
-                 
+                    if(grade.getSelectedItem()=="A") {
+                        gradeNum = "4.0";
+                        gradeChar = "A";// A 학점
+                    }else if(grade.getSelectedItem()=="B") {
+                        gradeNum = "3.0";
+                        gradeChar = "B";// B 학점
+                    }else if(grade.getSelectedItem()=="C") {
+                        gradeNum = "2.0";
+                        gradeChar = "C";// C 학점
+                    }else if(grade.getSelectedItem()=="D") {
+                        gradeNum = "1.0";
+                        gradeChar = "D";// D 학점
+                    }else if(grade.getSelectedItem()=="F") {
+                        gradeNum = "0.0";
+                        gradeChar = "F";// F 학점
+                    }
                 str = String.format("%s/%s/%s/%s/%s/%s%n", causeNum.getText(), causeName.getText(), studentNum.getText(), studentName.getText(), grade.getSelectedItem(), gradeNum);
                 //강좌 번호, 강좌명, 학번, 이름, 학점
                 writer.write(str);
@@ -370,27 +295,6 @@ public class InputGrade extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_OK_BtnActionPerformed
-
-    private void causeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_causeNameActionPerformed
-        // 강좌명 입력
-        this.causeName = causeNum;
-    }//GEN-LAST:event_causeNameActionPerformed
-
-    private void causeNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_causeNumActionPerformed
-
-        // 강좌번호 입력
-        this.causeNum = causeNum;
-    }//GEN-LAST:event_causeNumActionPerformed
-
-    private void studentNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentNumActionPerformed
-        // 학번 입력
-        this.studentNum = studentNum;
-    }//GEN-LAST:event_studentNumActionPerformed
-
-    private void studentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentNameActionPerformed
-        // 학생 이름 입력
-        this.studentName = studentName;
-    }//GEN-LAST:event_studentNameActionPerformed
 
     /**
      * @param args the command line arguments

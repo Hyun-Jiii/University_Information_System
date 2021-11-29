@@ -13,6 +13,8 @@ import oop2.main.User;
  * @author User
  */
 public class Student extends User { //User클래스를 상속 받은 학생 클래스
+    String sGrade;
+    String score;
     public Student (String peoplenum, String name, String department){//객체 생성을 위한 생성자
         this.name = name;
         this.peopleNum = peoplenum;
@@ -21,8 +23,14 @@ public class Student extends User { //User클래스를 상속 받은 학생 클�
         this.id = "S"+ Integer.toString(random);
         this.passWord = peoplenum.substring(6);
     }
-    
-    public Student (String num, String name, String peoplenum, String department){//객체 생성을 위한 생성자
+    public Student (String id, String name, String department, String sGrade, String score){//출석부 용
+        this.id = id;
+        this.name = name;
+        this.departMent = department;
+        this.sGrade = sGrade;
+        this.score = score;
+    }
+    public Student (String num, String name, String peoplenum, String department){
         this.name = name;
         this.peopleNum = peoplenum;
         this.departMent = department;

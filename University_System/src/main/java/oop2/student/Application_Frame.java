@@ -77,6 +77,27 @@ public class Application_Frame extends javax.swing.JFrame{
         }
         writer.close();  
     }
+    
+    public void insertLecture(){
+        String file = null;
+        BufferedWriter writer;
+        String str;
+        try {
+            for(int i = 0; i < sel_sleclist.size(); i++) {
+                file = String.format("%s.txt", sel_sleclist.get(i).getCourseNum());
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "euc-kr"));
+                str = String.format("%s/%s/%s/%s/%s%n", nowId, nowName, sel_sleclist.get(i).getDepartment(),sel_sleclist.get(i).getsGrade(),sel_sleclist.get(i).getScore());
+                writer.write(str);
+                writer.close();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Application_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -377,6 +398,7 @@ public class Application_Frame extends javax.swing.JFrame{
                 sel_sleclist.add(new Course(sleclist.get(i).getCourseNum(), sleclist.get(i).getCourseName(), sleclist.get(i).getProfessor(),sleclist.get(i).getGrade(), sleclist.get(i).getsGrade(),sleclist.get(i).getScore() ));
             }
             CreateFile();
+            insertLecture();
             showMessageDialog(null, "수강신청에 성공하였습니다!!");
             Student_Main_Frame stu = new Student_Main_Frame(nowId,'S');
             stu.setVisible(true);

@@ -134,6 +134,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xb4a4;&#xb85c;&#xac00;&#xae30;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gobackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="user_name">
       <Properties>

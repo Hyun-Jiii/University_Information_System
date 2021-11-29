@@ -6,25 +6,48 @@
 package oop2.professor;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import oop2.professor.Lecture_manage;
 
 public class AttendanceBook extends javax.swing.JFrame{
     DefaultTableModel model;
+    String nowId;
+    String nowNum;
     
-    public AttendanceBook() {
+    public AttendanceBook(String nowId, String lecNum, String lecName) {
         initComponents();
+        this.nowId = nowId;
+        this.nowNum = lecNum;
+        lec_name.setText(lecName);
+        System.out.println(nowNum);
+        addTable();
     }
-    public void clearTable(){
-        DefaultTableModel model = (DefaultTableModel) Attendance_table.getModel();
+    public void addTable(){
+        model = (DefaultTableModel) Attendance_table.getModel();
         model.setNumRows(0);
+        String str;
+        String[] key;
+        try {
+            String file = String.format("%s.txt", nowNum);
+            BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+            while((str = read.readLine())!= null){
+                key = str.split("/");
+                String[] list = {key[0], key[1] ,key[2],key[3],key[4]};
+                model.addRow(list);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -40,12 +63,12 @@ public class AttendanceBook extends javax.swing.JFrame{
         jDialog1 = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         Course = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lec_name = new javax.swing.JLabel();
         canvas1 = new java.awt.Canvas();
-        import_data = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Attendance_table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -105,24 +128,32 @@ public class AttendanceBook extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
-        jLabel1.setText("출석부");
-
-        import_data.setText("새로고침");
-        import_data.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                import_dataActionPerformed(evt);
-            }
-        });
+        lec_name.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        lec_name.setText("출석부");
 
         Attendance_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "번호", "강좌 이름", "이름", "학번", "학점"
+                "학번", "이름", "학과", "학점", "점수"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(Attendance_table);
 
         jButton1.setText("뒤로가기");
@@ -131,6 +162,8 @@ public class AttendanceBook extends javax.swing.JFrame{
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jButton2.setText("jButton2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,32 +175,32 @@ public class AttendanceBook extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(import_data, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(jLabel1)
+                .addGap(177, 177, 177)
+                .addComponent(lec_name)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(284, 284, 284)
                         .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(import_data)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lec_name)
                         .addGap(8, 8, 8)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -175,33 +208,16 @@ public class AttendanceBook extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void import_dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_import_dataActionPerformed
-        // TODO add your handling code here:
-        // 출석부 테이블에 출력
-        clearTable();
-        String filePath = "AttendanceBook.txt";//출석부파일
-        File file = new File(filePath); 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String firstLines = br.readLine().trim();
-            String [] columnsName = firstLines.split(",");
-            model.setColumnIdentifiers(columnsName);
-            
-            Object[] tableLines = br.lines().toArray();
-            
-            for(int i = 0;i<tableLines.length;i++){
-                String line = tableLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                model.addRow(dataRow);
-          }
-        } catch (Exception ex) {
-            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_import_dataActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+         Professor_Main_Frame pro;
+        try {
+            pro = new Professor_Main_Frame(nowId);
+            pro.setVisible(true);
         dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -214,16 +230,16 @@ public class AttendanceBook extends javax.swing.JFrame{
     private javax.swing.JTable Course;
     private java.awt.Canvas canvas1;
     private java.awt.Choice choice1;
-    private javax.swing.JButton import_data;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JFrame jFrame3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lec_name;
     private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

@@ -190,7 +190,6 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel table = (DefaultTableModel)lec_list.getModel();
         int row = lec_list.getSelectedRow();
-        System.out.println((String) table.getValueAt(row, 0));
         AttendanceBook b = new AttendanceBook(nowId,(String) table.getValueAt(row, 0),(String) table.getValueAt(row, 1));
         b.setVisible(true);
         dispose();

@@ -25,7 +25,6 @@ public class AttendanceBook extends javax.swing.JFrame{
         this.nowId = nowId;
         this.nowNum = lecNum;
         lec_name.setText(lecName);
-        System.out.println(nowNum);
         addTable();
     }
     public void addTable(){
@@ -68,7 +67,7 @@ public class AttendanceBook extends javax.swing.JFrame{
         jScrollPane2 = new javax.swing.JScrollPane();
         Attendance_table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        insertGrade = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -163,7 +162,12 @@ public class AttendanceBook extends javax.swing.JFrame{
             }
         });
 
-        jButton2.setText("jButton2");
+        insertGrade.setText("성적입력");
+        insertGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertGradeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +183,7 @@ public class AttendanceBook extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(insertGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(177, 177, 177)
@@ -194,7 +198,7 @@ public class AttendanceBook extends javax.swing.JFrame{
                         .addGap(284, 284, 284)
                         .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(insertGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -220,6 +224,20 @@ public class AttendanceBook extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void insertGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertGradeActionPerformed
+        // TODO add your handling code here:
+        model = (DefaultTableModel) Attendance_table.getModel();
+        int row = Attendance_table.getSelectedRow();
+        InputGrade g;
+        try {
+            g = new InputGrade(lec_name.getText(),nowNum, nowId, (String) model.getValueAt(row, 0));
+            g.setVisible(true);
+        dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(AttendanceBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_insertGradeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -230,8 +248,8 @@ public class AttendanceBook extends javax.swing.JFrame{
     private javax.swing.JTable Course;
     private java.awt.Canvas canvas1;
     private java.awt.Choice choice1;
+    private javax.swing.JButton insertGrade;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;

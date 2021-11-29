@@ -7,8 +7,12 @@ package oop2.professor;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import oop2.lecture.Course;
+import oop2.main.User;
+import oop2.student.Student;
 
 /**
  * InputGrade.java -학생 성적 입력하는 클래스
@@ -25,18 +29,106 @@ import java.util.logging.Logger;
 // 자바 파일에서 문자열 찾기 -> 저장된 값 찾기
 
 public class InputGrade extends javax.swing.JFrame {
-
-    String gradeNum;  // 학점 점수
-    String gradeChar;//학점
+    User u = new User();
     String nowId;
     String nowNum;
+    String lecName;
+    String nowName;
+    String stuId;
+    ArrayList<Student> bookList = new ArrayList<>();//출석부
+    ArrayList<Course> stuList = new ArrayList<>();//학생 성적 확인
     /**
      * Creates new form InputGrade
      */
-    public InputGrade(String nowId, String nowNum) {
+    public InputGrade(String lecName, String nowNum, String nowId, String stuId) throws UnsupportedEncodingException, IOException {
         initComponents();
-        
-        
+        this.lecName = lecName; //강좌 이름
+        this.nowNum = nowNum; //강좌 번호
+        this.nowId = nowId; // 교수iD
+        this.nowName = u.searchName('S', stuId); //학생 이름
+        this.stuId = stuId; //학번
+        getList();
+        causeNum.setText(nowNum);
+        causeName.setText(lecName);
+        studentNum.setText(stuId);
+        studentName.setText(nowName);
+    }
+    
+    public int getStu(){
+        int index = 0;
+        for(int i = 0 ; i<stuList.size();i++){
+            if(stuList.get(i).getCourseNum().equals(nowNum))
+                index = i;
+        }
+        return index;
+    }
+    
+    public int getBook(){
+        int index = 0;
+        for(int i = 0 ; i<bookList.size();i++){
+            if(bookList.get(i).getId().equals(stuId))
+                index = i;
+        }
+        return index;
+    }
+    
+    public void getList(){
+        bookList.clear(); //학번, 이름, 학과, 학점, 성적
+        stuList.clear(); //강좌번호, 강좌 제목, 교수 ,학점,성적
+        String bfile = String.format("%s.txt", nowNum);
+        String sfile = String.format("%s.txt", stuId);
+        String str;
+        String[] key;
+        try {
+            BufferedReader bread = new BufferedReader(new InputStreamReader(new FileInputStream(bfile), "euc-kr"));
+            while((str = bread.readLine())!=null){
+                key = str.split("/");
+                bookList.add(new Student(key[0],key[1],key[2],key[3],key[4]));
+            }
+             BufferedReader sread = new BufferedReader(new InputStreamReader(new FileInputStream(sfile), "euc-kr"));
+            while((str = sread.readLine())!=null){
+                key = str.split("/");
+                stuList.add(new Course(key[0],key[1],key[2],key[3],key[4],key[5]));
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertList(){
+        String bfile = String.format("%s.txt", nowNum);
+        String sfile = String.format("%s.txt", stuId);
+        FileOutputStream file;
+        try {
+            file = new FileOutputStream(bfile);//파일 열기
+            OutputStreamWriter output1 = new OutputStreamWriter(file, "euc-kr");
+            BufferedWriter writer1 = new BufferedWriter(output1);
+            for(int i =0; i<bookList.size();i++){
+                String str = String.format("%s/%s/%s/%s/%s%n", bookList.get(i).getId(),bookList.get(i).getName(),bookList.get(i).getDepartMent(),bookList.get(i).getsGrade(),bookList.get(i).getScore());
+                writer1.write(str);
+            }
+            writer1.close();
+            file = new FileOutputStream(sfile);//파일 열기
+            OutputStreamWriter output2 = new OutputStreamWriter(file, "euc-kr");
+            BufferedWriter writer2 = new BufferedWriter(output2);
+            for(int i =0; i<stuList.size();i++){
+                String str = String.format("%s/%s/%s/%s/%s%n", stuList.get(i).getCourseNum(),stuList.get(i).getCourseName(),stuList.get(i).getProfessor(), stuList.get(i).getGrade(),stuList.get(i).getsGrade(),stuList.get(i).getScore());
+                writer2.write(str);
+            }
+            writer2.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -223,117 +315,60 @@ public class InputGrade extends javax.swing.JFrame {
     private void Cancel_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BtnActionPerformed
         // TODO add your handling code here:
         // 취소 버튼
-    
-       
+        AttendanceBook b = new AttendanceBook(nowId, nowNum, lecName);
+        b.setVisible(true);
         dispose();
     }//GEN-LAST:event_Cancel_BtnActionPerformed
 
     private void OK_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_BtnActionPerformed
         // 확인 버튼 기능
         String str;
-        try {
-            if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty()
-                    || studentName.getText().isEmpty() || grade.getSelectedItem() == ("A")) {   // 값이 하나라도 입력되지 않았을 경우
-                JOptionPane.showMessageDialog(null, "정보를 모두 입력해 주세요.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
-            } else {
-                FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
-                BufferedWriter writer = new BufferedWriter(output);
-               
-                // 학점별 학점수 초기화
-                    if(grade.getSelectedItem()=="A") {
-                        gradeNum = "4.0";
-                        gradeChar = "A";// A 학점
-                    }else if(grade.getSelectedItem()=="B") {
-                        gradeNum = "3.0";
-                        gradeChar = "B";// B 학점
-                    }else if(grade.getSelectedItem()=="C") {
-                        gradeNum = "2.0";
-                        gradeChar = "C";// C 학점
-                    }else if(grade.getSelectedItem()=="D") {
-                        gradeNum = "1.0";
-                        gradeChar = "D";// D 학점
-                    }else if(grade.getSelectedItem()=="F") {
-                        gradeNum = "0.0";
-                        gradeChar = "F";// F 학점
-                    }
-                str = String.format("%s/%s/%s/%s/%s/%s%n", causeNum.getText(), causeName.getText(), studentNum.getText(), studentName.getText(), grade.getSelectedItem(), gradeNum);
-                //강좌 번호, 강좌명, 학번, 이름, 학점
-                writer.write(str);
-                writer.close();
-                JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공
-                InputGrade pro = new InputGrade();  // 성적 입력 완료 후 기존 성적 입력 창으로 이동
-                pro.setVisible(true);
-                dispose();
+        int bindex = getBook();
+        int sindex = getStu();
+        if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty()
+                || studentName.getText().isEmpty()) {
+            // 값이 하나라도 입력되지 않았을 경우
+            JOptionPane.showMessageDialog(null, "정보를 모두 입력해 주세요.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
+        } else {
+            /*FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
+            OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
+            BufferedWriter writer = new BufferedWriter(output);*/
+            
+            // 학점별 학점수 초기화
+            if(grade.getSelectedItem()=="A") {//A학점
+                bookList.get(bindex).setScore("4.0");
+                bookList.get(bindex).setsGrade("A");
+                stuList.get(sindex).setScore("4.0");
+                stuList.get(sindex).setsGrade("A");
+            }else if(grade.getSelectedItem()=="B") {//B학점
+                bookList.get(bindex).setScore("3.0");
+                bookList.get(bindex).setsGrade("B");
+                stuList.get(sindex).setScore("3.0");
+                stuList.get(sindex).setsGrade("B");
+            }else if(grade.getSelectedItem()=="C") {//C학점
+                bookList.get(bindex).setScore("2.0");
+                bookList.get(bindex).setsGrade("C");
+                stuList.get(sindex).setScore("2.0");
+                stuList.get(sindex).setsGrade("C");
+            } else if (grade.getSelectedItem() == "D") {//D학점
+                bookList.get(bindex).setScore("1.0");
+                bookList.get(bindex).setsGrade("D");
+                stuList.get(sindex).setScore("1.0");
+                stuList.get(sindex).setsGrade("D");
+            } else if (grade.getSelectedItem() == "F") {//F학점
+                bookList.get(bindex).setScore("0.0");
+                bookList.get(bindex).setsGrade("F");
+                stuList.get(sindex).setScore("0.0");
+                stuList.get(sindex).setsGrade("F");
             }
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "성적 입력을 실패하셨습니다.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE); // 성적 입력 실패
-        } catch (IOException ex) {
-            Logger.getLogger(InputGrade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        String filePath = "GradeView.txt";
-        File file = new File(filePath);
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-
-            String firstLines = br.readLine().trim();
-            String[] columnsName = firstLines.split("/");
-
-            Object[] tableLines = br.lines().toArray();
-
-            for (int i = 0; i < tableLines.length; i++) {
-                String line = tableLines[i].toString().trim();
-                String[] dataRow = line.split("/");   // 문자열 구분
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+            insertList();
+            JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공*/
+            AttendanceBook b = new AttendanceBook(nowId, nowNum, lecName);
+            b.setVisible(true);
+            dispose();
+        } // 성적 입력 실패
+        
     }//GEN-LAST:event_OK_BtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InputGrade.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InputGrade().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_Btn;

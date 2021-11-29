@@ -45,6 +45,7 @@ public class Course {//강좌 객체 강좌 정보를 저장
         this.score = score;
     }
 
+
     public String getsGrade() {
         return sGrade;
     }

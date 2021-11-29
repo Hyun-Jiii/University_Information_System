@@ -30,6 +30,22 @@ public class Student extends User { //User클래스를 상속 받은 학생 클�
         this.sGrade = sGrade;
         this.score = score;
     }
+
+    public String getsGrade() {
+        return sGrade;
+    }
+
+    public void setsGrade(String sGrade) {
+        this.sGrade = sGrade;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
     public Student (String num, String name, String peoplenum, String department){
         this.name = name;
         this.peopleNum = peoplenum;

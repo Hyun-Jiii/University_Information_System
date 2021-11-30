@@ -156,6 +156,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
         siu.setVisible(true);
     }//GEN-LAST:event_insertActionPerformed
 
+    //정보 변경
     private void exchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exchangeActionPerformed
         // TODO add your handling code here:
         if(cheack_stu.isSelected()){
@@ -175,6 +176,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
+    //사용자 정보 변경
     private void sch_ex_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sch_ex_infoActionPerformed
         // TODO add your handling code here:
         Exchange_Pw e = new Exchange_Pw(nowId);

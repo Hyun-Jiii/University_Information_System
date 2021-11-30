@@ -52,12 +52,13 @@ public class LectureAdapter {
     public String getKey(JTable lecture_list){ //테이블에 선택된 키값 전달 
         String key = null;
         DefaultTableModel model = (DefaultTableModel)lecture_list.getModel();
-        int row = lecture_list.getSelectedRow();
-        key = (String) model.getValueAt(row, 0);
+        int row = lecture_list.getSelectedRow(); //선택된 행값 저장
+        key = (String) model.getValueAt(row, 0); //원하는 행, 열에 있는 값 저장
         return key;
     }
     
     public void getLectureList(ArrayList<Course> lecList) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //개설 전 강좌 리스트의 저장
         String str;
         String[] key;
         lecList.clear();
@@ -69,6 +70,7 @@ public class LectureAdapter {
     }
     
     public boolean checkEqules(String num, String file ) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //파일에 똑같은 이름이 있는지 체크
         String lec;
         boolean check = false;
         BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));

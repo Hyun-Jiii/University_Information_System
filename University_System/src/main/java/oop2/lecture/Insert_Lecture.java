@@ -22,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  * @author 김부성
  */
 public class Insert_Lecture extends javax.swing.JFrame {
-    LectureAdapter a;
+    LectureAdapter a; //Adapter 사용을 위한 선언
     /** Creates new form Insert_Lecture */
     public Insert_Lecture() throws IOException {
         initComponents();
         a = new LectureAdapter();
-        a.lec_AddList(lecture_list);
+        a.lec_AddList(lecture_list); // 테이블에 등록된 강의 출력
     }
 
 
@@ -194,30 +194,32 @@ public class Insert_Lecture extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //강의 등록 버튼
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
-        boolean check;
+        boolean check; //이미 생성한 강좌 비교를 위한 체크 변수
         String str;   
         DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
         try {
-            check = a.checkEqules(lecture_num.getText(), "insertlecturelist.txt");
+            check = a.checkEqules(lecture_num.getText(), "insertlecturelist.txt"); //이미 생성된 강좌 체크를 위한 Adapter에서 함수 사용
             if (lecture_num.getText().isEmpty() || lecture_info.getText().isEmpty() || getlec_name.getText().isEmpty()||getCredit.getText().isEmpty()) {
+                //정보가 비어있을 때
                 showMessageDialog(null, "정보를 입력해 주세요");
-            } else if (check) {
+            } else if (check) { //이미 강좌번호가 생성되어있을 때
                 showMessageDialog(null, "이미 생성한 강좌 번호 입니다.");
-            } else {
-                FileOutputStream file = new FileOutputStream("insertlecturelist.txt", true);//파일 열기
+            } else { //강좌 등록
+                FileOutputStream file = new FileOutputStream("insertlecturelist.txt", true);//등록된 강좌 파일 열기
                 OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
                 BufferedWriter writer = new BufferedWriter(output);
                 str = String.format("%s/%s/%s/%s/%s/%s%n", lecture_num.getText(),getlec_name.getText(),depart_list.getSelectedItem(),getCredit.getText() , lecture_info.getText(),false);
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 강의 설명
-                writer.write(str);
-                writer.close();
+                writer.write(str); // 입력
+                writer.close(); //파일 닫기
                 showMessageDialog(null, "강좌가 등록되었습니다.");
             }
-            model.setNumRows(0);
-            a.lec_AddList(lecture_list);
+            model.setNumRows(0);//테이블 초기화
+            a.lec_AddList(lecture_list); //업데이트 된 리스트 출력
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -225,6 +227,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_insertActionPerformed
 
+    //창닫기
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         dispose();

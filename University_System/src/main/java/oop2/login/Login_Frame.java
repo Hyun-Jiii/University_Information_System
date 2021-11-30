@@ -144,111 +144,79 @@ public class Login_Frame extends javax.swing.JFrame {
         BufferedReader reader = null;
         String str;
         String[] key;
-        if(id_Field.length() == 0 || pw_Field.length() == 0)
-            showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-        else if(a =='P'){ //아이디 고유 문자가 p -> 교수
-            try {
+        try {
+            if (id_Field.length() == 0 || pw_Field.length() == 0) {//입력받지 않았을 때
+                showMessageDialog(null, "아이디 또는 비밀번호를 입력하여주세요.");
+            } else if (a == 'P') { //아이디 고유 문자가 p -> 교수
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));//읽을 파일 열기
-            } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                while((str = reader.readLine()) != null){ //마지막 문장이 아닐동안 반복 
-                    if(str.contains(id_Field)){ //입력받은 아이디가 문장안에 있을시
+                while ((str = reader.readLine()) != null) { //마지막 문장이 아닐동안 반복 
+                    if (str.contains(id_Field)) { //입력받은 아이디가 문장안에 있을시
                         key = str.split("/"); // "/"를 이용해 배열에 저장
                         //table에 따라 [0] : id, [1] : name, [2] : pw, [3] : peopleNum, [4] : departMent
-                        if(key[2].equals(pw_Field)){ //비밀번호가 같은지 검사
+                        if (key[2].equals(pw_Field)) { //비밀번호가 같은지 검사
                             Professor_Main_Frame pro = new Professor_Main_Frame(key[0]);
                             //맞으면 해당 메뉴 출력
                             pro.setVisible(true);
                             dispose();//현재창은 닫기
-                        }
-                        else { //비밀번호가 다를 경우
-                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } 
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        }else if(a == 'S'){//아이디 고유 문자가 s -> 학생
-            try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "UTF-8"));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                while((str = reader.readLine()) != null){
-                    if(str.contains(id_Field)){
-                        key = str.split("/");
-                        if(key[2].equals(pw_Field)){
-                            Student_Main_Frame stu = new Student_Main_Frame(key[0],a); //임시로 로그인 시 사용자 정보를 넘김
-                            stu.setVisible(true);
-
-//                            nowName = key[1];
-//                            new Student_Main_Frame(nowName).setVisible(true);
-                            
-                            dispose();
-                        }
-                         else if(!key[2].equals(pw_Field)){ //비밀번호가 다를 경우
-                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        } else { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        }else if(a == 'H'){//아이디 고유 문자가 h -> 학사
-            try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "UTF-8"));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                while((str = reader.readLine()) != null){
-                    if(str.contains(id_Field)){
+            } else if (a == 'S') {//아이디 고유 문자가 s -> 학생
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "UTF-8"));
+                while ((str = reader.readLine()) != null) {
+                    if (str.contains(id_Field)) {
                         key = str.split("/");
-                        if(key[2].equals(pw_Field)){
+                        if (key[2].equals(pw_Field)) {
+                            Student_Main_Frame stu = new Student_Main_Frame(key[0], a); //임시로 로그인 시 사용자 정보를 넘김
+                            stu.setVisible(true);
+                                //nowName = key[1];
+                                //new Student_Main_Frame(nowName).setVisible(true);
+                            dispose();
+                        } else if (!key[2].equals(pw_Field)) { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            } else if (a == 'H') {//아이디 고유 문자가 h -> 학사
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "UTF-8"));
+                while ((str = reader.readLine()) != null) {
+                    if (str.contains(id_Field)) {
+                        key = str.split("/");
+                        if (key[2].equals(pw_Field)) {
                             School_Main_Frame sch = new School_Main_Frame(key[0], a);
                             sch.setVisible(true);
                             dispose();
-                        }
-                        else { //비밀번호가 다를 경우
-                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        } else { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            } 
-        }else if(a == 'G'){//아이디 고유 문자가 g -> 수업
-            try {
+            } else if (a == 'G') {//아이디 고유 문자가 g -> 수업
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "euc-kr"));
-                while((str = reader.readLine()) != null){
-                    if(str.contains(id_Field)){
+                while ((str = reader.readLine()) != null) {
+                    if (str.contains(id_Field)) {
                         key = str.split("/");
-                        if(key[2].equals(pw_Field)){
+                        if (key[2].equals(pw_Field)) {
                             Lecture_Main_Frame lec = new Lecture_Main_Frame(key[0], a);
                             lec.setVisible(true);
                             dispose();
-                        }
-                        else{ //비밀번호가 다를 경우
-                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..","ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        } else { //비밀번호가 다를 경우
+                            JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호가 잘못 입력 되었습니다.\n" + "아이디와 비밀번호를 정확히 입력해 주세요..", "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                showMessageDialog(null, "아이디 또는 비밀번호를 잘못 입력하셨습니다.");
             }
-        }else
-            showMessageDialog(null,"아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-            
+        } catch (FileNotFoundException ex) { //파일이 발견되지 않았을 때 예외처리
+            Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Login_Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Login_ButtonActionPerformed
     
     /**

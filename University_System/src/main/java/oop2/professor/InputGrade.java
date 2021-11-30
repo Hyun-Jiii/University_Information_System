@@ -72,7 +72,7 @@ public class InputGrade extends javax.swing.JFrame {
         return index;
     }
     
-    public void getList(){
+    public void getList(){ //성적 입력을 위한 리스트 받아오기
         bookList.clear(); //학번, 이름, 학과, 학점, 성적
         stuList.clear(); //강좌번호, 강좌 제목, 교수 ,학점,성적
         String bfile = String.format("%s.txt", nowNum);
@@ -104,7 +104,7 @@ public class InputGrade extends javax.swing.JFrame {
         String sfile = String.format("%s.txt", stuId);
         FileOutputStream file;
         try {
-            file = new FileOutputStream(bfile);//파일 열기
+            file = new FileOutputStream(bfile);//강좌 파일 열기
             OutputStreamWriter output1 = new OutputStreamWriter(file, "euc-kr");
             BufferedWriter writer1 = new BufferedWriter(output1);
             for(int i =0; i<bookList.size();i++){
@@ -112,11 +112,11 @@ public class InputGrade extends javax.swing.JFrame {
                 writer1.write(str);
             }
             writer1.close();
-            file = new FileOutputStream(sfile);//파일 열기
+            file = new FileOutputStream(sfile);//학생 파일 열기
             OutputStreamWriter output2 = new OutputStreamWriter(file, "euc-kr");
             BufferedWriter writer2 = new BufferedWriter(output2);
             for(int i =0; i<stuList.size();i++){
-                String str = String.format("%s/%s/%s/%s/%s%n", stuList.get(i).getCourseNum(),stuList.get(i).getCourseName(),stuList.get(i).getProfessor(), stuList.get(i).getGrade(),stuList.get(i).getsGrade(),stuList.get(i).getScore());
+                String str = String.format("%s/%s/%s/%s/%s%s%n", stuList.get(i).getCourseNum(),stuList.get(i).getCourseName(),stuList.get(i).getProfessor(), stuList.get(i).getGrade(),stuList.get(i).getsGrade(),stuList.get(i).getScore());
                 writer2.write(str);
             }
             writer2.close();
@@ -311,10 +311,9 @@ public class InputGrade extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+        //취소
     private void Cancel_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BtnActionPerformed
         // TODO add your handling code here:
-        // 취소 버튼
         AttendanceBook b = new AttendanceBook(nowId, nowNum, lecName);
         b.setVisible(true);
         dispose();
@@ -322,7 +321,6 @@ public class InputGrade extends javax.swing.JFrame {
 
     private void OK_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OK_BtnActionPerformed
         // 확인 버튼 기능
-        String str;
         int bindex = getBook();
         int sindex = getStu();
         if (causeNum.getText().isEmpty() || causeName.getText().isEmpty() || studentNum.getText().isEmpty()
@@ -330,10 +328,6 @@ public class InputGrade extends javax.swing.JFrame {
             // 값이 하나라도 입력되지 않았을 경우
             JOptionPane.showMessageDialog(null, "정보를 모두 입력해 주세요.", "성적 입력 실패", JOptionPane.WARNING_MESSAGE);
         } else {
-            /*FileOutputStream file = new FileOutputStream("Gradeview.txt", true);   // 임시 성적 입력 파일 열기
-            OutputStreamWriter output = new OutputStreamWriter(file, "UTF-8");
-            BufferedWriter writer = new BufferedWriter(output);*/
-            
             // 학점별 학점수 초기화
             if(grade.getSelectedItem()=="A") {//A학점
                 bookList.get(bindex).setScore("4.0");
@@ -361,8 +355,8 @@ public class InputGrade extends javax.swing.JFrame {
                 stuList.get(sindex).setScore("0.0");
                 stuList.get(sindex).setsGrade("F");
             }
-            insertList();
-            JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공*/
+            insertList();//파일에 저장
+            JOptionPane.showMessageDialog(null, "성적 입력이 완료되었습니다.", "성적 입력 성공", JOptionPane.PLAIN_MESSAGE);  // 성적 입력 성공
             AttendanceBook b = new AttendanceBook(nowId, nowNum, lecName);
             b.setVisible(true);
             dispose();

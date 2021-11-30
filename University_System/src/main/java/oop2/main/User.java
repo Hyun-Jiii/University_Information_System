@@ -26,11 +26,8 @@ public class User {
     protected String passWord; //개인 비밀번호
     protected String peopleNum; //주민번호
     protected String departMent; //학과
-    public final static int ID = 0;  // 각 테이블의 아이디 순서
-    public final static int PW = 2;  // 각 테이블의 비밀번호 순서
     
-     public User(){
-    }
+     public User(){}
      public User(String id, String name, String passWord, String peopleNum, String departMent){//학생,교수 객체 받기용
          this.id = id;
          this.name = name;
@@ -75,6 +72,7 @@ public class User {
     }
     
     public String searchName(char a, String id) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+        //ID에 대한 사용자 이름 찾기
         String filename = null;
         String name = null;
         switch (a) {

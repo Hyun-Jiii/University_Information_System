@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,22 +26,23 @@ import javax.swing.table.DefaultTableModel;
  * @author 김부성
  */
 public class Exchange_Lecture extends javax.swing.JFrame {
-    String id;
-    ArrayList<Course> lecList = new ArrayList<>();
-    LectureAdapter a;
+    String id; //사용자 아이디
+    ArrayList<Course> lecList = new ArrayList<>(); //강의 배열
+    LectureAdapter a; // Adapter에서 함수 사용을  위한 선언 
     /**
      * Creates new form Exchange_Lecture
      */
     public Exchange_Lecture() throws IOException  {
         initComponents();
-        lecture_num.setEnabled(false);
         a = new LectureAdapter();
-        a.exChangeList(lecture_list);
-        a.getLectureList(lecList);   
+        lecture_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        a.exChangeList(lecture_list); // 한번도 개설되지 않은 강좌 리스트 출력
+        a.getLectureList(lecList);   // 개설 전 강의를 출력
     }
     
     
-    public void setLecInfo() throws FileNotFoundException, UnsupportedEncodingException, IOException{ //GUI화면에 선택한 정보 화면에 출력
+    public void setLecInfo() throws FileNotFoundException, UnsupportedEncodingException, IOException{ 
+        //GUI화면에 선택한 정보 화면에 출력
         String str;
         String[] key = null;
         int comboIndex = 0;
@@ -69,7 +71,6 @@ public class Exchange_Lecture extends javax.swing.JFrame {
             //파일 닫기
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +132,8 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         jLabel6.setText("학  점");
 
         jLabel5.setText("강좌 번호");
+
+        lecture_num.setEditable(false);
 
         depart_list.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "전산학과", "전자공학과", "화학공학과", "기계공학과", "항공우주공학과" }));
 
@@ -259,8 +262,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         try {
             if(lecture_num.getText().isEmpty()){
                 showMessageDialog(null, "강좌를 선택해 주세요");
-             }
-             else{
+             }else{
                 file = new FileOutputStream("insertlecturelist.txt");
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
                 for(int i = 0; i < lecList.size(); i++){//id이랑 일치하는 객체 정보 변경
@@ -269,14 +271,14 @@ public class Exchange_Lecture extends javax.swing.JFrame {
                         lecList.get(i).setDepartment(depart_list.getSelectedItem().toString());
                         lecList.get(i).setGrade(getGrade.getText());
                         lecList.get(i).setCourse_content(lecture_info.getText());
-                    }
-                    str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
-                    writer.write(str);
-                    //변경 후 저장하거나 그대로 다시 파일에 저장
+                 }
+                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                writer.write(str);
+                //변경 후 저장하거나 그대로 다시 파일에 저장
                 }
                 writer.close(); //파일 닫기
-                model.setNumRows(0);
-                a.exChangeList(lecture_list);
+                model.setNumRows(0);//테이블 초기화
+                a.exChangeList(lecture_list); //테이블 업데이트
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Exchange_Lecture.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,11 +289,13 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_exchangeActionPerformed
 
+    //뒤로가기
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         dispose();   
     }//GEN-LAST:event_gobackActionPerformed
 
+    //삭제 버튼
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         String str;
@@ -300,16 +304,17 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) lecture_list.getModel();
          try {
      
-             if(lecture_num.getText().isEmpty()){
+             if(lecture_num.getText().isEmpty()){ //강좌를 선택 안했을 때
                 showMessageDialog(null, "강좌를 선택해 주세요");
              }
              else{
-                key = a.getKey(lecture_list);
-                a.getLectureList(lecList);
-                for(int i = 0; i<lecList.size(); i++){
+                key = a.getKey(lecture_list); //테이블에서 선택된 키값가져오기
+                a.getLectureList(lecList);//개설 전 강의 배열에 저장
+                for(int i = 0; i<lecList.size(); i++){ // 삭제할 강좌를 리스트에서 삭제
                     if(key.equals(lecList.get(i).getCourseNum()))
                         lecList.remove(i);
                 }
+                //배열을 파일에 새로 쓰기
                 file = new FileOutputStream("insertlecturelist.txt");
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr")); // 쓰기
                 for(int i = 0; i< lecList.size();i++){ //리스트의 크기만큼 실행
@@ -328,6 +333,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         }                            
     }//GEN-LAST:event_deleteActionPerformed
 
+    //테이블에 있는 아이템 클릿 시
     private void lecture_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lecture_listMouseClicked
         try {
             // TODO add your handling code here:

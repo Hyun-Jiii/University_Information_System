@@ -13,8 +13,8 @@ import oop2.main.User;
  * @author User
  */
 public class Student extends User { //User클래스를 상속 받은 학생 클래스
-    String sGrade;
-    String score;
+    String sGrade; //학점   
+    String score; //성적
     public Student (String peoplenum, String name, String department){//객체 생성을 위한 생성자
         this.name = name;
         this.peopleNum = peoplenum;

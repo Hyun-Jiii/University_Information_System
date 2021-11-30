@@ -285,6 +285,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //수정
     private void stu_exchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_exchangeActionPerformed
         // TODO add your handling code here:
         FileOutputStream wfile;
@@ -328,6 +329,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stu_exchangeActionPerformed
 
+    //리스트 클릭
     private void stu_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stu_listMouseClicked
         try {
             // TODO add your handling code here:
@@ -373,6 +375,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stu_deleteActionPerformed
 
+    //검색
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)stu_list.getModel();
@@ -381,7 +384,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                 a.getSearch(0, searchfield.getText(), stu_list,"S",file);
             }
             else if(name_radio.isSelected()){//이름으로 찾기 검색
-                a.getSearch(1, searchfield.getText(), stu_list,"S",file);
+                a.getSearch(1, searchfield.getText(), stu_list,"",file);
             }
             else if(all_radio.isSelected()){ //전체 선택시 학생 전체리스트 띄우기
                 a.sp_AddList(stu_list, file);

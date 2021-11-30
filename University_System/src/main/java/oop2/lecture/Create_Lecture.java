@@ -26,28 +26,29 @@ import javax.swing.table.DefaultTableModel;
  * @author 김부성
  */
 public class Create_Lecture extends javax.swing.JFrame {
-    ArrayList<Course> lecList;
-    LectureAdapter a;
+    ArrayList<Course> lecList; //파일에서 데이터를 불러와 저장하는 리스트
+    LectureAdapter a; //Adapter에서 함수 사용을 위한 선언
     /**
      * Creates new form Create_Lecture
      */
-    public Create_Lecture() throws IOException  {
+    public Create_Lecture() throws IOException  { //생성자
         initComponents();
         this.lecList = new ArrayList<>();
         a = new LectureAdapter();
-        a.lec_AddList(lecture_list);
-        a.lec_AddCList(clecture_list);
+        a.lec_AddList(lecture_list); //개설 전 강좌 리스트 저장
+        a.lec_AddCList(clecture_list); //개설 후 강의 리스트 저장
     }
     
     public boolean checkPro() throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //교수가 있는지 체크
         String str;
         String[] key;
         boolean check = false;
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));
         while((str = read.readLine())!=null){
             key = str.split("/");
-            if(key[4].equals(lecture_pro))
-                check = true;
+            if(key[1].equals(lecture_pro)) //텍스트 필드에 적혀진 값이랑 교수 파일에 이름이랑 비교
+                check = true;//교수가 있으면 true
         }
         return check;
     }
@@ -234,75 +235,74 @@ public class Create_Lecture extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+ 
+    //뒤로가기
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //뒤로가기
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //강의 개설 버튼
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        // 강의 개설
-        DefaultTableModel model =  (DefaultTableModel) lecture_list.getModel();
-        DefaultTableModel model1 =  (DefaultTableModel) clecture_list.getModel();
-        int row = -1; //행선택 변수
-        boolean check = false; // 이미 개설되어 있는지 확인
-        String str;
-        row = lecture_list.getSelectedRow(); //테이블 행 선택 함수
-        FileOutputStream file;
-        try {
-            boolean proCheck = checkPro();
-            check = a.checkEqules(model.getValueAt(row, 0).toString(), "lecturelist.txt");
-            //이미 개설된 강좌 체크
-            if (row == -1) { // 강좌 미선택시
-                showMessageDialog(null, "강좌를 선택해 주세요");
-            } else if (lecture_pro.getText().isEmpty() || max_num.getText().isEmpty() || min_num.getText().isEmpty()) {
-                //강좌에 대한 정보를 미입력시
-                showMessageDialog(null, "정보를 입력해 주세요");
-            } else if(check){ // 이미 개설된 강좌번호 선택시
-                showMessageDialog(null, "이미 개설된 강좌입니다.");
-            }else if(!proCheck){
-                showMessageDialog(null, "존재하지 않는 교수입니다.");
-            }else { //강좌 개설
-                a.getLectureList(lecList);//개설전 강좌 정보를 lecList에 담기
-                file = new FileOutputStream("insertlecturelist.txt");
-                BufferedWriter nWriter = new BufferedWriter(new OutputStreamWriter(file,"euc-kr"));
-                for(int i = 0; i < lecList.size(); i++ ){ //lecList만큼 반복
-                    if(lecList.get(i).getCourseNum().equals((String)model.getValueAt(row, 0))){
-                        lecList.get(i).setOpen("true"); //개설한 강좌와 같은 강의 번호가 있으면 개설 여부를 true로 변경
-                    }
-                    str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
-                    //개설여부 저장을 위해 다시 파일에 저장
-                    nWriter.write(str);
+    // TODO add your handling code here:
+    DefaultTableModel model =  (DefaultTableModel) lecture_list.getModel();
+    DefaultTableModel model1 =  (DefaultTableModel) clecture_list.getModel();
+    int row = -1; //행선택 변수
+    boolean check = false; // 이미 개설되어 있는지 확인
+    String str;
+    row = lecture_list.getSelectedRow(); //테이블 행 선택 함수
+    FileOutputStream file;
+    try {
+        boolean proCheck = checkPro();//강의를 담당할 교수의 존재 여부
+        check = a.checkEqules(model.getValueAt(row, 0).toString(), "lecturelist.txt");
+        //이미 개설된 강좌 체크
+        if (row == -1) { // 강좌 미선택시
+            showMessageDialog(null, "강좌를 선택해 주세요");
+        } else if (lecture_pro.getText().isEmpty() || max_num.getText().isEmpty() || min_num.getText().isEmpty()) {
+            //강좌에 대한 정보를 미입력시
+            showMessageDialog(null, "정보를 입력해 주세요");
+        } else if(check){ // 이미 개설된 강좌번호 선택시
+            showMessageDialog(null, "이미 개설된 강좌입니다.");
+        }else if(!proCheck){ //교수의 존재 여부 확인
+            showMessageDialog(null, "존재하지 않는 교수입니다.");
+        }else { //강좌 개설
+            a.getLectureList(lecList);//개설전 강좌 정보를 lecList에 담기
+            file = new FileOutputStream("insertlecturelist.txt");
+            BufferedWriter nWriter = new BufferedWriter(new OutputStreamWriter(file,"euc-kr"));
+            for(int i = 0; i < lecList.size(); i++ ){ //lecList만큼 반복
+                if(lecList.get(i).getCourseNum().equals((String)model.getValueAt(row, 0))){
+                    lecList.get(i).setOpen("true"); //개설한 강좌와 같은 강의 번호가 있으면 개설 여부를 true로 변경
                 }
-                nWriter.close();// 파일 닫기
-                
-                //개설된 강좌를 메모장에 저장
-                file = new FileOutputStream("lecturelist.txt", true);//파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
-                BufferedWriter writer = new BufferedWriter(output);
-                str = String.format("%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4));
-                //강좌 번호, 강좌 이름, 담당 학과, 학점, 담당 교수, 최대 인원, 최소 인원, 강의 설명, 개설여부
-                writer.write(str);
-                writer.close();
-                str = (String) model.getValueAt(row, 0) + ".txt";
-                File newFile = new File(str); //강좌번호로 이루어진 파일 생성
-                newFile.createNewFile();
-                showMessageDialog(null, "강좌가 개설되었습니다.");
-                model1.setNumRows(0);
-                a.lec_AddCList(clecture_list);
+                str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(),lecList.get(i).getCourseName(),lecList.get(i).getDepartment(), lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
+                //개설여부 저장을 위해 다시 파일에 저장
+                nWriter.write(str);
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+            nWriter.close();// 파일 닫기
+
+            //개설된 강좌를 메모장에 저장
+            file = new FileOutputStream("lecturelist.txt", true);//개설 된 강좌 파일 열기
+            OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
+            BufferedWriter writer = new BufferedWriter(output);
+            str = String.format("%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4));
+            //강좌 번호, 강좌 이름, 담당 학과, 학점, 담당 교수, 최대 인원, 최소 인원, 강의 설명, 개설여부
+            writer.write(str);
+            writer.close();
+            str = (String) model.getValueAt(row, 0) + ".txt";
+            File newFile = new File(str); //강좌번호로 이루어진 파일 생성
+            newFile.createNewFile();
+            showMessageDialog(null, "강좌가 개설되었습니다.");
+            model1.setNumRows(0); //테이블 초기화
+            a.lec_AddCList(clecture_list); //테이블 업데이트
         }
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(Insert_Lecture.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable clecture_list;

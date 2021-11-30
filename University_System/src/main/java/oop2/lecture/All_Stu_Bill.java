@@ -37,12 +37,8 @@ public class All_Stu_Bill extends javax.swing.JFrame {
         initComponents();
         all_stu_bill.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.nowId = id;
-        getTable();
+        getTable(); // 학생 정보 테이블 출력
     }
-    //테이블에 학생마다 학번 이름 총학점 수강료 띄우기
-    //->학생 파일 찾기 -> 학생파일 읽기 -> 학번으로 파일 있는지 찾기 -> 파일에 있는 수강정보 읽기(while) -> 총 학점 변수에 학점 저장 , 총학점으로 가격 지정 -> 테이블 리스트에 추가(학번, 이름,학정, 수강료) 
-    //선택하면 정보에 출력
-    //발급하면 biil.txt파일에 학번 저장
     
     //학생 정보 테이블에 입력
     public void getTable() {
@@ -62,9 +58,10 @@ public class All_Stu_Bill extends javax.swing.JFrame {
                     BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
                     while((str =read.readLine())!= null){
                         key = str.split("/");
-                        sum += Integer.parseInt(key[3]);
+                        sum += Integer.parseInt(key[3]); //학점 더하기
                     }
                     Object[] list = {slist.get(i), u.searchName('S', slist.get(i)), Integer.toString(sum), Integer.toString(sum*10000) };
+                    //학생 ID, 학생 이름, 총 학점, 총 수강료
                     table.addRow(list);
                 }
             }
@@ -81,12 +78,12 @@ public class All_Stu_Bill extends javax.swing.JFrame {
     public void getSlist(){
         String str;
         String[] key;
-        slist.clear();
+        slist.clear(); //리스트 초기화
         try {
             BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"),"euc-kr"));
             while((str = read.readLine())!= null){
                 key = str.split("/");
-                slist.add(key[0]);
+                slist.add(key[0]); //학생에 저장되어있는 학번 추가
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(All_Stu_Bill.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,11 +97,11 @@ public class All_Stu_Bill extends javax.swing.JFrame {
     //bill.txt에 학번이 있는지 찾기
     public boolean checkBill() throws FileNotFoundException, IOException, UnsupportedEncodingException{
         String str;
-        boolean check =false;
+        boolean check = false;
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("bill.txt"),"euc-kr"));
         while((str = read.readLine()) != null){
             if(num.getText().equals(str))
-                check = true;
+                check = true; // 학번이 있으면 true
         }
         return check;
     }
@@ -267,17 +264,18 @@ public class All_Stu_Bill extends javax.swing.JFrame {
         price.setText((String) all_stu_bill.getValueAt(row, 3));
     }//GEN-LAST:event_all_stu_billMouseClicked
 
+    //청구서 등록
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
         FileOutputStream file;
         boolean check;
         try {
-            check = checkBill();
+            check = checkBill(); //청구서가 있는지 확인
             if (!check) {
-                file = new FileOutputStream("bill.txt", true); //파일 열기
+                file = new FileOutputStream("bill.txt", true); //청구서 파일 열기
                 OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
                 BufferedWriter writer = new BufferedWriter(output);
-                String l = String.format("%s%n",num.getText() );
+                String l = String.format("%s%n",num.getText() );//학번 저장
                 writer.write(l);
                 writer.close();
                 showMessageDialog(null, name.getText() + "님의 청구서 발급이 완료되었습니다.");
@@ -296,8 +294,18 @@ public class All_Stu_Bill extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editActionPerformed
 
+    //뒤로가기
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            Lecture_Main_Frame l = new Lecture_Main_Frame(nowId,'G');
+            l.setVisible(true);
+            dispose();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(All_Stu_Bill.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(All_Stu_Bill.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_gobackActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

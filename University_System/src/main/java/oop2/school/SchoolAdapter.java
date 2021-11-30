@@ -14,7 +14,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import oop2.lecture.Course;
 import oop2.professor.Professor;
 import oop2.student.Student;
 
@@ -24,6 +23,7 @@ import oop2.student.Student;
  */
 public class SchoolAdapter {
     public void sp_AddList(JTable tableList, String file) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //테이블에 학생 교수 리스트 출력
         String str;
         String[] key ;
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
@@ -31,7 +31,7 @@ public class SchoolAdapter {
         table.setNumRows(0);
         while((str = read.readLine()) != null){
             key = str.split("/");
-            Object[] list = { key[0].substring(1), key[1], key[4], key[3]};
+            Object[] list = { key[0], key[1], key[4], key[3]};
             table.addRow(list);//행추가
         }
     }
@@ -45,6 +45,7 @@ public class SchoolAdapter {
     }
     
     public void getStuList(ArrayList<Student> stulist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //학생의 내용을 배열에 저장
         String str;
         String[] key;
         stulist.clear();
@@ -56,6 +57,7 @@ public class SchoolAdapter {
     }
     
     public void getProList(ArrayList<Professor> prolist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //교수의 내용을 배열에 저장
         String str;
         String[] key;
         prolist.clear();
@@ -67,16 +69,17 @@ public class SchoolAdapter {
     }
     
     public void getSearch(int index, String info, JTable tablelist,String job, String file) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //검색
         String str;
         String[] key;
         DefaultTableModel model = (DefaultTableModel)tablelist.getModel();
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
         model.setNumRows(0);
-        info = job+info;
+        info = job+info; //찾아야하는 정보
         while((str=read.readLine())!=null){
             key = str.split("/");
             if(key[index].equals(info)){
-                Object[] list = {key[0].substring(1),key[1],key[4],key[3]};
+                Object[] list = {key[0],key[1],key[4],key[3]};
                 model.addRow(list);
             }
         }

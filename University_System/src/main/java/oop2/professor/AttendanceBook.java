@@ -25,9 +25,9 @@ public class AttendanceBook extends javax.swing.JFrame{
         this.nowId = nowId;
         this.nowNum = lecNum;
         lec_name.setText(lecName);
-        addTable();
+        addTable();// 테이블에 정보 추가
     }
-    public void addTable(){
+    public void addTable(){ // 테이블에 강의에대한 출석부 추가
         model = (DefaultTableModel) Attendance_table.getModel();
         model.setNumRows(0);
         String str;
@@ -212,6 +212,7 @@ public class AttendanceBook extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+        //뒤로가기
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
          Professor_Main_Frame pro;
@@ -224,6 +225,7 @@ public class AttendanceBook extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //성적입력
     private void insertGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertGradeActionPerformed
         // TODO add your handling code here:
         model = (DefaultTableModel) Attendance_table.getModel();

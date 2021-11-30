@@ -183,6 +183,9 @@
     <Component class="javax.swing.JTextField" name="getGrade">
     </Component>
     <Component class="javax.swing.JTextField" name="lecture_num">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="depart_list">
       <Properties>

@@ -54,16 +54,16 @@ public class Application_Frame extends javax.swing.JFrame{
         this.nowId = nowId;
         nowName = u.searchName('S',nowId);
         stu_name.setText(nowName);
-        if(f.exists()){
-            a.getSleclist(sel_sleclist, sleclist, nowId);
-            a.cheackList(sleclist, cleclist);
+        if(f.exists()){//학번으로 된 파일이 있다면
+            a.getSleclist(sel_sleclist, sleclist, nowId);//파일에서 수강내역을 불러와서 리스트에 담기
+            a.cheackList(sleclist, cleclist); //수강신청 가능 내역과 수강내역 비교
             for(int i = 0; i<sleclist.size(); i++){
-                sumCredit += Integer.parseInt(sleclist.get(i).getGrade());
+                sumCredit += Integer.parseInt(sleclist.get(i).getGrade()); //학점 계산
             }
         }
         Credit_Total.setText(Integer.toString(sumCredit));
-        a.clec_addList(Course_Table, cleclist);
-        a.slec_addList(stu_lec, sleclist);
+        a.clec_addList(Course_Table, cleclist); //신청 가능 내역
+        a.slec_addList(stu_lec, sleclist); //내가 수강신청한 내역
     }
     
     public void CreateFile() throws FileNotFoundException, UnsupportedEncodingException, IOException{ //수강신청한 정보를 담는 파일 생성
@@ -78,7 +78,7 @@ public class Application_Frame extends javax.swing.JFrame{
         writer.close();  
     }
     
-    public void insertLecture(){
+    public void insertLecture(){ //강의마다 학생이름 추가
         String file = null;
         BufferedWriter writer;
         String str;
@@ -359,9 +359,7 @@ public class Application_Frame extends javax.swing.JFrame{
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(insert)
@@ -369,8 +367,8 @@ public class Application_Frame extends javax.swing.JFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))))
+                        .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -418,7 +416,6 @@ public class Application_Frame extends javax.swing.JFrame{
         String str;
         String[] key;
         String num = a.getkey(Course_Table);
-        
         try {
             BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
             while((str=read.readLine())!=null){
@@ -455,7 +452,7 @@ public class Application_Frame extends javax.swing.JFrame{
             a.clec_ex_addList(Course_Table, cleclist);
             //수강신청한 강의 테이블 업데이트
             a.slec_addList(stu_lec, sleclist);
-            //수강신청한 강의 배열의 학점 수 만큼 신청학점 추가
+            //삭제한 학점 빼기
             sumCredit -= Integer.parseInt(lec_grade.getText());
             Credit_Total.setText(Integer.toString(sumCredit));
         } catch (UnsupportedEncodingException ex) {

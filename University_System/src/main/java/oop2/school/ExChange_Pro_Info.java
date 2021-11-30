@@ -36,8 +36,8 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         try {
             initComponents();
             a = new SchoolAdapter();
-            a.sp_AddList(pro_list, file);
-            all_radio.setSelected(true);
+            a.sp_AddList(pro_list, file); //테이블에 교수 추가
+            all_radio.setSelected(true); //라디오 버튼 초기화
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ExChange_Pro_Info.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -45,7 +45,8 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         }
     }
     
-    public void setStuInfo() throws FileNotFoundException, UnsupportedEncodingException, IOException{ //GUI화면에 선택한 정보 화면에 출력
+    public void setStuInfo() throws FileNotFoundException, UnsupportedEncodingException, IOException{ 
+        //GUI화면에 선택한 정보 화면에 출력
         String str;
         String[] key = null;
         int comboIndex = 0;
@@ -283,11 +284,12 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //수정하기
     private void stu_exchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_exchangeActionPerformed
         // TODO add your handling code here:
         FileOutputStream wfile;
         String str;
-        String id = a.getKey(pro_list);
+        String id = a.getKey(pro_list);  // 키값 받아오기
         try {
             a.getProList(prolist);
             if(pro_num.getText().isEmpty()){
@@ -326,6 +328,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stu_exchangeActionPerformed
 
+    //리스트를 마우스로 클릭했을 때
     private void pro_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pro_listMouseClicked
         try {
             // TODO add your handling code here:
@@ -337,6 +340,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pro_listMouseClicked
 
+    //삭제
     private void stu_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_deleteActionPerformed
         // TODO add your handling code here:
         String str;
@@ -379,7 +383,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
                 a.getSearch(0, searchfield.getText(), pro_list,"P",file);
             }
             else if(name_radio.isSelected()){//이름으로 찾기 검색
-                a.getSearch(1, searchfield.getText(), pro_list,"P",file);
+                a.getSearch(1, searchfield.getText(), pro_list,"",file);
             }
             else if(all_radio.isSelected()){ //전체 선택시 학생 전체리스트 띄우기
                 a.sp_AddList(pro_list, file);

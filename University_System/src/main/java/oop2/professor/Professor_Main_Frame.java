@@ -31,10 +31,11 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         initComponents();
         User u = new User();
         this.nowId = nowId;
-        nowName = u.searchName('P', nowId);
+        nowName = u.searchName('P', nowId); //사용자 이름 찾기
         user_name.setText(nowName);
         lec_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        getProList();
+        //테이블 단일 선택 모드
+        getProList(); //교수가 강의하는 테이블 리스트 받기
     }
 
     /**
@@ -180,21 +181,24 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //비밀번호 변경
     private void exchange_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exchange_infoActionPerformed
         // TODO add your handling code here:
         Exchange_Pw e = new Exchange_Pw(nowId);
         e.setVisible(true);
     }//GEN-LAST:event_exchange_infoActionPerformed
 
+        //출석부
     private void manageCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageCourseActionPerformed
         // TODO add your handling code here:
         DefaultTableModel table = (DefaultTableModel)lec_list.getModel();
-        int row = lec_list.getSelectedRow();
+        int row = lec_list.getSelectedRow();//선택한 행값 받아오기
         AttendanceBook b = new AttendanceBook(nowId,(String) table.getValueAt(row, 0),(String) table.getValueAt(row, 1));
         b.setVisible(true);
         dispose();
     }//GEN-LAST:event_manageCourseActionPerformed
 
+        //이전으로
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         Login_Frame l = new Login_Frame();

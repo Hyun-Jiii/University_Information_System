@@ -19,15 +19,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showMessageDialog;
-
+import oop2.lecture.Lecture_Main_Frame;
+import oop2.professor.Professor_Main_Frame;
+import oop2.school.School_Main_Frame;
+import oop2.student.Student_Main_Frame;
 
 /**
  *
- * @author User
+ * @author 김부성
  */
 public class Exchange_Pw extends javax.swing.JFrame {
-    String nowId;
-    String userPW;
+    String nowId;//현재 사용자 아이디
+    String userPW; //현재 사용자 비밀번호
     ArrayList<User> userList = new ArrayList<>();
     String filename;
     User u = new User();
@@ -35,8 +38,8 @@ public class Exchange_Pw extends javax.swing.JFrame {
         try {
             initComponents();
             this.nowId = nowId;
-            getList();
-            setInfo(nowId);
+            getList();//사용자 리스트 받아오기
+            setInfo(nowId);//이름, ID값 세팅
         } catch (IOException ex) {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,7 +75,7 @@ public class Exchange_Pw extends javax.swing.JFrame {
         String str;
         String[] key;
         try {
-        switch (nowId.charAt(0)) {
+        switch (nowId.charAt(0)) { //사용자 리스트 받아오기
             case 'P':{
                     filename = "professor.txt";
                     BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
@@ -274,6 +277,29 @@ public class Exchange_Pw extends javax.swing.JFrame {
 
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
+        try { //경우에 따라 메뉴화면으로 넘어가기
+            switch (nowId.charAt(0)){
+                case 'P' :{
+                    Professor_Main_Frame r = new Professor_Main_Frame(nowId);
+                    r.setVisible(true);
+                }
+                case 'S' :{
+                    Student_Main_Frame r = new Student_Main_Frame(nowId,'S');
+                    r.setVisible(true);
+                }
+                case 'G' :{
+                    School_Main_Frame r = new School_Main_Frame(nowId, 'G');
+                    r.setVisible(true);
+                }
+                case 'H' :{
+                    Lecture_Main_Frame r = new Lecture_Main_Frame(nowId,'H');
+                    r.setVisible(true);
+                }
+             }
+              dispose();
+         } catch (IOException ex) {
+                    Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
+                }
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
@@ -281,7 +307,6 @@ public class Exchange_Pw extends javax.swing.JFrame {
         int index = 0;
         try {
             // TODO add your handling code here:
-            
             if(now_pw.getText().isEmpty() || new_pw.getText().isEmpty() || check_pw.getText().isEmpty() )
                 showMessageDialog(null,"빈칸을 입력하여주세요");
             else{
@@ -306,10 +331,6 @@ public class Exchange_Pw extends javax.swing.JFrame {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_changeActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton change;

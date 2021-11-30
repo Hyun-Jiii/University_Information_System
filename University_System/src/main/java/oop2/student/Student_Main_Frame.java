@@ -177,6 +177,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //수강신청
     private void app_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_btnActionPerformed
         // TODO add your handling code here:
         Application_Frame af;
@@ -190,6 +191,8 @@ public class Student_Main_Frame extends javax.swing.JFrame{
 //        nowName = User.name;
     }//GEN-LAST:event_app_btnActionPerformed
 
+    
+    //로그아웃
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         Login_Frame login = new Login_Frame();//로그아웃, 로그인 화면으로 돌아가기
@@ -197,6 +200,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
+    //수강 정보
     private void app_info_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_app_info_btnActionPerformed
         // TODO add your handling code here:
         CourseInformation_Frame info = new CourseInformation_Frame(nowId);//수강정보 페이지로 이동
@@ -204,6 +208,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         dispose();
     }//GEN-LAST:event_app_info_btnActionPerformed
 
+    //정보 수정
     private void stu_ex_InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_ex_InfoActionPerformed
         // TODO add your handling code here:
         Exchange_Pw e = new Exchange_Pw(nowId);//회원정보  수정 페이지
@@ -211,6 +216,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
         dispose();
     }//GEN-LAST:event_stu_ex_InfoActionPerformed
 
+    //수강료 조회
     private void creditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditActionPerformed
         // TODO add your handling code here:
         CourseBill b = new CourseBill(nowId);

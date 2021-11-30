@@ -20,15 +20,15 @@ import oop2.main.User;
  */
 
 public class Lecture_Main_Frame extends javax.swing.JFrame {
-    String id;
+    String id; //사용자 아이디 값
     /**
      * Creates new form NewJFrame1
      */
     public Lecture_Main_Frame(String num, char job) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         initComponents();
         User u = new User();
-        user_name.setText(u.searchName(job, num));
-        this.id = num;
+        user_name.setText(u.searchName(job, num)); //사용자 이름을 출력
+        this.id = num; // 넘겨받은 아이디를 클래스 id에 저장
     }
 
     /**
@@ -160,6 +160,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //청구서 발급 버튼
     private void lecture_payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_payActionPerformed
         // TODO add your handling code here:
         All_Stu_Bill b = new All_Stu_Bill(id);
@@ -167,14 +168,15 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_lecture_payActionPerformed
 
+    //로그아웃 버튼
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Login_Frame login = new Login_Frame();//로그아웃
+        Login_Frame login = new Login_Frame();
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-
+    //강의 등록 버튼
     private void lecture_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lecture_insertActionPerformed
             // TODO add your handling code here:
         Insert_Lecture insert = null;

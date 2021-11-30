@@ -35,11 +35,11 @@ public class CourseBill extends javax.swing.JFrame {
             a = new StudentAdapter();
             this.nowId = nowId;
         try {
-            billCheck = checkBill();
+            billCheck = checkBill(); //청구서가 있는지 조회
             if(billCheck){
-                a.getStuLecList(sel_sleclist, nowId);
-                setBill();
-                addBillList();
+                a.getStuLecList(sel_sleclist, nowId); //배열 받아오기
+                setBill(); //수강쵸 청구서 세팅
+                addBillList(); //청구내역
             }
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(CourseBill.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,6 +58,7 @@ public class CourseBill extends javax.swing.JFrame {
     }
 
     public void addBillList(){
+        //청구 내역
         DefaultTableModel table = (DefaultTableModel)bill_list.getModel();
         table.setNumRows(0);
         int price;
@@ -69,6 +70,7 @@ public class CourseBill extends javax.swing.JFrame {
     }
     
     public boolean checkBill() throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //현재 청구서 내역
         boolean check = false;
         String str;
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("bill.txt"), "euc-kr"));
@@ -215,6 +217,7 @@ public class CourseBill extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //뒤로가기
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         Student_Main_Frame stu;

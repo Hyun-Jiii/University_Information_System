@@ -306,7 +306,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                 wfile = new FileOutputStream(file);
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((wfile), "euc-kr"));
                 for(int i = 0; i < stulist.size(); i++){//id이랑 일치하는 객체 정보 변경
-                    if(stulist.get(i).getId().equals("S"+id)){
+                    if(stulist.get(i).getId().equals(id)){
                         stulist.get(i).setName(stu_name.getText());
                         stulist.get(i).setDepartMent(stu_department.getSelectedItem().toString());
                         stulist.get(i).setId("S"+stu_num.getText());

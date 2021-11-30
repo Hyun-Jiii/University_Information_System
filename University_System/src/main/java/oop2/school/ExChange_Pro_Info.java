@@ -305,7 +305,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
                 wfile = new FileOutputStream(file);
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((wfile), "euc-kr"));
                 for(int i = 0; i < prolist.size(); i++){//id이랑 일치하는 객체 정보 변경
-                    if(prolist.get(i).getId().equals("P"+id)){
+                    if(prolist.get(i).getId().equals(id)){
                         prolist.get(i).setName(pro_name.getText());
                         prolist.get(i).setDepartMent(pro_department.getSelectedItem().toString());
                         prolist.get(i).setId("P"+pro_num.getText());

@@ -116,7 +116,7 @@ public class InputGrade extends javax.swing.JFrame {
             OutputStreamWriter output2 = new OutputStreamWriter(file, "euc-kr");
             BufferedWriter writer2 = new BufferedWriter(output2);
             for(int i =0; i<stuList.size();i++){
-                String str = String.format("%s/%s/%s/%s/%s%s%n", stuList.get(i).getCourseNum(),stuList.get(i).getCourseName(),stuList.get(i).getProfessor(), stuList.get(i).getGrade(),stuList.get(i).getsGrade(),stuList.get(i).getScore());
+                String str = String.format("%s/%s/%s/%s/%s/%s%n", stuList.get(i).getCourseNum(),stuList.get(i).getCourseName(),stuList.get(i).getProfessor(), stuList.get(i).getGrade(),stuList.get(i).getsGrade(),stuList.get(i).getScore());
                 writer2.write(str);
             }
             writer2.close();

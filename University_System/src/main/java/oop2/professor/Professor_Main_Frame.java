@@ -108,7 +108,7 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
             }
         });
 
-        exchange_info.setText("회원정보 수정");
+        exchange_info.setText("비밀번호변경");
         exchange_info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exchange_infoActionPerformed(evt);
@@ -186,6 +186,7 @@ public class Professor_Main_Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Exchange_Pw e = new Exchange_Pw(nowId);
         e.setVisible(true);
+        dispose();
     }//GEN-LAST:event_exchange_infoActionPerformed
 
         //출석부

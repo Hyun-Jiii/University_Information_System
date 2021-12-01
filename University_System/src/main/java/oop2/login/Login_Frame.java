@@ -164,7 +164,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     }
                 }
             } else if (a == 'S') {//아이디 고유 문자가 s -> 학생
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "UTF-8"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "euc-kr"));
                 while ((str = reader.readLine()) != null) {
                     if (str.contains(id_Field)) {
                         key = str.split("/");
@@ -180,7 +180,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     }
                 }
             } else if (a == 'H') {//아이디 고유 문자가 h -> 학사
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "UTF-8"));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "euc-kr"));
                 while ((str = reader.readLine()) != null) {
                     if (str.contains(id_Field)) {
                         key = str.split("/");

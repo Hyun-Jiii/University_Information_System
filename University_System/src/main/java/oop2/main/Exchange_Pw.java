@@ -38,6 +38,7 @@ public class Exchange_Pw extends javax.swing.JFrame {
         try {
             initComponents();
             this.nowId = nowId;
+            
             getList();//사용자 리스트 받아오기
             setInfo(nowId);//이름, ID값 세팅
         } catch (IOException ex) {
@@ -90,7 +91,7 @@ public class Exchange_Pw extends javax.swing.JFrame {
                     BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
                     while((str = read.readLine())!=null){
                         key = str.split("/");
-                        userList.add(new User(key[0],key[1],key[2],key[3],key[4]));
+                        userList.add(new User(key[0],key[1],key[2],key[3]));
                     }
                     break;
                 }
@@ -108,7 +109,7 @@ public class Exchange_Pw extends javax.swing.JFrame {
                     BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
                     while((str = read.readLine())!=null){
                         key = str.split("/");
-                        userList.add(new User(key[0],key[1],key[2],key[3]));
+                        userList.add(new User(key[0],key[1],key[2],key[3],key[4]));
                     }
                     break;
                 }  
@@ -121,6 +122,33 @@ public class Exchange_Pw extends javax.swing.JFrame {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public void exit() throws IOException{
+         switch (nowId.charAt(0)){
+                case 'P' :{
+                    Professor_Main_Frame p = new Professor_Main_Frame(nowId);
+                    p.setVisible(true);
+                    break;
+                }
+                case 'S' :{
+                    Student_Main_Frame s = new Student_Main_Frame(nowId,'S');
+                    s.setVisible(true);
+                    break;
+                }
+                case 'G' :{
+                     Lecture_Main_Frame l = new Lecture_Main_Frame(nowId,'G');
+                      l.setVisible(true);
+                      break;
+                }
+                case 'H' :{
+                   
+                    School_Main_Frame h = new School_Main_Frame(nowId, 'H');
+                    h.setVisible(true);
+                    break;
+                }
+             }
+             dispose();
     }
 
     /** This method is called from within the constructor to
@@ -278,29 +306,10 @@ public class Exchange_Pw extends javax.swing.JFrame {
     private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
         // TODO add your handling code here:
         try { //경우에 따라 메뉴화면으로 넘어가기
-            switch (nowId.charAt(0)){
-                case 'P' :{
-                    Professor_Main_Frame r = new Professor_Main_Frame(nowId);
-                    r.setVisible(true);
-                }
-                case 'S' :{
-                    Student_Main_Frame r = new Student_Main_Frame(nowId,'S');
-                    r.setVisible(true);
-                }
-                case 'G' :{
-                    School_Main_Frame r = new School_Main_Frame(nowId, 'G');
-                    r.setVisible(true);
-                }
-                case 'H' :{
-                    Lecture_Main_Frame r = new Lecture_Main_Frame(nowId,'H');
-                    r.setVisible(true);
-                }
-             }
-              dispose();
+           exit();
          } catch (IOException ex) {
                     Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        dispose();
     }//GEN-LAST:event_gobackActionPerformed
 
     private void changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeActionPerformed
@@ -325,8 +334,7 @@ public class Exchange_Pw extends javax.swing.JFrame {
                 }else
                     showMessageDialog(null,"현재 비밀번호가 일치하지 않습니다.");
             }
-            showMessageDialog(null,"비밀번호 변경이 완료되었습니다.");
-            dispose();
+            exit();
         } catch (IOException ex) {
             Logger.getLogger(Exchange_Pw.class.getName()).log(Level.SEVERE, null, ex);
         }

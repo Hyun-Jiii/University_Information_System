@@ -87,7 +87,7 @@ public class Lecture_Main_Frame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("회원정보 수정");
+        jButton2.setText("비밀번호변경");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

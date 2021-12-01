@@ -183,6 +183,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="stu_num">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="stu_name">
     </Component>

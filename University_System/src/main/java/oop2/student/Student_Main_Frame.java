@@ -96,7 +96,7 @@ public class Student_Main_Frame extends javax.swing.JFrame{
             }
         });
 
-        stu_ex_Info.setLabel("회원 정보 변경");
+        stu_ex_Info.setText("비밀번호변경");
         stu_ex_Info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stu_ex_InfoActionPerformed(evt);

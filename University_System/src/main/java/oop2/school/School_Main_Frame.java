@@ -17,14 +17,16 @@ import oop2.main.User;
  */
 public class School_Main_Frame extends javax.swing.JFrame {
     String nowId;
+    String nowName;
     /**
      * Creates new form NewJFrame
      */
-    public School_Main_Frame(String num, char job) throws UnsupportedEncodingException, IOException {
+    public School_Main_Frame(String nowId, char job) throws UnsupportedEncodingException, IOException {
         initComponents();
-        nowId = num;
+        this.nowId = nowId;
         User u = new User();
-        user_name.setText(u.searchName(job, num));
+        nowName=u.searchName(job, nowId);
+        user_name.setText(nowName);
         cheack_stu.setSelected(true);
     }
     
@@ -69,7 +71,7 @@ public class School_Main_Frame extends javax.swing.JFrame {
             }
         });
 
-        sch_ex_info.setText("회원정보변경");
+        sch_ex_info.setText("비밀번호변경");
         sch_ex_info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sch_ex_infoActionPerformed(evt);

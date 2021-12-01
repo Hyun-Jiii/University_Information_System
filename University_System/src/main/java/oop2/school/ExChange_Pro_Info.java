@@ -293,7 +293,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         try {
             a.getProList(prolist);
             if(pro_num.getText().isEmpty()){
-                showMessageDialog(null, "강좌를 선택해 주세요");
+                showMessageDialog(null, "교수를 선택해 주세요");
             }
             else if(pro_num.getText().length()!=3){
                 showMessageDialog(null, "학번이 3자리가 아닙니다.");
@@ -308,7 +308,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
                     if(prolist.get(i).getId().equals(id)){
                         prolist.get(i).setName(pro_name.getText());
                         prolist.get(i).setDepartMent(pro_department.getSelectedItem().toString());
-                        prolist.get(i).setId("P"+pro_num.getText());
+                        prolist.get(i).setId(pro_num.getText());
                         prolist.get(i).setPeopleNum(pro_peoplenum.getText());
                     }
                     str = String.format("%s/%s/%s/%s/%s%n", prolist.get(i).getId(), prolist.get(i).getName(), prolist.get(i).getPassWord(),prolist.get(i).getPeopleNum(),prolist.get(i).getDepartMent());
@@ -348,13 +348,13 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
         FileOutputStream wfile;   
          try {
              if(pro_num.getText().isEmpty()){
-                showMessageDialog(null, "강좌를 선택해 주세요");
+                showMessageDialog(null, "교수를 선택해 주세요");
              }
              else{
                 key = a.getKey(pro_list);
                 a.getProList(prolist);
                 for(int i = 0; i<prolist.size(); i++){
-                    if(key.equals(prolist.get(i).getId().substring(1)))
+                    if(key.equals(prolist.get(i).getId()))
                         prolist.remove(i);
                 }
                 wfile = new FileOutputStream(file);

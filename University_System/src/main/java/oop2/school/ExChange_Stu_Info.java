@@ -155,6 +155,8 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
 
         jLabel5.setText("주민등록번호");
 
+        stu_num.setEditable(false);
+
         stu_department.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "전산학과", "전자공학과", "화학공학과", "기계공학과", "항공우주공학과" }));
 
         stu_exchange.setText("수정");
@@ -294,7 +296,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
         try {
             a.getStuList(stulist);
             if(stu_num.getText().isEmpty()){
-                showMessageDialog(null, "강좌를 선택해 주세요");
+                showMessageDialog(null, "학생을 선택해 주세요");
             }
             else if(stu_num.getText().length()!=3){
                 showMessageDialog(null, "학번이 3자리가 아닙니다.");
@@ -309,7 +311,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                     if(stulist.get(i).getId().equals(id)){
                         stulist.get(i).setName(stu_name.getText());
                         stulist.get(i).setDepartMent(stu_department.getSelectedItem().toString());
-                        stulist.get(i).setId("S"+stu_num.getText());
+                        stulist.get(i).setId(stu_num.getText());
                         stulist.get(i).setPeopleNum(stu_peoplenum.getText());
                     }
                     str = String.format("%s/%s/%s/%s/%s%n", stulist.get(i).getId(), stulist.get(i).getName(), stulist.get(i).getPassWord(),stulist.get(i).getPeopleNum(),stulist.get(i).getDepartMent());
@@ -348,13 +350,13 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
         FileOutputStream wfile;   
          try {
              if(stu_num.getText().isEmpty()){
-                showMessageDialog(null, "강좌를 선택해 주세요");
+                showMessageDialog(null, "학생을 선택해 주세요");
              }
              else{
                 key = a.getKey(stu_list);
                 a.getStuList(stulist);
                 for(int i = 0; i<stulist.size(); i++){
-                    if(key.equals(stulist.get(i).getId().substring(1)))
+                    if(key.equals(stulist.get(i).getId()))
                         stulist.remove(i);
                 }
                 wfile = new FileOutputStream(file);
@@ -367,6 +369,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                 writer.close(); //닫기
                 clearStuInfo();
                 a.sp_AddList(stu_list, file);
+                 showMessageDialog(null, "삭제가 완료되었습니다.");
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExChange_Stu_Info.class.getName()).log(Level.SEVERE, null, ex);

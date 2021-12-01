@@ -45,6 +45,8 @@ public class StudentAdapter {
             cleclist.add(new Course(key[0],key[1],key[4],key[3]));//강좌 번호, 강좌 이름, 담당교수, 학점
         }
     }
+    
+    
 
     public void getStuLecList(ArrayList<Course> sel_sleclist, String id){
         //학생이 수강신청한 강좌 불러오기(학생 개인의 수강정보)
@@ -88,7 +90,8 @@ public class StudentAdapter {
         }
     }
 
-    public void clec_ex_addList(JTable tablelist, ArrayList<Course> cleclist) throws UnsupportedEncodingException{ //변경된 수강신청할 수 있는 리스트 출력
+    public void clec_ex_addList(JTable tablelist, ArrayList<Course> cleclist) throws UnsupportedEncodingException{ 
+    //변경된 수강신청할 수 있는 리스트 출력
         DefaultTableModel table = (DefaultTableModel) tablelist.getModel();
         table.setNumRows(0);
         for(int i =0; i<cleclist.size();i++){

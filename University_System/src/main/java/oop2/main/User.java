@@ -92,7 +92,7 @@ public class User {
         String str;
         String[] key;
         BufferedReader read;
-        read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
+        read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "utf-8"));
         while ((str = read.readLine()) != null) {
             if (str.contains(id)) {
                 key = str.split("/");

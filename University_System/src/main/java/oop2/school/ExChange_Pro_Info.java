@@ -308,7 +308,6 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
                     if(prolist.get(i).getId().equals(id)){
                         prolist.get(i).setName(pro_name.getText());
                         prolist.get(i).setDepartMent(pro_department.getSelectedItem().toString());
-                        prolist.get(i).setId(pro_num.getText());
                         prolist.get(i).setPeopleNum(pro_peoplenum.getText());
                     }
                     str = String.format("%s/%s/%s/%s/%s%n", prolist.get(i).getId(), prolist.get(i).getName(), prolist.get(i).getPassWord(),prolist.get(i).getPeopleNum(),prolist.get(i).getDepartMent());

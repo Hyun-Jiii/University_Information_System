@@ -311,7 +311,6 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                     if(stulist.get(i).getId().equals(id)){
                         stulist.get(i).setName(stu_name.getText());
                         stulist.get(i).setDepartMent(stu_department.getSelectedItem().toString());
-                        stulist.get(i).setId(stu_num.getText());
                         stulist.get(i).setPeopleNum(stu_peoplenum.getText());
                     }
                     str = String.format("%s/%s/%s/%s/%s%n", stulist.get(i).getId(), stulist.get(i).getName(), stulist.get(i).getPassWord(),stulist.get(i).getPeopleNum(),stulist.get(i).getDepartMent());

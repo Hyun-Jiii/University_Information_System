@@ -86,7 +86,7 @@ public class Application_Frame extends javax.swing.JFrame{
             for(int i = 0; i < sel_sleclist.size(); i++) {
                 file = String.format("%s.txt", sel_sleclist.get(i).getCourseNum());
                 writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "euc-kr"));
-                str = String.format("%s/%s/%s/%s/%s%n", nowId, nowName, sel_sleclist.get(i).getDepartment(),sel_sleclist.get(i).getsGrade(),sel_sleclist.get(i).getScore());
+                str = String.format("%s/%s/%s/%s%n", nowId, nowName,sel_sleclist.get(i).getsGrade(),sel_sleclist.get(i).getScore());
                 writer.write(str);
                 writer.close();
             }

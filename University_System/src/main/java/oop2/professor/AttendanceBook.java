@@ -37,7 +37,7 @@ public class AttendanceBook extends javax.swing.JFrame{
             BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
             while((str = read.readLine())!= null){
                 key = str.split("/");
-                String[] list = {key[0], key[1] ,key[2],key[3],key[4]};
+                String[] list = {key[0], key[1],key[2],key[3]};
                 model.addRow(list);
             }
         } catch (FileNotFoundException ex) {
@@ -135,14 +135,14 @@ public class AttendanceBook extends javax.swing.JFrame{
 
             },
             new String [] {
-                "학번", "이름", "학과", "학점", "점수"
+                "학번", "이름", "학점", "점수"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -47,7 +47,7 @@ public class Create_Lecture extends javax.swing.JFrame {
         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));
         while((str = read.readLine())!=null){
             key = str.split("/");
-            if(key[1].equals(lecture_pro)) //텍스트 필드에 적혀진 값이랑 교수 파일에 이름이랑 비교
+            if(key[1].equals(lecture_pro.getText())) //텍스트 필드에 적혀진 값이랑 교수 파일에 이름이랑 비교
                 check = true;//교수가 있으면 true
         }
         return check;

@@ -75,24 +75,29 @@ public class User {
         //ID에 대한 사용자 이름 찾기
         String filename = null;
         String name = null;
+        String text = null;
         switch (a) {
             case 'P':
                 filename = "professor.txt";
+                text = "utf-8";
                 break;
             case 'H':
                 filename = "school.txt";
+                text = "utf-8";
                 break;
             case 'G':
                 filename = "lecture.txt";
+                text = "euc-kr";
                 break;
             case 'S':
                 filename = "student.txt";
+                text = "euc-kr";
                 break;
         }
         String str;
         String[] key;
         BufferedReader read;
-        read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
+        read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), text));
         while ((str = read.readLine()) != null) {
             if (str.contains(id)) {
                 key = str.split("/");

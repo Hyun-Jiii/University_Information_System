@@ -83,7 +83,7 @@ public class InputGrade extends javax.swing.JFrame {
             BufferedReader bread = new BufferedReader(new InputStreamReader(new FileInputStream(bfile), "euc-kr"));
             while((str = bread.readLine())!=null){
                 key = str.split("/");
-                bookList.add(new Student(key[0],key[1],key[2],key[3],key[4]));
+                bookList.add(new Student(key[0],key[1],null,key[2],key[3]));
             }
              BufferedReader sread = new BufferedReader(new InputStreamReader(new FileInputStream(sfile), "euc-kr"));
             while((str = sread.readLine())!=null){
@@ -108,7 +108,7 @@ public class InputGrade extends javax.swing.JFrame {
             OutputStreamWriter output1 = new OutputStreamWriter(file, "euc-kr");
             BufferedWriter writer1 = new BufferedWriter(output1);
             for(int i =0; i<bookList.size();i++){
-                String str = String.format("%s/%s/%s/%s/%s%n", bookList.get(i).getId(),bookList.get(i).getName(),bookList.get(i).getDepartMent(),bookList.get(i).getsGrade(),bookList.get(i).getScore());
+                String str = String.format("%s/%s/%s/%s%n", bookList.get(i).getId(),bookList.get(i).getName(),bookList.get(i).getsGrade(),bookList.get(i).getScore());
                 writer1.write(str);
             }
             writer1.close();

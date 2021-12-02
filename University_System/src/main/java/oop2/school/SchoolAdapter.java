@@ -7,6 +7,7 @@ package oop2.school;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -130,5 +131,12 @@ public class SchoolAdapter {
             writer.write(str);
         }
         writer.close();
+    }
+    
+    public void createFile(String id) throws IOException{
+        File f;
+        String filename = String.format("%s.txt", id);
+        f = new File(filename);
+        f.createNewFile();
     }
 }

@@ -18,13 +18,14 @@ import oop2.student.Student;
  * @author 김부성
  */
 public class School_insert_user extends javax.swing.JFrame {
-
+    SchoolAdapter a = new SchoolAdapter();
     /**
      * Creates new form NewJFrame
      */
     public School_insert_user() {
         initComponents();
         stu_butt.setSelected(true);
+        
     }
 
     /**
@@ -199,6 +200,7 @@ public class School_insert_user extends javax.swing.JFrame {
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
                     showMessageDialog(null,stu.getId() +" " + stu.getName() + "학생이 등록 되었습니다.");
+                    a.createFile(stu.getId());
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -212,7 +214,6 @@ public class School_insert_user extends javax.swing.JFrame {
                     writer.write(str); //파일에 객체 정보를 저장
                     writer.close();
                     showMessageDialog(null,pro.getId() +" " + pro.getName() + "교수가 등록 되었습니다.");
-
                 }catch(IOException e){
                     e.printStackTrace();
                 }

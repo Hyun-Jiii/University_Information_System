@@ -47,7 +47,7 @@ public class CourseInformation_Frame extends javax.swing.JFrame {
             read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
             while((str=read.readLine()) != null){
                 key = str.split("/");
-                Object[] list = { key[0],key[1],key[2],key[3],key[4]};
+                Object[] list = { key[0],key[1],key[2],key[4],key[5]};
                 model.addRow(list);
             }
         }catch (FileNotFoundException ex) {

@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Insert_Lecture extends javax.swing.JFrame {
     LectureAdapter a; //Adapter 사용을 위한 선언
+    String text = "euc-kr";
     /** Creates new form Insert_Lecture */
     public Insert_Lecture() throws IOException {
         initComponents();
@@ -210,7 +211,7 @@ public class Insert_Lecture extends javax.swing.JFrame {
                 showMessageDialog(null, "이미 생성한 강좌 번호 입니다.");
             } else { //강좌 등록
                 FileOutputStream file = new FileOutputStream("insertlecturelist.txt", true);//등록된 강좌 파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
+                OutputStreamWriter output = new OutputStreamWriter(file, text);
                 BufferedWriter writer = new BufferedWriter(output);
                 str = String.format("%s/%s/%s/%s/%s/%s%n", lecture_num.getText(),getlec_name.getText(),depart_list.getSelectedItem(),getCredit.getText() , lecture_info.getText(),false);
                 //강좌 번호, 강좌 이름, 담당 학과, 학점, 강의 설명

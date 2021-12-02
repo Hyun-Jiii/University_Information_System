@@ -28,7 +28,7 @@ public class Login_Frame extends javax.swing.JFrame {
     User user = new User();
     String[] nowUser;
     String nowName;
-    
+    String text = "euc-kr";
     /**
      * Creates new form Login_Frame
      */
@@ -150,7 +150,7 @@ public class Login_Frame extends javax.swing.JFrame {
             } else {
                 a = id_Field.charAt(0); //아이디를 입력하는 직군을 구분하기 위한 이니셜 저장
                 if (a == 'P') { //아이디 고유 문자가 p -> 교수
-                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));//읽을 파일 열기
+                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), text));//읽을 파일 열기
                     while ((str = reader.readLine()) != null) { //마지막 문장이 아닐동안 반복 
                         key = str.split("/"); // "/"를 이용해 배열에 저장
                         //table에 따라 [0] : id, [1] : name, [2] : pw, [3] : peopleNum, [4] : departMent
@@ -165,7 +165,7 @@ public class Login_Frame extends javax.swing.JFrame {
                     }
                     
                 } else if (a == 'S') {//아이디 고유 문자가 s -> 학생
-                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), "euc-kr"));
+                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"), text));
                     while ((str = reader.readLine()) != null) {
                         if (str.contains(id_Field)) {
                             key = str.split("/");
@@ -179,7 +179,7 @@ public class Login_Frame extends javax.swing.JFrame {
                         }
                     }
                 } else if (a == 'H') {//아이디 고유 문자가 h -> 학사
-                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"), "euc-kr"));
+                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("school.txt"),text));
                     while ((str = reader.readLine()) != null) {
                         if (str.contains(id_Field)) {
                             key = str.split("/");
@@ -191,7 +191,7 @@ public class Login_Frame extends javax.swing.JFrame {
                         }
                     }
                 } else if (a == 'G') {//아이디 고유 문자가 g -> 수업
-                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), "euc-kr"));
+                    reader = new BufferedReader(new InputStreamReader(new FileInputStream("lecture.txt"), text));
                     while ((str = reader.readLine()) != null) {
                         if (str.contains(id_Field)) {
                             key = str.split("/");

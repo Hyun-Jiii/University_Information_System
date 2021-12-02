@@ -30,6 +30,7 @@ import oop2.main.User;
 public class All_Stu_Bill extends javax.swing.JFrame {
     ArrayList<String> slist = new ArrayList<>();
     String nowId;
+    String text = "euc-kr";
     /**
      * Creates new form All_Stu_Bill
      */
@@ -55,7 +56,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
                 filename = String.format("%s.txt", slist.get(i));
                 f = new File(filename);
                 if(f.exists()){
-                    BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
+                    BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(filename), text));
                     while((str =read.readLine())!= null){
                         key = str.split("/");
                         sum += Integer.parseInt(key[3]); //학점 더하기
@@ -80,7 +81,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
         String[] key;
         slist.clear(); //리스트 초기화
         try {
-            BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"),"euc-kr"));
+            BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("student.txt"),text));
             while((str = read.readLine())!= null){
                 key = str.split("/");
                 slist.add(key[0]); //학생에 저장되어있는 학번 추가
@@ -98,7 +99,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
     public boolean checkBill() throws FileNotFoundException, IOException, UnsupportedEncodingException{
         String str;
         boolean check = false;
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("bill.txt"),"euc-kr"));
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("bill.txt"),text));
         while((str = read.readLine()) != null){
             if(num.getText().equals(str))
                 check = true; // 학번이 있으면 true
@@ -273,7 +274,7 @@ public class All_Stu_Bill extends javax.swing.JFrame {
             check = checkBill(); //청구서가 있는지 확인
             if (!check) {
                 file = new FileOutputStream("bill.txt", true); //청구서 파일 열기
-                OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
+                OutputStreamWriter output = new OutputStreamWriter(file, text);
                 BufferedWriter writer = new BufferedWriter(output);
                 String l = String.format("%s%n",num.getText() );//학번 저장
                 writer.write(l);

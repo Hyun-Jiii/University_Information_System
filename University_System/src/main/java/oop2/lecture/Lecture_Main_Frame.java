@@ -21,6 +21,7 @@ import oop2.main.User;
 
 public class Lecture_Main_Frame extends javax.swing.JFrame {
     String id; //사용자 아이디 값
+    String text = "euc-kr"; 
     /**
      * Creates new form NewJFrame1
      */

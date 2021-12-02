@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class Create_Lecture extends javax.swing.JFrame {
     ArrayList<Course> lecList; //파일에서 데이터를 불러와 저장하는 리스트
     LectureAdapter a; //Adapter에서 함수 사용을 위한 선언
+    String  text = "euc-kr";
     /**
      * Creates new form Create_Lecture
      */
@@ -43,12 +44,12 @@ public class Create_Lecture extends javax.swing.JFrame {
         //교수가 있는지 체크
         String str;
         String[] key;
-        boolean check = false;
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), "euc-kr"));
+        boolean check = true;
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("professor.txt"), text));
         while((str = read.readLine())!=null){
             key = str.split("/");
             if(key[1].equals(lecture_pro.getText())) //텍스트 필드에 적혀진 값이랑 교수 파일에 이름이랑 비교
-                check = true;//교수가 있으면 true
+                check = false;
         }
         return check;
     }
@@ -249,12 +250,13 @@ public class Create_Lecture extends javax.swing.JFrame {
     DefaultTableModel model =  (DefaultTableModel) lecture_list.getModel();
     DefaultTableModel model1 =  (DefaultTableModel) clecture_list.getModel();
     int row = -1; //행선택 변수
-    boolean check = false; // 이미 개설되어 있는지 확인
+    boolean check;// 이미 개설되어 있는지 확인
+    boolean proCheck;
     String str;
     row = lecture_list.getSelectedRow(); //테이블 행 선택 함수
     FileOutputStream file;
     try {
-        boolean proCheck = checkPro();//강의를 담당할 교수의 존재 여부
+        proCheck = checkPro();//강의를 담당할 교수의 존재 여부
         check = a.checkEqules(model.getValueAt(row, 0).toString(), "lecturelist.txt");
         //이미 개설된 강좌 체크
         if (row == -1) { // 강좌 미선택시
@@ -269,7 +271,7 @@ public class Create_Lecture extends javax.swing.JFrame {
         }else { //강좌 개설
             a.getLectureList(lecList);//개설전 강좌 정보를 lecList에 담기
             file = new FileOutputStream("insertlecturelist.txt");
-            BufferedWriter nWriter = new BufferedWriter(new OutputStreamWriter(file,"euc-kr"));
+            BufferedWriter nWriter = new BufferedWriter(new OutputStreamWriter(file,text));
             for(int i = 0; i < lecList.size(); i++ ){ //lecList만큼 반복
                 if(lecList.get(i).getCourseNum().equals((String)model.getValueAt(row, 0))){
                     lecList.get(i).setOpen("true"); //개설한 강좌와 같은 강의 번호가 있으면 개설 여부를 true로 변경
@@ -282,7 +284,7 @@ public class Create_Lecture extends javax.swing.JFrame {
 
             //개설된 강좌를 메모장에 저장
             file = new FileOutputStream("lecturelist.txt", true);//개설 된 강좌 파일 열기
-            OutputStreamWriter output = new OutputStreamWriter(file, "euc-kr");
+            OutputStreamWriter output = new OutputStreamWriter(file, text);
             BufferedWriter writer = new BufferedWriter(output);
             str = String.format("%s/%s/%s/%s/%s/%s/%s/%s%n", model.getValueAt(row, 0), model.getValueAt(row, 1), model.getValueAt(row, 2), model.getValueAt(row, 3), lecture_pro.getText(), max_num.getText(), min_num.getText(), model.getValueAt(row, 4));
             //강좌 번호, 강좌 이름, 담당 학과, 학점, 담당 교수, 최대 인원, 최소 인원, 강의 설명, 개설여부

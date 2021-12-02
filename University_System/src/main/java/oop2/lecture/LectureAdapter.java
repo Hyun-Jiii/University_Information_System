@@ -20,11 +20,12 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class LectureAdapter {
+    String text = "euc-kr";
     public void lec_AddList(JTable lecture_list) throws FileNotFoundException, IOException{ 
         //개설전 강의 리스트 테이블에 출력
         String lec;
         String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), text));
         DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
         while((lec = str.readLine()) != null){
             key = lec.split("/");
@@ -37,7 +38,7 @@ public class LectureAdapter {
         //한번도 개설되지 않은 수업 리스트를 읽어와서 테이블에 나타낸다.
         String lec;
         String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), text));
         DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
         while((lec = str.readLine()) != null){
             key = lec.split("/");
@@ -62,7 +63,7 @@ public class LectureAdapter {
         String str;
         String[] key;
         lecList.clear();
-        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"));
+        BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), text));
         while((str = read.readLine()) != null ){
             key = str.split("/");
             lecList.add(new Course(key[0],key[1],null,key[2],key[3],key[4],null,null,key[5]));
@@ -73,7 +74,7 @@ public class LectureAdapter {
         //파일에 똑같은 이름이 있는지 체크
         String lec;
         boolean check = false;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream(file), text));
         while((lec = str.readLine()) != null){
             if(lec.contains(num)){
                 check = true;
@@ -87,7 +88,7 @@ public class LectureAdapter {
         //개설후 강의 리스트 테이블에 출력
         String lec;
         String[] key ;
-        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));
+        BufferedReader str = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), text));
         DefaultTableModel table = (DefaultTableModel)lecture_list.getModel();
         while((lec = str.readLine()) != null){
             key = lec.split("/");

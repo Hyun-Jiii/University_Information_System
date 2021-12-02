@@ -29,6 +29,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
     String id; //사용자 아이디
     ArrayList<Course> lecList = new ArrayList<>(); //강의 배열
     LectureAdapter a; // Adapter에서 함수 사용을  위한 선언 
+    String text = "euc-kr";
     /**
      * Creates new form Exchange_Lecture
      */
@@ -47,7 +48,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
         String[] key = null;
         int comboIndex = 0;
         id = a.getKey(lecture_list);
-        try (BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), "euc-kr"))) {
+        try (BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream("insertlecturelist.txt"), text))) {
             while((str = read.readLine()) != null){
                 if(str.contains(id)) //id값이 포함되어 있으면
                     key = str.split("/");
@@ -264,7 +265,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
                 showMessageDialog(null, "강좌를 선택해 주세요");
              }else{
                 file = new FileOutputStream("insertlecturelist.txt");
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), text));
                 for(int i = 0; i < lecList.size(); i++){//id이랑 일치하는 객체 정보 변경
                     if(lecList.get(i).getCourseNum().equals(id)){
                         lecList.get(i).setCourseName(lecture_name.getText());
@@ -316,7 +317,7 @@ public class Exchange_Lecture extends javax.swing.JFrame {
                 }
                 //배열을 파일에 새로 쓰기
                 file = new FileOutputStream("insertlecturelist.txt");
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), "euc-kr")); // 쓰기
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter((file), text)); // 쓰기
                 for(int i = 0; i< lecList.size();i++){ //리스트의 크기만큼 실행
                     str = String.format("%s/%s/%s/%s/%s/%s%n", lecList.get(i).getCourseNum(), lecList.get(i).getCourseName(), lecList.get(i).getDepartment(),lecList.get(i).getGrade(),lecList.get(i).getCourse_content(),lecList.get(i).getOpen());
                     //format을 이용하여 메모장에 저장할 내용 str에 저장  //강좌 번호, 강좌 이름, 당담학과, 학점, 강의 설명, 개설여부

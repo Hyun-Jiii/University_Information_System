@@ -118,4 +118,31 @@ public class StudentAdapter {
             }
         }
     }
+    
+    public boolean maxCheck(String lec_num) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        boolean check = false;
+        String str;
+        String[] key;
+        BufferedReader read;
+        BufferedReader read2;
+        String max = null;
+        int num = 0;
+        String file = String.format("%s.txt", lec_num);
+        read = new BufferedReader(new InputStreamReader(new FileInputStream("lecturelist.txt"), "euc-kr"));
+        while ((str = read.readLine()) != null) {
+            key = str.split("/");
+            if (lec_num.equals(key[0])) {
+                max = key[5];
+            }
+        }
+        read.close();
+        read2 = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+        while ((str = read2.readLine()) != null) {
+            num++;
+        }
+        if (max.equals(Integer.toString(num))) {
+            check = true;
+        }
+        return check;
+    }
 }

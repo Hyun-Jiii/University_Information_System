@@ -391,6 +391,7 @@ public class Application_Frame extends javax.swing.JFrame{
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         // TODO add your handling code here:
         try {
+            
             sel_sleclist.clear();
             for(int i=0; i<sleclist.size(); i++){ //학생이 수강신청 성공한 배열에 저장
                 sel_sleclist.add(new Course(sleclist.get(i).getCourseNum(), sleclist.get(i).getCourseName(), sleclist.get(i).getProfessor(),sleclist.get(i).getGrade(), sleclist.get(i).getsGrade(),sleclist.get(i).getScore() ));
@@ -492,10 +493,14 @@ public class Application_Frame extends javax.swing.JFrame{
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
         //if 현재 신청학점 + 추가할 강의 학점 >18
+        boolean maxcheck;
         try {
+            maxcheck = a.maxCheck(lec_num.getText());
             if ((sumCredit + Integer.parseInt(lec_grade.getText())) > 18) {
                 //강의를 신청할 수 없습니다.
                 showMessageDialog(null, "더 이상 수강신청을 할 수 없습니다.");
+            } else if (maxcheck) {
+                showMessageDialog(null, "수강 가능 인원이 초과되었습니다.");
             } else {
                 //강의 리스트에서 선택한 강의 배열에서 삭제
                 for (int i = 0; i < cleclist.size(); i++) {

@@ -307,6 +307,7 @@ public class ExChange_Pro_Info extends javax.swing.JFrame {
                 for(int i = 0; i < prolist.size(); i++){//id이랑 일치하는 객체 정보 변경
                     if(prolist.get(i).getId().equals(id)){
                         prolist.get(i).setName(pro_name.getText());
+                        prolist.get(i).setId(pro_num.getText());
                         prolist.get(i).setDepartMent(pro_department.getSelectedItem().toString());
                         prolist.get(i).setPeopleNum(pro_peoplenum.getText());
                     }

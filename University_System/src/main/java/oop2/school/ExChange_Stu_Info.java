@@ -310,6 +310,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                 for(int i = 0; i < stulist.size(); i++){//id이랑 일치하는 객체 정보 변경
                     if(stulist.get(i).getId().equals(id)){
                         stulist.get(i).setName(stu_name.getText());
+                        stulist.get(i).setId(stu_num.getText());
                         stulist.get(i).setDepartMent(stu_department.getSelectedItem().toString());
                         stulist.get(i).setPeopleNum(stu_peoplenum.getText());
                     }
@@ -317,6 +318,7 @@ public class ExChange_Stu_Info extends javax.swing.JFrame {
                     writer.write(str);
                     //변경 후 저장하거나 그대로 다시 파일에 저장
                 }
+                a.exList(id, stu_num.getText(),stu_name.getText(),stu_department.getSelectedItem().toString(),stu_peoplenum.getText());
                 writer.close(); //파일 닫기
                 clearStuInfo();
                 a.sp_AddList(stu_list, file);

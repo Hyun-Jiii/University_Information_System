@@ -6,10 +6,13 @@
 package oop2.school;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -84,5 +87,48 @@ public class SchoolAdapter {
             }
         }
     }
- 
+    
+    public void getExlist(String nowId, ArrayList<String> exlist) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        //회원 정보 변경시 강의를 듣는 학생이 들어있는 파일도 변경을 하기위해 정보 변경을 위한 학생의 강의 목록을 불러온다
+        String[] key;
+        String str;
+        String file = String.format("%s.txt",nowId);
+         BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+        while((str = read.readLine()) != null){
+            key = str.split("/");
+            exlist.add(key[0]);
+        }
+    }
+    
+    public void exList(String nowId, String num, String name, String department,String peoplenum) throws UnsupportedEncodingException, IOException{
+        String file;
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Student> stulist = new ArrayList<>();
+        getExlist(nowId, list);//학생이 듣는 강의 번호 받아오기
+        String str;
+        String[] key;
+        for(int i=0; i<list.size(); i++){
+            file = String.format("%s.txt", list.get(i));
+            BufferedReader read = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr"));
+            while((str = read.readLine())!=null){
+                key = str.split("/");
+                stulist.add(new Student(key[0],key[1],null,key[2],key[3]));
+            }
+            insertExList(file,stulist, num, name,department,peoplenum);
+        }
+    }
+    
+    public void insertExList(String file, ArrayList<Student> list, String num, String name, String department,String peoplenum) throws FileNotFoundException, UnsupportedEncodingException, IOException{
+        BufferedWriter writer = null;
+        String str;
+        writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "euc-kr"));
+        for(int i=0; i<list.size();i++){
+            if(num.equals(list.get(i).getId())){
+                list.get(i).setName(name);
+            }
+            str = String.format("%s/%s/%s/%s%n",list.get(i).getId(),list.get(i).getName(),list.get(i).getsGrade(),list.get(i).getScore());
+            writer.write(str);
+        }
+        writer.close();
+    }
 }
